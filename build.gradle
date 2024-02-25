@@ -1,0 +1,68 @@
+plugins {
+    id 'java'
+    id "com.adarshr.test-logger" version "4.0.0"
+    id 'antlr'
+}
+
+group 'io.mathlark.larkv2'
+version '0.0.1'
+
+sourceCompatibility = 17
+targetCompatibility = 17
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes 'Main-Class': 'io.mathlark.larkv2.LarkV2'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+dependencies {
+    implementation 'org.projectlombok:lombok:1.18.30'
+    implementation 'org.antlr:antlr4-runtime:4.13.1'
+    implementation 'jline:jline:2.14.6'
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    antlr 'org.antlr:antlr4:4.13.1'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+}
+
+generateGrammarSource {
+    maxHeapSize = "64m"
+    arguments += [ "-visitor", 
+                   "-long-messages",
+                   "-package", "io.mathlark.larkv2.generated" ]
+    outputDirectory = new File("${projectDir}/src/main/java/io/mathlark/larkv2/generated")
+}
+
+sourceSets {
+    main {
+        java.srcDirs += "${projectDir}/src/generated/java/"
+    }
+}
+
+test {
+    forkEvery = 1
+}
+
+tasks.named('test') {
+    // Use JUnit Platform for unit tests.
+    useJUnitPlatform()
+}
+
+task sortFunctionList(type:Exec) {
+    workingDir '.'
+    commandLine 'sort', '-o', 'src/main/resources/functions.lst', 'src/main/resources/functions.lst'
+}
+
+build.dependsOn sortFunctionList
