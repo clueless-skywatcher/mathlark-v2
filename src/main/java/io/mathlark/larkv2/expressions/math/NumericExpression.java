@@ -145,6 +145,13 @@ public class NumericExpression implements IExpression {
         if (other instanceof NumericExpression) {
             return this.value.equals(((NumericExpression) other).value);
         }
+        if (other instanceof Number) {
+            return this.value.equals((Number) other);
+        }
+        if (other instanceof IExpression) {
+            return this.value.equals(((IExpression) other).evaluate().val());
+        }
+
         return false;
     }
 
@@ -158,4 +165,6 @@ public class NumericExpression implements IExpression {
     public Object val() {
         return this.value;
     }    
+
+
 }

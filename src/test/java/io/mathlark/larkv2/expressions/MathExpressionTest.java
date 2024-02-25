@@ -2,6 +2,8 @@ package io.mathlark.larkv2.expressions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.AfterEach;
+
 import static io.mathlark.larkv2.utils.LarkExecUtils.execute;
 
 import org.junit.jupiter.api.Test;
@@ -27,7 +29,6 @@ public class MathExpressionTest {
     
     @Test
     public void testAssign() {
-        execute("Clear()");
         assertEquals("Undefined", execute("a1"));
         execute("a1 := 25");
         assertEquals(25L, execute("a1"));
@@ -35,5 +36,10 @@ public class MathExpressionTest {
         assertEquals("abc", execute("a1"));
         execute("a1 := True");
         assertEquals("True", execute("a1"));
+    }
+
+    @AfterEach
+    public void clear() {
+        execute("Clear()");
     }
 }

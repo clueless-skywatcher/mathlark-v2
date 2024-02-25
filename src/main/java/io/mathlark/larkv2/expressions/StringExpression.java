@@ -68,4 +68,15 @@ public class StringExpression implements IExpression {
     public Object val() {
         return toString();
     }
+
+    public boolean equals(Object other) {
+        if (other instanceof IExpression) {
+            return this.val.equals(((StringExpression) other).evaluate().val());
+        }
+        if (other instanceof String) {
+            return this.val.equals((String) other);
+        }
+        
+        return false;
+    }
 }

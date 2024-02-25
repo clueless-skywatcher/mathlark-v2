@@ -40,6 +40,14 @@ term returns [IExpression exprObject]
         else {
             $exprObject = new FunctionCallExpression($IDENTIFIER.text, List.of());
         }
+    }
+    | '[' actualParams? ']' {
+        if ($actualParams.text != null) {
+            $exprObject = new ListExpression($actualParams.exprs);
+        }
+        else {
+            $exprObject = new ListExpression(List.of());
+        }
     }        
     ;
 

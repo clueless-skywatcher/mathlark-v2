@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.mathlark.larkv2.expressions.IExpression;
 import jline.TerminalFactory;
 import jline.console.ConsoleReader;
 import jline.console.completer.StringsCompleter;
@@ -38,7 +39,7 @@ public class LarkInterpreter {
                         return;
                     }
 
-                    Object result = LarkVM.parse(line);
+                    IExpression result = LarkVM.parse(line);
                     if (result != null) {
                         System.out.println(result.toString());
                     }
