@@ -42,7 +42,7 @@ public class BooleanExpression implements IExpression {
 
     @Override
     public IExpression negate() {
-        return GlobalSymbols.UNDEFINED;
+        return new BooleanExpression(!this.val);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class BooleanExpression implements IExpression {
 
     @Override
     public Object val() {
-        return this.val;
+        return toString();
     }
 
     public String toString() {

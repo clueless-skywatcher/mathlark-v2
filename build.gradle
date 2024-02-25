@@ -18,7 +18,7 @@ jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     manifest {
-        attributes 'Main-Class': 'io.mathlark.larkv2.LarkV2'
+        attributes 'Main-Class': 'io.mathlark.larkv2.LarkInterpreter'
     }
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }

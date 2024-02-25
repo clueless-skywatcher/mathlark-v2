@@ -2,6 +2,7 @@ package io.mathlark.larkv2.expressions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 import io.mathlark.larkv2.UniversalFunctionRegistry;
 
@@ -33,7 +34,11 @@ public class FunctionCallExpression implements IExpression {
 
     @Override
     public String inputForm() {
-        return String.format("%s(%s)", funcName, args.toString());
+        StringJoiner str = new StringJoiner(",");
+        for (int i = 0; i < args.size(); i++) {
+            str.add(args.toString());
+        }
+        return String.format("%s(%s)", funcName, str.toString());
     }
 
     public String toString() {

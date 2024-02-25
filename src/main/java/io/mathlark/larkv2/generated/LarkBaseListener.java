@@ -3,6 +3,10 @@ package io.mathlark.larkv2.generated;
 
 import java.util.*;
 
+import io.mathlark.larkv2.expressions.*;
+import io.mathlark.larkv2.expressions.math.*;
+import io.mathlark.larkv2.symbols.*;
+
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -20,37 +24,13 @@ public class LarkBaseListener implements LarkListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProg(LarkParser.ProgContext ctx) { }
+	@Override public void enterEvaluator(LarkParser.EvaluatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProg(LarkParser.ProgContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterStmt(LarkParser.StmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStmt(LarkParser.StmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFunctionCall(LarkParser.FunctionCallContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFunctionCall(LarkParser.FunctionCallContext ctx) { }
+	@Override public void exitEvaluator(LarkParser.EvaluatorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -104,18 +84,6 @@ public class LarkBaseListener implements LarkListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunctionDef(LarkParser.FunctionDefContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFunctionDef(LarkParser.FunctionDefContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterFunctionAnonDef(LarkParser.FunctionAnonDefContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -123,42 +91,6 @@ public class LarkBaseListener implements LarkListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunctionAnonDef(LarkParser.FunctionAnonDefContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterParams(LarkParser.ParamsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitParams(LarkParser.ParamsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterParam(LarkParser.ParamContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitParam(LarkParser.ParamContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterNegate(LarkParser.NegateContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNegate(LarkParser.NegateContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -195,30 +127,6 @@ public class LarkBaseListener implements LarkListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitMultiply(LarkParser.MultiplyContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterAdd(LarkParser.AddContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAdd(LarkParser.AddContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterRelation(LarkParser.RelationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitRelation(LarkParser.RelationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

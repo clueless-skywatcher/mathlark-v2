@@ -18,7 +18,6 @@ public class LarkInterpreter {
 
     public static void console() {
         try {
-            LarkVM engine = new LarkVM();
             try (ConsoleReader console = new ConsoleReader()) {
                 List<String> strList = new ArrayList<>();
 
@@ -39,7 +38,7 @@ public class LarkInterpreter {
                         return;
                     }
 
-                    Object result = engine.parse(line);
+                    Object result = LarkVM.parse(line);
                     if (result != null) {
                         System.out.println(result.toString());
                     }
