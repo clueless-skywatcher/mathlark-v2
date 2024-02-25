@@ -7,6 +7,7 @@ import java.util.Map;
 
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.general.GeneralFunctionRegistry;
+import io.mathlark.larkv2.lists.ListFunctionRegistry;
 import io.mathlark.larkv2.numbers.NumberFunctionRegistry;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
 
@@ -17,6 +18,7 @@ public class UniversalFunctionRegistry {
     private UniversalFunctionRegistry() {
         register(new NumberFunctionRegistry());
         register(new GeneralFunctionRegistry());
+        register(new ListFunctionRegistry());
     }
 
     public static IExpression invoke(String funcName, List<IExpression> exprs) {

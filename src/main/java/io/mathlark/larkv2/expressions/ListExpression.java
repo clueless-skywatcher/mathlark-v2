@@ -35,15 +35,16 @@ public class ListExpression implements IExpression {
 
     @Override
     public IExpression add(IExpression other) {
-        if (other instanceof ListExpression) {
-            ListExpression otherList = (ListExpression) other;
-            this.val.addAll(otherList.val);
-            return this;
+        List<IExpression> thisList = this.val;
+        IExpression otherExp = other.evaluate();
+        if (otherExp instanceof ListExpression) {
+            List<IExpression> otherList = ((ListExpression) otherExp).val;
+            thisList.addAll(otherList);
         }
         else {
-            this.val.add(other);
+            thisList.add(otherExp);
         }
-        return this;
+        return new ListExpression(thisList);
     }
 
     @Override

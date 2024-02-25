@@ -36,7 +36,7 @@ public class FunctionCallExpression implements IExpression {
     public String inputForm() {
         StringJoiner str = new StringJoiner(",");
         for (int i = 0; i < args.size(); i++) {
-            str.add(args.toString());
+            str.add(args.get(i).toString());
         }
         return String.format("%s(%s)", funcName, str.toString());
     }

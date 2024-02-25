@@ -24,6 +24,15 @@ public class ListExpressionTest {
         assertEquals(execute("[True, False]"), List.of(true, false));
     }
 
+    @Test
+    public void testAdd() {
+        assertEquals(execute("[1, 2, 3] + 1"), execute("[1, 2, 3, 1]"));
+        assertEquals(execute("[1, 2, 3] + [1, 2]"), execute("[1, 2, 3, 1, 2]"));
+        execute("a1 := [1, 2, 3]");
+        execute("a := [4, 5, 6]");
+        assertEquals(execute("a1 + a"), execute("[1, 2, 3, 4, 5, 6]"));
+    }
+
     @AfterEach
     public void clear() {
         execute("Clear()");

@@ -13,6 +13,7 @@ public class HeadFuncTest {
         assertEquals("Boolean", execute("Head(True)"));
         assertEquals("Boolean", execute("Head(False)"));
         assertEquals("String", execute("Head(\"abc\")"));
-        assertEquals("Undefined", execute("Undefined"));
+        assertEquals("Undefined", execute("Head(Undefined)"));
+        assertEquals("List", execute("Head([1, 2, 3])"));
     }
 }
