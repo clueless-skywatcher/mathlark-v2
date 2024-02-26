@@ -16,7 +16,7 @@ public class LarkVM {
         LarkLexer lexer = new LarkLexer(inputStream);
         CommonTokenStream stream = new CommonTokenStream(lexer);
         LarkParser parser = new LarkParser(stream);
-        parser.setErrorHandler(new BailErrorStrategy());
+        // parser.setErrorHandler(new BailErrorStrategy());
 
         try {
             IExpression expr  = parser.evaluator().exprObject;

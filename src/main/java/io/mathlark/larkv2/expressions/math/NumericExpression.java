@@ -171,4 +171,7 @@ public class NumericExpression implements IExpression {
         return GlobalSymbols.ZERO;
     }    
 
+    public int hashCode() {
+        return this.val().hashCode();
+    }
 }

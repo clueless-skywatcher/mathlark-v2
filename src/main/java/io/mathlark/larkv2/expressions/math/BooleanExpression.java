@@ -90,4 +90,7 @@ public class BooleanExpression implements IExpression {
         return GlobalSymbols.ZERO;
     }
 
+    public int hashCode() {
+        return this.val.hashCode();
+    }
 }

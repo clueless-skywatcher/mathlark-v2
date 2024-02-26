@@ -1,6 +1,5 @@
 package io.mathlark.larkv2.expressions;
 
-import io.mathlark.larkv2.expressions.math.NumericExpression;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
 
 public class UndefinedExpression implements IExpression {
@@ -67,5 +66,9 @@ public class UndefinedExpression implements IExpression {
     @Override
     public IExpression length() {
         return GlobalSymbols.ZERO;
+    }
+
+    public int hashCode() {
+        return this.val().hashCode();
     }
 }

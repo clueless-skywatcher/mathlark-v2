@@ -7,9 +7,26 @@ options {
 @header {
 import java.util.*;
 
+import lombok.Getter;
+
 import io.mathlark.larkv2.expressions.*;
 import io.mathlark.larkv2.expressions.math.*;
 import io.mathlark.larkv2.symbols.*;
+
+}
+
+@members {
+
+class MapEntry {
+    private @Getter IExpression key;
+    private @Getter IExpression value;
+
+    public MapEntry(IExpression key, IExpression value) {
+        this.key = key;
+        this.value = value;
+    }
+}
+
 }
 
         
@@ -25,7 +42,7 @@ actualParams returns [List<IExpression> exprs]
 term returns [IExpression exprObject]
     : IDENTIFIER { $exprObject = SymbolTables.evaluate($IDENTIFIER.text); }
     | '(' expr ')' { $exprObject = $expr.exprObject; }
-    | INTEGER { $exprObject = new NumericExpression(Integer.parseInt($INTEGER.text)); }
+    | INTEGER { $exprObject = new NumericExpression(Long.parseLong($INTEGER.text)); }
     | DECIMAL { $exprObject = new NumericExpression(Double.parseDouble($DECIMAL.text)); }
     | STRING { $exprObject = new StringExpression($STRING.text); }
     | BOOLEAN { 
@@ -48,7 +65,30 @@ term returns [IExpression exprObject]
         else {
             $exprObject = new ListExpression(List.of());
         }
-    }        
+    } 
+    | '{' mapEntries '}' {
+        $exprObject = new DictExpression($mapEntries.map);
+    }       
+    ;
+
+mapEntries returns [Map<IExpression, IExpression> map]
+    :   { $map = new HashMap<>(); }
+        mapExpr? { 
+        if ($mapExpr.text != null) {
+            $map.put($mapExpr.entry.getKey(), $mapExpr.entry.getValue());
+        }
+    }
+    (',' mapExpr? {
+        if ($mapExpr.text != null) {
+            $map.put($mapExpr.entry.getKey(), $mapExpr.entry.getValue());
+        }
+    })*
+    ;
+
+mapExpr returns [MapEntry entry]
+    : key=expr ':' value=expr {
+        $entry = new MapEntry($key.exprObject, $value.exprObject);
+    }
     ;
 
 assign
@@ -110,6 +150,7 @@ CHARACTER
     ;
 
 BOOLEAN: 'True' | 'False';
+UNDEFINED: 'Undefined';
 
 fragment LETTER: [a-zA-Z];
 fragment DIGIT: [0-9];

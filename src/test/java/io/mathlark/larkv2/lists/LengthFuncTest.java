@@ -3,8 +3,6 @@ package io.mathlark.larkv2.lists;
 import static io.mathlark.larkv2.utils.LarkExecUtils.execute;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.List;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 

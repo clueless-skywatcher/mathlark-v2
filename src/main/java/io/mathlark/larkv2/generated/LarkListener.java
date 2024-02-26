@@ -3,9 +3,12 @@ package io.mathlark.larkv2.generated;
 
 import java.util.*;
 
+import lombok.Getter;
+
 import io.mathlark.larkv2.expressions.*;
 import io.mathlark.larkv2.expressions.math.*;
 import io.mathlark.larkv2.symbols.*;
+
 
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -44,6 +47,26 @@ public interface LarkListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitTerm(LarkParser.TermContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LarkParser#mapEntries}.
+	 * @param ctx the parse tree
+	 */
+	void enterMapEntries(LarkParser.MapEntriesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LarkParser#mapEntries}.
+	 * @param ctx the parse tree
+	 */
+	void exitMapEntries(LarkParser.MapEntriesContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LarkParser#mapExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterMapExpr(LarkParser.MapExprContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LarkParser#mapExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitMapExpr(LarkParser.MapExprContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LarkParser#assign}.
 	 * @param ctx the parse tree

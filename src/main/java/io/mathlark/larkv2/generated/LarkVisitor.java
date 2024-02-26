@@ -3,9 +3,12 @@ package io.mathlark.larkv2.generated;
 
 import java.util.*;
 
+import lombok.Getter;
+
 import io.mathlark.larkv2.expressions.*;
 import io.mathlark.larkv2.expressions.math.*;
 import io.mathlark.larkv2.symbols.*;
+
 
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -35,6 +38,18 @@ public interface LarkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitTerm(LarkParser.TermContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LarkParser#mapEntries}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMapEntries(LarkParser.MapEntriesContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LarkParser#mapExpr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMapExpr(LarkParser.MapExprContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LarkParser#assign}.
 	 * @param ctx the parse tree

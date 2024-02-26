@@ -3,9 +3,12 @@ package io.mathlark.larkv2.generated;
 
 import java.util.*;
 
+import lombok.Getter;
+
 import io.mathlark.larkv2.expressions.*;
 import io.mathlark.larkv2.expressions.math.*;
 import io.mathlark.larkv2.symbols.*;
+
 
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -55,6 +58,30 @@ public class LarkBaseListener implements LarkListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitTerm(LarkParser.TermContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMapEntries(LarkParser.MapEntriesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMapEntries(LarkParser.MapEntriesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMapExpr(LarkParser.MapExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMapExpr(LarkParser.MapExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.StringJoiner;
 
 import io.mathlark.larkv2.UniversalFunctionRegistry;
-import io.mathlark.larkv2.expressions.math.NumericExpression;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
 
 public class FunctionCallExpression implements IExpression {
