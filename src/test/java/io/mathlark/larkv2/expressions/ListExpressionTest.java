@@ -28,7 +28,7 @@ public class ListExpressionTest {
     public void testAdd() {
         assertEquals(execute("[1, 2, 3] + 1"), execute("[1, 2, 3, 1]"));
         assertEquals(execute("[1, 2, 3] + [1, 2]"), execute("[1, 2, 3, 1, 2]"));
-        execute("l1 := [1, 2, 3]");
+        assertEquals(execute("l1 := [1, 2, 3]"), List.of(1L, 2L, 3L));
         execute("l2 := [4, 5, 6]");
         execute("l3 := l1 + l2");
         assertEquals(execute("l3"), execute("[1, 2, 3, 4, 5, 6]"));

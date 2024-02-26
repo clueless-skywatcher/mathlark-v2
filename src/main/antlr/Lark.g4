@@ -12,6 +12,7 @@ import lombok.Getter;
 import io.mathlark.larkv2.expressions.*;
 import io.mathlark.larkv2.expressions.math.*;
 import io.mathlark.larkv2.symbols.*;
+import io.mathlark.larkv2.UniversalFunctionRegistry;
 
 }
 
@@ -40,7 +41,14 @@ actualParams returns [List<IExpression> exprs]
     ;
 
 term returns [IExpression exprObject]
-    : IDENTIFIER { $exprObject = SymbolTables.evaluate($IDENTIFIER.text); }
+    : IDENTIFIER { 
+        if (UniversalFunctionRegistry.isFunc($IDENTIFIER.text)) {
+            $exprObject = new StringExpression($IDENTIFIER.text); 
+        }
+        else {
+            $exprObject = SymbolTables.evaluate($IDENTIFIER.text); 
+        }
+    }
     | '(' expr ')' { $exprObject = $expr.exprObject; }
     | INTEGER { $exprObject = new NumericExpression(Long.parseLong($INTEGER.text)); }
     | DECIMAL { $exprObject = new NumericExpression(Double.parseDouble($DECIMAL.text)); }
@@ -92,16 +100,18 @@ mapExpr returns [MapEntry entry]
     }
     ;
 
-assign
+assign returns [IExpression exprObject]
     : id=IDENTIFIER ':=' expr { 
         SymbolTables.addLocal($id.text, $expr.exprObject);
+        $exprObject = $expr.exprObject;
     }
     ;
 
 returnStmt: 'return' expr ';';
 
-functionAnonDef
-    : '<' IDENTIFIER '>'
+functionAnonDef returns [IExpression exprObject]
+    :   '<' IDENTIFIER '>'
+        { $exprObject = SymbolTables.registerAnonFunc($IDENTIFIER.text); }
     ;
 
 unary returns [IExpression exprObject]
@@ -133,7 +143,8 @@ expr returns [IExpression exprObject]
     :   op1=multiply { $exprObject = $op1.exprObject; }
         ('+' op2=multiply { $exprObject = $exprObject.add($op2.exprObject); }
         | '-' op2=multiply { $exprObject = $exprObject.sub($op2.exprObject); })*
-    |   assign { $exprObject = GlobalSymbols.UNDEFINED; }
+    |   assign { $exprObject = $assign.exprObject; }
+    |   functionAnonDef { $exprObject = $functionAnonDef.exprObject; }
     ;
 
 INTEGER: DIGIT+;

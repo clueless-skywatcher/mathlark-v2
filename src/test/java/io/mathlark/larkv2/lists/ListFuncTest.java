@@ -19,7 +19,7 @@ public class ListFuncTest {
         execute("a := List(4, 5, 6)");
         assertEquals(execute("a1 + a"), execute("List(1, 2, 3, 4, 5, 6)"));
         assertEquals(execute("List(\"a\", \"b\", \"c\")"), List.of("a", "b", "c"));
-        assertEquals(execute("[a1 := 2, 2, 8, 1]"), execute("List(Undefined, 2, 8, 1)"));
+        assertEquals(execute("[a1 := 2, 2, 8, 1]"), execute("List(2, 2, 8, 1)"));
         assertEquals(execute("a1"), 2L);
     }
 

@@ -8,6 +8,7 @@ import lombok.Getter;
 import io.mathlark.larkv2.expressions.*;
 import io.mathlark.larkv2.expressions.math.*;
 import io.mathlark.larkv2.symbols.*;
+import io.mathlark.larkv2.UniversalFunctionRegistry;
 
 
 import org.antlr.v4.runtime.Lexer;

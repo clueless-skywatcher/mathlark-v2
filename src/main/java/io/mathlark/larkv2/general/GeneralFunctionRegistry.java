@@ -4,11 +4,13 @@ import io.mathlark.larkv2.FunctionRegistryContract;
 import io.mathlark.larkv2.general.funcs.ClearAllFunc;
 import io.mathlark.larkv2.general.funcs.ExitFunc;
 import io.mathlark.larkv2.general.funcs.HeadFunc;
+import io.mathlark.larkv2.general.funcs.NestFunc;
 
 public class GeneralFunctionRegistry extends FunctionRegistryContract {
     public GeneralFunctionRegistry() {
         register(HeadFunc.class);
         register(ExitFunc.class);
         register(ClearAllFunc.class);
+        register(NestFunc.class);
     }
 }

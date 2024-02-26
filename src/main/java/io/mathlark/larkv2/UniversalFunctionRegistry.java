@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import io.mathlark.larkv2.colours.ColourFunctionRegistry;
+import io.mathlark.larkv2.expressions.FunctionCallExpression;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.general.GeneralFunctionRegistry;
 import io.mathlark.larkv2.lists.ListFunctionRegistry;
 import io.mathlark.larkv2.numbers.NumberFunctionRegistry;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
+import io.mathlark.larkv2.symbols.SymbolTables;
 
 public class UniversalFunctionRegistry {
     private static UniversalFunctionRegistry INSTANCE = new UniversalFunctionRegistry();
@@ -25,6 +27,9 @@ public class UniversalFunctionRegistry {
 
     public static IExpression invoke(String funcName, List<IExpression> exprs) {
         try {
+            if (SymbolTables.isAnonFunc(funcName)) {
+                return new FunctionCallExpression(funcName, exprs);
+            }
             LarkFunction func = INSTANCE.functions.get(funcName).getDeclaredConstructor().newInstance();
             return func.evaluate(exprs.toArray(new IExpression[0]));
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
