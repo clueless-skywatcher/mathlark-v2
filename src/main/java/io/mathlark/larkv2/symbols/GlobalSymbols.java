@@ -3,7 +3,7 @@ package io.mathlark.larkv2.symbols;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.mathlark.larkv2.colors.ColorsConstants;
+import io.mathlark.larkv2.colours.ColoursConstants;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.expressions.UndefinedExpression;
 import io.mathlark.larkv2.expressions.math.BooleanExpression;
@@ -26,6 +26,6 @@ public class GlobalSymbols {
         SYMBOLS.put("E", E);
         SYMBOLS.put("True", TRUE);
         SYMBOLS.put("False", FALSE);
-        SYMBOLS.putAll(ColorsConstants.COLOR_MAP);
+        SYMBOLS.putAll(ColoursConstants.COLOUR_MAP);
     }
 }

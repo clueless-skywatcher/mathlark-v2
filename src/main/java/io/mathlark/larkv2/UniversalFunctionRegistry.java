@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.mathlark.larkv2.colors.ColorFunctionRegistry;
+import io.mathlark.larkv2.colours.ColourFunctionRegistry;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.general.GeneralFunctionRegistry;
 import io.mathlark.larkv2.lists.ListFunctionRegistry;
@@ -20,7 +20,7 @@ public class UniversalFunctionRegistry {
         register(new NumberFunctionRegistry());
         register(new GeneralFunctionRegistry());
         register(new ListFunctionRegistry());
-        register(new ColorFunctionRegistry());
+        register(new ColourFunctionRegistry());
     }
 
     public static IExpression invoke(String funcName, List<IExpression> exprs) {

@@ -1,4 +1,4 @@
-package io.mathlark.larkv2.expressions.colors;
+package io.mathlark.larkv2.expressions.colours;
 
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.expressions.StringExpression;
@@ -6,12 +6,12 @@ import io.mathlark.larkv2.expressions.math.NumericExpression;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
 import lombok.Getter;
 
-public class ColorExpression implements IExpression {
+public class ColourExpression implements IExpression {
     private @Getter Long r;
     private @Getter Long g;
     private @Getter Long b;
 
-    public ColorExpression(long r, long g, long b) {
+    public ColourExpression(long r, long g, long b) {
         if (r > 255) r = 255;
         if (r < 0) r = 0;
 
@@ -26,7 +26,7 @@ public class ColorExpression implements IExpression {
         this.b = b;
     }
 
-    public ColorExpression(NumericExpression r, NumericExpression g, NumericExpression b) {
+    public ColourExpression(NumericExpression r, NumericExpression g, NumericExpression b) {
         this(r.value.longValue(), g.value.longValue(), b.value.longValue());
     }
 
@@ -37,7 +37,7 @@ public class ColorExpression implements IExpression {
 
     @Override
     public String inputForm() {
-        return String.format("Color(%s, %s, %s)", r.toString(), g.toString(), b.toString());
+        return String.format("Colour(%s, %s, %s)", r.toString(), g.toString(), b.toString());
     }
 
     @Override
@@ -77,7 +77,7 @@ public class ColorExpression implements IExpression {
 
     @Override
     public StringExpression head() {
-        return new StringExpression("Color");
+        return new StringExpression("Colour");
     }
 
     @Override
@@ -86,8 +86,8 @@ public class ColorExpression implements IExpression {
     }
 
     public String toString() {
-        String COLOR_FORMAT = "\033[38;2;%d;%d;%dm\u25A0\033[0m";
-        return String.format(COLOR_FORMAT, r.intValue(), g.intValue(), b.intValue());
+        String COLOUR_FORMAT = "\033[38;2;%d;%d;%dm\u25A0\033[0m";
+        return String.format(COLOUR_FORMAT, r.intValue(), g.intValue(), b.intValue());
     }
 
     @Override
