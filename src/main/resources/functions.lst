@@ -1,4 +1,6 @@
 ClearAll
+Color
+ColorText
 Exit
 First
 GCD

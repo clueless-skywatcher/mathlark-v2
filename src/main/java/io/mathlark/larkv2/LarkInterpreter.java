@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.mathlark.larkv2.expressions.IExpression;
+import io.mathlark.larkv2.symbols.SymbolTables;
 import jline.TerminalFactory;
 import jline.console.ConsoleReader;
 import jline.console.completer.StringsCompleter;
@@ -34,11 +35,6 @@ public class LarkInterpreter {
 
                 String line;
                 while ((line = console.readLine()) != null) {
-                    if (line.equals("!x")) {
-                        System.out.println("Session terminated");
-                        return;
-                    }
-
                     IExpression result = LarkVM.parse(line);
                     if (result != null) {
                         System.out.println(result.toString());

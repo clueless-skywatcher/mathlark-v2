@@ -17,8 +17,8 @@ public class SymbolTables {
     }
     
     public static IExpression evaluate(String symbol) {
-        if (!INSTANCE.localSymbols.containsKey(symbol)) {
-            return GlobalSymbols.UNDEFINED;
+        if (INSTANCE.globalSymbols.containsKey(symbol)) {
+            return INSTANCE.globalSymbols.get(symbol);
         }
         return INSTANCE.localSymbols.get(symbol);
     }
@@ -37,5 +37,9 @@ public class SymbolTables {
 
     public static void clear() {
         INSTANCE.localSymbols.clear();
+    }
+
+    public static void init() {
+
     }
 }
