@@ -18,15 +18,21 @@ public class ListFuncTest {
         assertEquals(execute("a1"), List.of(1L, 2L, 3L));
         execute("a := List(4, 5, 6)");
         assertEquals(execute("a1 + a"), execute("List(1, 2, 3, 4, 5, 6)"));
+        assertEquals(execute("List(\"a\", \"b\", \"c\")"), List.of("a", "b", "c"));
+        assertEquals(execute("[a1 := 2, 2, 8, 1]"), execute("List(Undefined, 2, 8, 1)"));
+        assertEquals(execute("a1"), 2L);
     }
 
     @Test
     public void testAdd() {
         assertEquals(execute("List(1, 2, 3) + 1"), execute("List(1, 2, 3, 1)"));
         assertEquals(execute("List(1, 2, 3) + List(1, 2)"), execute("List(1, 2, 3, 1, 2)"));
-        execute("a1 := List(1, 2, 3)");
-        execute("a := List(4, 5, 6)");
-        assertEquals(execute("a1 + a"), execute("List(1, 2, 3, 4, 5, 6)"));
+        execute("l1 := List(1, 2, 3)");
+        execute("l2 := List(4, 5, 6)");
+        execute("s := \"a\"");
+        execute("l3 := l1 + l2");
+        assertEquals(execute("l3"), execute("List(1, 2, 3, 4, 5, 6)"));
+        assertEquals(execute("l3 + s"), execute("List(1, 2, 3, 4, 5, 6, \"a\")"));
     }
 
     @Test

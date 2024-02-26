@@ -45,6 +45,7 @@ term returns [IExpression exprObject]
     | INTEGER { $exprObject = new NumericExpression(Long.parseLong($INTEGER.text)); }
     | DECIMAL { $exprObject = new NumericExpression(Double.parseDouble($DECIMAL.text)); }
     | STRING { $exprObject = new StringExpression($STRING.text); }
+    | UNDEFINED { $exprObject = GlobalSymbols.UNDEFINED; }
     | BOOLEAN { 
         String b = $BOOLEAN.text;
         $exprObject = b.equals("True") ? GlobalSymbols.TRUE : GlobalSymbols.FALSE;
@@ -87,7 +88,7 @@ mapEntries returns [Map<IExpression, IExpression> map]
 
 mapExpr returns [MapEntry entry]
     : key=expr ':' value=expr {
-        $entry = new MapEntry($key.exprObject, $value.exprObject);
+        $entry = new MapEntry($key.exprObject.evaluate(), $value.exprObject);
     }
     ;
 
@@ -132,7 +133,7 @@ expr returns [IExpression exprObject]
     :   op1=multiply { $exprObject = $op1.exprObject; }
         ('+' op2=multiply { $exprObject = $exprObject.add($op2.exprObject); }
         | '-' op2=multiply { $exprObject = $exprObject.sub($op2.exprObject); })*
-    |   assign
+    |   assign { $exprObject = GlobalSymbols.UNDEFINED; }
     ;
 
 INTEGER: DIGIT+;
@@ -140,7 +141,7 @@ DECIMAL: DIGIT+ '.' DIGIT+;
 
 STRING
     :   '"' 
-        ~('\n' | '\r')*
+        ~('"' | '\n' | '\r')*
         '"'
         { setText(getText().substring(1, getText().length() - 1)); }
     ;

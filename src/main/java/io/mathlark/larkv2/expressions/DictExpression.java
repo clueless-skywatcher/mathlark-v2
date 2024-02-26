@@ -2,6 +2,7 @@ package io.mathlark.larkv2.expressions;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringJoiner;
 
 import io.mathlark.larkv2.expressions.math.NumericExpression;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
@@ -109,6 +110,14 @@ public class DictExpression implements IExpression {
             }
         }
         return true;
+    }
+
+    public String toString() {
+        StringJoiner entries = new StringJoiner(", ");
+        for (Map.Entry<IExpression, IExpression> entry : this.map.entrySet()) {
+            entries.add(String.format("%s: %s", entry.getKey().evaluate().val(), entry.getValue().evaluate().val()));
+        }
+        return String.format("{%s}", entries.toString());
     }
     
 }
