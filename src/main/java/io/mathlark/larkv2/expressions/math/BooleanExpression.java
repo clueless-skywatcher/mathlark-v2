@@ -85,4 +85,9 @@ public class BooleanExpression implements IExpression {
         return false;
     }
 
+    @Override
+    public IExpression length() {
+        return new NumericExpression(0);
+    }
+
 }

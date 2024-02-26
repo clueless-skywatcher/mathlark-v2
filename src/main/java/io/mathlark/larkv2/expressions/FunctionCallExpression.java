@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.StringJoiner;
 
 import io.mathlark.larkv2.UniversalFunctionRegistry;
+import io.mathlark.larkv2.expressions.math.NumericExpression;
 
 public class FunctionCallExpression implements IExpression {
 
@@ -88,6 +89,11 @@ public class FunctionCallExpression implements IExpression {
     @Override
     public Object val() {
         return this.val;
+    }
+
+    @Override
+    public IExpression length() {
+        return new NumericExpression(0);
     }
     
 }

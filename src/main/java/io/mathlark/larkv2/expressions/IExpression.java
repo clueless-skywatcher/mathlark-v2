@@ -26,4 +26,6 @@ public interface IExpression {
     public StringExpression head();
 
     public Object val();
+
+    public IExpression length();
 }

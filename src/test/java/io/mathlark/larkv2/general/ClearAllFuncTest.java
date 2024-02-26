@@ -5,13 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-public class ClearFuncTest {
+public class ClearAllFuncTest {
     @Test
-    public void testClear() {
+    public void testClearAll() {
         assertEquals("Undefined", execute("a1"));
         execute("a1 := 24.5");
         assertEquals(24.5, execute("a1"));
-        execute("Clear()");
+        execute("ClearAll()");
         assertEquals("Undefined", execute("a1"));
     }
 }

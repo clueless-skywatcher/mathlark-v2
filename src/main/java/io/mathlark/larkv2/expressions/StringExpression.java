@@ -1,5 +1,6 @@
 package io.mathlark.larkv2.expressions;
 
+import io.mathlark.larkv2.expressions.math.NumericExpression;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
 import lombok.Getter;
 
@@ -78,5 +79,10 @@ public class StringExpression implements IExpression {
         }
         
         return false;
+    }
+
+    @Override
+    public IExpression length() {
+        return new NumericExpression(0);
     }
 }

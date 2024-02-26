@@ -6,7 +6,7 @@ import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.expressions.StringExpression;
 import io.mathlark.larkv2.symbols.SymbolTables;
 
-public class ClearFunc implements LarkFunction {
+public class ClearAllFunc implements LarkFunction {
 
     @Override
     public IExpression mainEval(IExpression[] exprs) {
@@ -23,7 +23,7 @@ public class ClearFunc implements LarkFunction {
 
     @Override
     public String getName() {
-        return "Clear";
+        return "ClearAll";
     }
     
 }

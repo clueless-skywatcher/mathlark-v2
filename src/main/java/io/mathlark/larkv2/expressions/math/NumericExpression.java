@@ -164,7 +164,11 @@ public class NumericExpression implements IExpression {
     @Override
     public Object val() {
         return this.value;
-    }    
+    }
 
+    @Override
+    public IExpression length() {
+        return new NumericExpression(0);
+    }    
 
 }

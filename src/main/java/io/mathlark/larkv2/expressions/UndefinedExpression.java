@@ -1,5 +1,7 @@
 package io.mathlark.larkv2.expressions;
 
+import io.mathlark.larkv2.expressions.math.NumericExpression;
+
 public class UndefinedExpression implements IExpression {
 
     @Override
@@ -60,6 +62,9 @@ public class UndefinedExpression implements IExpression {
     public Object val() {
         return "Undefined";
     }
-    
-    
+
+    @Override
+    public IExpression length() {
+        return new NumericExpression(0);
+    }
 }

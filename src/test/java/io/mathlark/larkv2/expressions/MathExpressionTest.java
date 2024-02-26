@@ -23,7 +23,7 @@ public class MathExpressionTest {
         assertEquals(8L, execute("GCD(608, 168)"));
         execute("a1 := GCD(608, 168)");
         assertEquals(8L, execute("a1"));
-        execute("Clear()");
+        execute("ClearAll()");
         assertEquals("Undefined", execute("a1"));
     }
     
@@ -40,6 +40,6 @@ public class MathExpressionTest {
 
     @AfterEach
     public void clear() {
-        execute("Clear()");
+        execute("ClearAll()");
     }
 }

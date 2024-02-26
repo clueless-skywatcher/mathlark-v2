@@ -36,6 +36,6 @@ public class ListFuncTest {
 
     @AfterEach
     public void clear() {
-        execute("Clear()");
+        execute("ClearAll()");
     }
 }

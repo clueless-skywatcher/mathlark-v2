@@ -14,6 +14,6 @@ public class StringExpressionTest {
 
     @AfterEach
     public void clear() {
-        execute("Clear()");
+        execute("ClearAll()");
     }
 }

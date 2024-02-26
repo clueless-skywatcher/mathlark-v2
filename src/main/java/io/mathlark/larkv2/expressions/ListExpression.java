@@ -27,6 +27,10 @@ public class ListExpression implements IExpression {
         return this.val.get(((Long) idx.value).intValue());
     }
 
+    public IExpression elementAt(int idx) {
+        return elementAt(new NumericExpression((long) idx));
+    }
+
     @Override
     public String inputForm() {
         String elems = toString().substring(1, toString().length() - 1);
@@ -45,6 +49,10 @@ public class ListExpression implements IExpression {
             thisList.add(otherExp);
         }
         return new ListExpression(thisList);
+    }
+
+    public IExpression length() {
+        return new NumericExpression(this.val.size());
     }
 
     @Override
@@ -83,7 +91,7 @@ public class ListExpression implements IExpression {
     }
 
     @Override
-    public Object val() {
+    public List<IExpression> val() {
         return this.val;
     }
 
