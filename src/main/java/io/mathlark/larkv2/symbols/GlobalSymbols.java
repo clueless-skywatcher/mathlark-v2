@@ -14,6 +14,8 @@ public class GlobalSymbols {
     public static final NumericExpression E = new NumericExpression(Math.E);
     public static final BooleanExpression TRUE = new BooleanExpression(true);
     public static final BooleanExpression FALSE = new BooleanExpression(false);
+    public static final NumericExpression ZERO = new NumericExpression(0);
+    public static final NumericExpression ONE = new NumericExpression(1);
 
     public static final Map<String, IExpression> SYMBOLS = new HashMap<>();
 

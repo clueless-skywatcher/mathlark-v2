@@ -6,13 +6,14 @@ import io.mathlark.larkv2.exceptions.WrongParameterTypeException;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.expressions.ListExpression;
 import io.mathlark.larkv2.expressions.math.NumericExpression;
+import io.mathlark.larkv2.symbols.GlobalSymbols;
 
 public class LastFunc implements LarkFunction {
 
     @Override
     public IExpression mainEval(IExpression[] exprs) {
         ListExpression expr = (ListExpression) exprs[0].evaluate();
-        return expr.elementAt((NumericExpression) expr.length().sub(new NumericExpression(1)));
+        return expr.elementAt((NumericExpression) expr.length().sub(GlobalSymbols.ONE));
     }
 
     @Override

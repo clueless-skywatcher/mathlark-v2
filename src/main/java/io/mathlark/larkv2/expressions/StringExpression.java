@@ -83,6 +83,6 @@ public class StringExpression implements IExpression {
 
     @Override
     public IExpression length() {
-        return new NumericExpression(0);
+        return GlobalSymbols.ZERO;
     }
 }
