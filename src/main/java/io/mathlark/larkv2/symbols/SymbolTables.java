@@ -3,7 +3,6 @@ package io.mathlark.larkv2.symbols;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.mathlark.larkv2.UniversalFunctionRegistry;
 import io.mathlark.larkv2.expressions.AnonFunctionExpression;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.expressions.StringExpression;
@@ -23,7 +22,10 @@ public class SymbolTables {
         if (INSTANCE.globalSymbols.containsKey(symbol)) {
             return INSTANCE.globalSymbols.get(symbol);
         }
-        return INSTANCE.localSymbols.get(symbol);
+        if (INSTANCE.localSymbols.containsKey(symbol)) { 
+            return INSTANCE.localSymbols.get(symbol);
+        }
+        return GlobalSymbols.UNDEFINED;
     }
 
     public static IExpression evalGlobal(String symbol) {
