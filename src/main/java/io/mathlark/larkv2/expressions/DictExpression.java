@@ -85,7 +85,7 @@ public class DictExpression implements IExpression {
     }
 
     @Override
-    public Object val() {
+    public Map<IExpression, IExpression> val() {
         return this.map;
     }
 

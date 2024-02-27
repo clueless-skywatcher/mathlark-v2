@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import io.mathlark.larkv2.colours.ColourFunctionRegistry;
+import io.mathlark.larkv2.dicts.DictFunctionRegistry;
 import io.mathlark.larkv2.expressions.FunctionCallExpression;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.general.GeneralFunctionRegistry;
 import io.mathlark.larkv2.lists.ListFunctionRegistry;
 import io.mathlark.larkv2.numbers.NumberFunctionRegistry;
+import io.mathlark.larkv2.strings.StringFunctionsRegistry;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
 import io.mathlark.larkv2.symbols.SymbolTables;
 
@@ -23,6 +25,8 @@ public class UniversalFunctionRegistry {
         register(new GeneralFunctionRegistry());
         register(new ListFunctionRegistry());
         register(new ColourFunctionRegistry());
+        register(new DictFunctionRegistry());
+        register(new StringFunctionsRegistry());
     }
 
     public static IExpression invoke(String funcName, List<IExpression> exprs) {

@@ -1,10 +1,17 @@
 package io.mathlark.larkv2;
 
 import io.mathlark.larkv2.expressions.IExpression;
+import io.mathlark.larkv2.symbols.GlobalSymbols;
 
 public interface LarkFunction {
     default IExpression evaluate(IExpression... exprs) {
-        checkArgs(exprs);
+        try {
+            checkArgs(exprs);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return GlobalSymbols.UNDEFINED;
+        }
         return mainEval(exprs);
     }
 
