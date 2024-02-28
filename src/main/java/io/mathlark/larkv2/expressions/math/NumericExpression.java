@@ -7,7 +7,7 @@ import io.mathlark.larkv2.utils.MathUtils;
 
 public class NumericExpression implements IExpression {
     public Number value;
-    public int precision = 2;
+    public int precision = 5;
 
     public NumericExpression(long value) {
         this.value = value;

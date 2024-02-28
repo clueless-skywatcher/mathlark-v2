@@ -12,10 +12,10 @@ public class IncrementFuncTest {
         assertEquals(execute("Increment(2.5)"), 3.5);
         assertEquals(execute("Increment(Increment(1))"), 3L);
         assertEquals(execute("Increment(10000000)"), 10000001L);
-        assertEquals(execute("Increment(10.12341234)"), 11.12);
+        assertEquals(execute("Increment(10.12341234)"), 11.12341);
         assertEquals(execute("Increment(-1)"), 0L);
         assertEquals(execute("Increment(-10)"), -9L);
-        assertEquals(execute("Increment(-10.1245)"), -9.12);
+        assertEquals(execute("Increment(-10.1245)"), -9.1245);
 
         execute("a := Increment(1)");
         assertEquals(execute("a"), 2L);
