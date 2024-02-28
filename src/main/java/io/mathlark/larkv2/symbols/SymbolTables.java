@@ -1,8 +1,11 @@
 package io.mathlark.larkv2.symbols;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import io.mathlark.larkv2.exceptions.SymbolDoesNotExistException;
 import io.mathlark.larkv2.expressions.AnonFunctionExpression;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.expressions.StringExpression;
@@ -54,6 +57,19 @@ public class SymbolTables {
 
     public static void clear() {
         INSTANCE.localSymbols.clear();
+    }
+
+    public static void clear(String var) {
+        if (INSTANCE.localSymbols.containsKey(var)) {
+            INSTANCE.localSymbols.remove(var);
+        }
+        else {
+            throw new SymbolDoesNotExistException(var);
+        }
+    }
+
+    public static List<String> getLocals() {
+        return new ArrayList<>(INSTANCE.localSymbols.keySet());
     }
 
     public static void init() {

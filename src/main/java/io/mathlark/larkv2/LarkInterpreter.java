@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.mathlark.larkv2.expressions.IExpression;
-import io.mathlark.larkv2.symbols.SymbolTables;
 import jline.TerminalFactory;
 import jline.console.ConsoleReader;
 import jline.console.completer.StringsCompleter;
