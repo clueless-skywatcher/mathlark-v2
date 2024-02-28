@@ -109,4 +109,16 @@ public class ListExpression implements IExpression {
         }
         return false;
     }
+
+    public ListExpression append(IExpression expression) {
+        List<IExpression> result = this.val;
+        result.add(expression);
+        return new ListExpression(result);
+    }
+
+    public ListExpression extend(ListExpression expression) {
+        List<IExpression> result = this.val;
+        result.addAll(expression.val);
+        return new ListExpression(result);
+    }
 }

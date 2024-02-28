@@ -12,7 +12,7 @@ public class AnonFunctionExpression implements IExpression {
 
     @Override
     public IExpression evaluate() {
-        return new StringExpression(name);
+        return this;
     }
 
     @Override

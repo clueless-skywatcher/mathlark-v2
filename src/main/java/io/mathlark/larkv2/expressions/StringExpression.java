@@ -3,7 +3,7 @@ package io.mathlark.larkv2.expressions;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
 import lombok.Getter;
 
-public class StringExpression implements IExpression {
+public class StringExpression implements IExpression, Comparable<StringExpression> {
     private @Getter String val;    
     
     public StringExpression(String val) {
@@ -87,5 +87,10 @@ public class StringExpression implements IExpression {
 
     public int hashCode() {
         return this.val.hashCode();
+    }
+
+    @Override
+    public int compareTo(StringExpression arg0) {
+        return this.val.compareTo(arg0.val);
     }
 }

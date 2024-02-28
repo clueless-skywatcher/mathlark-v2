@@ -5,7 +5,7 @@ import io.mathlark.larkv2.expressions.StringExpression;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
 import io.mathlark.larkv2.utils.MathUtils;
 
-public class NumericExpression implements IExpression {
+public class NumericExpression implements IExpression, Comparable<NumericExpression> {
     public Number value;
     public int precision = 5;
 
@@ -173,5 +173,16 @@ public class NumericExpression implements IExpression {
 
     public int hashCode() {
         return this.val().hashCode();
+    }
+
+    @Override
+    public int compareTo(NumericExpression arg0) {
+        double num1 = this.value.doubleValue();
+        double num2 = arg0.value.doubleValue();
+        return Double.compare(num1, num2);
+    }
+
+    public boolean isNegative() {
+        return this.value.doubleValue() < 0;
     }
 }

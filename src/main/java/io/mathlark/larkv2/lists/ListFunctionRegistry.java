@@ -1,6 +1,8 @@
 package io.mathlark.larkv2.lists;
 
 import io.mathlark.larkv2.FunctionRegistryContract;
+import io.mathlark.larkv2.lists.funcs.AppendFunc;
+import io.mathlark.larkv2.lists.funcs.ExtendFunc;
 import io.mathlark.larkv2.lists.funcs.FirstFunc;
 import io.mathlark.larkv2.lists.funcs.LastFunc;
 import io.mathlark.larkv2.lists.funcs.LengthFunc;
@@ -14,5 +16,7 @@ public class ListFunctionRegistry extends FunctionRegistryContract {
         register(LastFunc.class);
         register(RestFunc.class);
         register(LengthFunc.class);
+        register(AppendFunc.class);
+        register(ExtendFunc.class);
     }
 }
