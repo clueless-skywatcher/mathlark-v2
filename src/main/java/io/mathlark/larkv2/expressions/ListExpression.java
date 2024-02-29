@@ -144,4 +144,8 @@ public class ListExpression implements IExpression {
         result.addAll(expression.val);
         return new ListExpression(result);
     }
+
+    public int hashCode() {
+        return this.val.hashCode();
+    }
 }

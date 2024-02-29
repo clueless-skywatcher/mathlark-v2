@@ -13,5 +13,6 @@ public class ListFunctionRegistry extends FunctionRegistryContract {
         register(AppendFunc.class);
         register(ExtendFunc.class);
         register(ElementAtFunc.class);
+        register(RemoveDuplicatesFunc.class);
     }
 }
