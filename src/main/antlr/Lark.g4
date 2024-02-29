@@ -77,7 +77,7 @@ term returns [IExpression exprObject]
     } 
     | '{' mapEntries '}' {
         $exprObject = new DictExpression($mapEntries.map);
-    }       
+    } 
     ;
 
 mapEntries returns [Map<IExpression, IExpression> map]
@@ -145,6 +145,9 @@ expr returns [IExpression exprObject]
         | '-' op2=multiply { $exprObject = $exprObject.sub($op2.exprObject); })*
     |   assign { $exprObject = $assign.exprObject; }
     |   functionAnonDef { $exprObject = $functionAnonDef.exprObject; }
+    |   iterable=expr '{' key=expr '}' {
+            $exprObject = new AccessExpression($iterable.exprObject, $key.exprObject);
+        }
     ;
 
 INTEGER: DIGIT+;

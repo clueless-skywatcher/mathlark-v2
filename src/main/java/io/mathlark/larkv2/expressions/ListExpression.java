@@ -23,8 +23,31 @@ public class ListExpression implements IExpression {
         return new ListExpression(this.val);
     }
 
-    public IExpression elementAt(NumericExpression idx) {
-        return this.val.get(((Long) idx.value).intValue());
+    public IExpression elementAt(NumericExpression expr) {
+        try {
+            if (expr instanceof NumericExpression) {
+                if (!expr.isDecimal()) {
+                    int idx = ((Long) expr.val()).intValue();
+                    if (idx < 0) {
+                        return this.val.get(this.val.size() + idx);
+                    }
+                    return this.val.get(idx);
+                }
+            }
+            else if (expr.evaluate() instanceof NumericExpression) {
+                NumericExpression eval = (NumericExpression) expr.evaluate();
+                if (!eval.isDecimal()) {
+                    int idx = eval.value.intValue();
+                    if (idx < 0) {
+                        return this.val.get(this.val.size() + idx);
+                    }
+                    return this.val.get(idx);
+                }
+            }
+        } catch(Exception e) {
+            System.out.println(String.format("Invalid index %s for list of length %d", expr.toString(), val.size()));
+        }
+        return GlobalSymbols.UNDEFINED;
     }
 
     public IExpression elementAt(int idx) {
