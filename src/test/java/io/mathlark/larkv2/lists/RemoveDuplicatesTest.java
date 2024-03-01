@@ -15,5 +15,7 @@ public class RemoveDuplicatesTest {
         assertEquals(execute("RemoveDuplicates([\"a\", \"b\", \"a\"])"), List.of("a", "b"));
         assertEquals(execute("RemoveDuplicates([1, 2, 3, [1, 2], [1, 2]])"), List.of(1L, 2L, 3L, List.of(1L, 2L)));
         assertEquals(execute("RemoveDuplicates([[1, 2], 3, [1, 2]])"), List.of(List.of(1L, 2L), 3L));
+        assertEquals(execute("RemoveDuplicates([1])"), List.of(1L));
+        assertEquals(execute("RemoveDuplicates([1, 1])"), List.of(1L));
     }
 }

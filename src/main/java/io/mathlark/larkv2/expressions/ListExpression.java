@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import io.mathlark.larkv2.expressions.math.NumericExpression;
+import io.mathlark.larkv2.lists.ListUtils;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
 
 public class ListExpression implements IExpression {
@@ -147,5 +148,17 @@ public class ListExpression implements IExpression {
 
     public int hashCode() {
         return this.val.hashCode();
+    }
+
+    public ListExpression intersection(ListExpression other) {
+        List<IExpression> list1 = ListUtils.removeDuplicates(this.val);
+        List<IExpression> list2 = ListUtils.removeDuplicates(other.val);
+        return new ListExpression(ListUtils.intersection(list1, list2));
+    }
+
+    public ListExpression union(ListExpression other) {
+        List<IExpression> list1 = ListUtils.removeDuplicates(this.val);
+        List<IExpression> list2 = ListUtils.removeDuplicates(other.val);
+        return new ListExpression(ListUtils.union(list1, list2));
     }
 }
