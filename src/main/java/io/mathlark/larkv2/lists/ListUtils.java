@@ -6,8 +6,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import io.mathlark.larkv2.expressions.IExpression;
-
 public class ListUtils {
     public static <T> List<T> removeDuplicates(List<T> list) {
         Set<T> set = new LinkedHashSet<T>();
@@ -20,7 +18,7 @@ public class ListUtils {
     }
 
     public static <T> List<T> intersection(List<T> list1, List<T> list2) {
-        Set<T> set = new LinkedHashSet<>(list1);
+        Set<T> set = new LinkedHashSet<>(ListUtils.removeDuplicates(list1));
         List<T> result = new ArrayList<>();
         for (T elem: list2) {
             if (set.contains(elem)) {

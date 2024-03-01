@@ -22,5 +22,6 @@ public class IntersectionFuncTest {
         assertEquals(execute("Intersection([[], 1, 2], [[]])"), List.of(List.of()));
         assertEquals(execute("Intersection([[1, 2, [1, 2]]], [[1, 2, [1, 2]], 3, 4])"), execute("[[1, 2, [1, 2]]]"));
         assertEquals(execute("Intersection([1, 1, 2, 3], [3, 1, 4], [4, 1, 3, 3])"), execute("[1, 3]"));
+        assertEquals(execute("Intersection([1, 2, 1, 3, 6, 2, 2])"), execute("[1, 2, 3, 6]"));
     }
 }
