@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.ArrayList;
 
 import io.mathlark.larkv2.expressions.math.NumericExpression;
+import io.mathlark.larkv2.expressions.mixins.Listable;
 import io.mathlark.larkv2.lists.ListUtils;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
 
-public class ListExpression implements IExpression {
+public class ListExpression implements IExpression, Listable {
     private List<IExpression> val;
 
     public ListExpression(List<IExpression> exprs) {
@@ -160,5 +161,10 @@ public class ListExpression implements IExpression {
         List<IExpression> list1 = ListUtils.removeDuplicates(this.val);
         List<IExpression> list2 = ListUtils.removeDuplicates(other.val);
         return new ListExpression(ListUtils.union(list1, list2));
+    }
+
+    @Override
+    public List<IExpression> toList() {
+        return this.val;
     }
 }

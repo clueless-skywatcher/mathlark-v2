@@ -1,7 +1,6 @@
 package io.mathlark.larkv2.general.funcs;
 
 import io.mathlark.larkv2.LarkFunction;
-import io.mathlark.larkv2.exceptions.SymbolDoesNotExistException;
 import io.mathlark.larkv2.exceptions.WrongParameterLengthException;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.expressions.StringExpression;

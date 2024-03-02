@@ -1,6 +1,7 @@
 package io.mathlark.larkv2.general;
 
 import io.mathlark.larkv2.FunctionRegistryContract;
+import io.mathlark.larkv2.general.funcs.AsListFunc;
 import io.mathlark.larkv2.general.funcs.ClearAllFunc;
 import io.mathlark.larkv2.general.funcs.ClearFunc;
 import io.mathlark.larkv2.general.funcs.DefinedVarsFunc;
@@ -16,5 +17,6 @@ public class GeneralFunctionRegistry extends FunctionRegistryContract {
         register(NestFunc.class);
         register(DefinedVarsFunc.class);
         register(ClearFunc.class);
+        register(AsListFunc.class);
     }
 }

@@ -1,4 +1,5 @@
 Append
+AsList
 Clear
 ClearAll
 Colour
@@ -22,6 +23,8 @@ Last
 Length
 List
 Nest
+Permutation
+PermutationCompose
 RemoveDuplicates
 Rest
 StringLength
