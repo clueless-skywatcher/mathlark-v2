@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import io.mathlark.larkv2.colours.ColourFunctionRegistry;
+import io.mathlark.larkv2.combinatorics.CombinatoricsFunctionRegistry;
 import io.mathlark.larkv2.dicts.DictFunctionRegistry;
 import io.mathlark.larkv2.expressions.FunctionCallExpression;
 import io.mathlark.larkv2.expressions.IExpression;
@@ -27,6 +28,7 @@ public class UniversalFunctionRegistry {
         register(new ColourFunctionRegistry());
         register(new DictFunctionRegistry());
         register(new StringFunctionsRegistry());
+        register(new CombinatoricsFunctionRegistry());
     }
 
     public static IExpression invoke(String funcName, List<IExpression> exprs) {

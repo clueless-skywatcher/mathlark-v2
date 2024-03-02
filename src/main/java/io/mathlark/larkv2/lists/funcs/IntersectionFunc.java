@@ -1,7 +1,5 @@
 package io.mathlark.larkv2.lists.funcs;
 
-import java.util.List;
-
 import io.mathlark.larkv2.LarkFunction;
 import io.mathlark.larkv2.exceptions.WrongParameterTypeException;
 import io.mathlark.larkv2.expressions.IExpression;
