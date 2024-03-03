@@ -11,7 +11,7 @@ import io.mathlark.larkv2.expressions.math.NumericExpression;
 import io.mathlark.larkv2.general.BooleanArraysUtils;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
 
-public class PermutationObject {
+public class PermutationObject implements Comparable<PermutationObject> {
     private int[] p;
 
     /**
@@ -61,7 +61,7 @@ public class PermutationObject {
     }
 
     public String toString() {
-        return String.format("Permutation(%s)", Arrays.toString(getArray()));
+        return String.format("Permutation(%s)", reprCyclize().toString());
     }
 
     public boolean equals(Object other) {
@@ -78,6 +78,10 @@ public class PermutationObject {
             copy[i]++;
         }
         return copy;
+    }
+
+    public int getLength() {
+        return this.p.length;
     }
 
     public List<IExpression> getList() {
@@ -114,6 +118,21 @@ public class PermutationObject {
         return cycles;
     }
 
+    private List<List<Integer>> reprCyclize() {
+        List<List<Integer>> cycles = cyclize();
+        List<List<Integer>> result = new ArrayList<>();
+
+        for (List<Integer> cyc: cycles) {
+            List<Integer> cycle = new ArrayList<>();
+            for (int p: cyc) {
+                cycle.add(p + 1);
+            }
+            result.add(cycle);
+        }
+
+        return result;
+    }
+
     public ListExpression cyclizeAsExpr() {
         List<List<Integer>> cycles = cyclize();
 
@@ -127,5 +146,33 @@ public class PermutationObject {
         }
         
         return new ListExpression(outerList);
+    }
+    
+    public List<Object> permute(List<Object> objs) {
+        if (p.length > objs.size()) {
+            throw new PermutationException("Cannot permute on smaller objects");
+        }
+        Object[] resultArr = new Object[objs.size()];
+
+        for (int i = 0; i < p.length; i++) {
+            resultArr[p[i]] = objs.get(i);
+        }
+        for (int i = p.length; i < objs.size(); i++) {
+            resultArr[i] = objs.get(i);
+        }        
+        return Arrays.asList(resultArr);
+    }
+
+    public int[] getInternalArray() {
+        return p;
+    }
+
+    public int hashCode() {
+        return Arrays.hashCode(this.p);
+    }
+
+    @Override
+    public int compareTo(PermutationObject arg0) {
+        return this.reprCyclize().toString().compareTo(arg0.reprCyclize().toString());
     }
 }

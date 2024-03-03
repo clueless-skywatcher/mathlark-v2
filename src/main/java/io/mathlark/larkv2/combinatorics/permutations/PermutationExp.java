@@ -110,4 +110,11 @@ public class PermutationExp implements IExpression, Listable {
     public ListExpression cyclize() {
         return this.val.cyclizeAsExpr();
     }
+
+    public boolean equals(Object other) {
+        if (other instanceof PermutationExp) {
+            return this.val.equals(((PermutationExp) other).val());
+        }
+        return false;
+    }
 }
