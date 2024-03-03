@@ -165,6 +165,16 @@ public class ListExpression implements IExpression, Listable {
 
     @Override
     public List<IExpression> toList() {
-        return this.val;
+        List<IExpression> result = new ArrayList<>();
+        for (int i = 0; i < this.val.size(); i++) {
+            if (this.val.get(i).evaluate() instanceof Listable) {
+                List<IExpression> listExp = ((Listable) this.val.get(i).evaluate()).toList();
+                result.add(new ListExpression(listExp));
+            }
+            else {
+                result.add(this.val.get(i).evaluate());
+            }
+        }
+        return result;
     }
 }

@@ -36,7 +36,7 @@ public class PermutationComposeFunc implements LarkFunction {
     public void checkArgs(IExpression[] exprs) {
         for (int i = 0; i < exprs.length; i++) {
             if (!(FunctionUtils.isInstanceOf(exprs[i], ListExpression.class) || FunctionUtils.isInstanceOf(exprs[i], PermutationExp.class))) {
-                throw new WrongParameterTypeException(List.of(ListExpression.class, PermutationExp.class), 0, exprs[i].getClass());
+                throw new WrongParameterTypeException(List.of(ListExpression.class, PermutationExp.class), i, exprs[i].getClass());
             }
         }
     }

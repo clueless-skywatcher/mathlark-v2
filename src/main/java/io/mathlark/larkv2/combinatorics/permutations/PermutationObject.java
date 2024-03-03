@@ -3,11 +3,13 @@ package io.mathlark.larkv2.combinatorics.permutations;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.StringJoiner;
 
 import io.mathlark.larkv2.combinatorics.exceptions.PermutationException;
 import io.mathlark.larkv2.expressions.IExpression;
+import io.mathlark.larkv2.expressions.ListExpression;
 import io.mathlark.larkv2.expressions.math.NumericExpression;
+import io.mathlark.larkv2.general.BooleanArraysUtils;
+import io.mathlark.larkv2.symbols.GlobalSymbols;
 
 public class PermutationObject {
     private int[] p;
@@ -85,5 +87,45 @@ public class PermutationObject {
             expr.add(new NumericExpression(array[i]));
         }
         return expr;
+    }
+
+    public List<List<Integer>> cyclize() {
+        List<List<Integer>> cycles = new ArrayList<>();
+        boolean[] checked = new boolean[this.p.length];
+        Arrays.fill(checked, false);
+        int lengthCovered = 0;
+
+        while (lengthCovered < this.p.length) {
+            int start = BooleanArraysUtils.getNextFalse(checked, 0);
+            if (p[start] == start) {
+                lengthCovered++;
+                checked[start] = true;
+                continue;
+            }
+            List<Integer> cycle = new ArrayList<>();
+            while (!checked[start]) {
+                checked[start] = true;
+                ++lengthCovered;
+                cycle.add(start);
+                start = p[start];
+            }
+            cycles.add(cycle);
+        }
+        return cycles;
+    }
+
+    public ListExpression cyclizeAsExpr() {
+        List<List<Integer>> cycles = cyclize();
+
+        List<IExpression> outerList = new ArrayList<>();
+        for (List<Integer> cycle: cycles) {
+            List<IExpression> innerList = new ArrayList<>();
+            for (int a: cycle) {
+                innerList.add(new NumericExpression(a).add(GlobalSymbols.ONE));
+            }
+            outerList.add(new ListExpression(innerList));
+        }
+        
+        return new ListExpression(outerList);
     }
 }

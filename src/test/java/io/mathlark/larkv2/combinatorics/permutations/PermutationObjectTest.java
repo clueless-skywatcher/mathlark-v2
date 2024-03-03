@@ -50,4 +50,12 @@ public class PermutationObjectTest {
         assertEquals(p1.compose(p2), p1p2);
         assertNotEquals(p1.compose(p2), p2.compose(p1));
     }
+    
+    @Test
+    public void testCyclize() {
+        PermutationObject p1 = new PermutationObject(new int[] {2, 1, 0});
+        assertEquals(p1.cyclize(), List.of(List.of(0, 2)));
+        PermutationObject p2 = new PermutationObject(new int[] {0, 1, 4, 5, 2, 3});
+        assertEquals(p2.cyclize(), List.of(List.of(2, 4), List.of(3, 5)));
+    }
 }

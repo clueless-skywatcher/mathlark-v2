@@ -7,5 +7,6 @@ public class CombinatoricsFunctionRegistry extends FunctionRegistryContract {
     public CombinatoricsFunctionRegistry() {
         register(PermutationFunc.class);
         register(PermutationComposeFunc.class);
+        register(PermutationCyclesFunc.class);
     }
 }

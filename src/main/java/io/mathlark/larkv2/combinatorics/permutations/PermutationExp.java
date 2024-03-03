@@ -3,6 +3,7 @@ package io.mathlark.larkv2.combinatorics.permutations;
 import java.util.List;
 
 import io.mathlark.larkv2.expressions.IExpression;
+import io.mathlark.larkv2.expressions.ListExpression;
 import io.mathlark.larkv2.expressions.StringExpression;
 import io.mathlark.larkv2.expressions.math.NumericExpression;
 import io.mathlark.larkv2.expressions.mixins.Listable;
@@ -104,5 +105,9 @@ public class PermutationExp implements IExpression, Listable {
     @Override
     public List<IExpression> toList() {
         return this.val.getList();    
+    }
+
+    public ListExpression cyclize() {
+        return this.val.cyclizeAsExpr();
     }
 }
