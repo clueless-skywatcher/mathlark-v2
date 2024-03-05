@@ -88,5 +88,9 @@ public class PermutationObjectTest {
                 p1.permute(List.of("abc", "def"));
             }
         });
+        PermutationObject p2 = new PermutationObject(new int[] {0, 1, 4, 5, 2, 3});
+        List<List<Integer>> cycles = p2.cyclize();
+        assertEquals(Permutations.cycleToPerm(cycles), new PermutationObject(new int[] {0, 1, 4, 5, 2, 3}));
+        assertEquals(Permutations.cycleToPerm(cycles, 10), new PermutationObject(new int[] {0, 1, 4, 5, 2, 3, 6, 7, 8, 9}));
     }
 }
