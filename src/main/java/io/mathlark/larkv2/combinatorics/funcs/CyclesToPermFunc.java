@@ -9,7 +9,7 @@ import io.mathlark.larkv2.expressions.ListExpression;
 import io.mathlark.larkv2.expressions.math.NumericExpression;
 import io.mathlark.larkv2.utils.FunctionUtils;
 
-public class CyclesToListFunc implements LarkFunction {
+public class CyclesToPermFunc implements LarkFunction {
 
     @Override
     public IExpression mainEval(IExpression[] exprs) {
@@ -37,7 +37,7 @@ public class CyclesToListFunc implements LarkFunction {
 
     @Override
     public String getName() {
-        return "CyclesToList";
+        return "CyclesToPerm";
     }
     
 }

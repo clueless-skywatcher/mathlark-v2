@@ -2,7 +2,6 @@ package io.mathlark.larkv2.combinatorics;
 
 import io.mathlark.larkv2.FunctionRegistryContract;
 import io.mathlark.larkv2.combinatorics.funcs.permutations.*;
-import io.mathlark.larkv2.combinatorics.funcs.CyclesToListFunc;
 import io.mathlark.larkv2.combinatorics.funcs.groups.*;
 
 public class CombinatoricsFunctionRegistry extends FunctionRegistryContract {
@@ -13,6 +12,5 @@ public class CombinatoricsFunctionRegistry extends FunctionRegistryContract {
         register(PermutationGroupFunc.class);
         register(CyclesToPermFunc.class);
         register(GroupGeneratorsFunc.class);
-        register(CyclesToListFunc.class);
     }
 }
