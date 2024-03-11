@@ -173,6 +173,6 @@ public class PermutationObject implements Comparable<PermutationObject> {
 
     @Override
     public int compareTo(PermutationObject arg0) {
-        return this.reprCyclize().toString().compareTo(arg0.reprCyclize().toString());
+        return Arrays.compare(this.p, arg0.p);
     }
 }
