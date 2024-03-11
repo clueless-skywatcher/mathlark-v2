@@ -30,6 +30,7 @@ Permutation
 PermutationCompose
 PermutationCycles
 PermutationGroup
+PermutationInverse
 RemoveDuplicates
 Rest
 StringLength

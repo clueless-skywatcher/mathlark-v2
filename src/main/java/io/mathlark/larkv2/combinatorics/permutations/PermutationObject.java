@@ -175,4 +175,30 @@ public class PermutationObject implements Comparable<PermutationObject> {
     public int compareTo(PermutationObject arg0) {
         return Arrays.compare(this.p, arg0.p);
     }
+
+    public PermutationObject inverse() {
+        int[] result = new int[this.p.length];
+        for (int i = 0; i < this.p.length; i++) {
+            result[p[i]] = i;
+        }
+        return new PermutationObject(result);
+    }
+
+    public PermutationObject power(long exp) {
+        if (exp == 0) {
+            return new PermutationObject(getLength());
+        }
+        if (exp < 0) {
+            long pos = exp / -1;
+            return power(pos).inverse();
+        }
+
+        PermutationObject result = new PermutationObject(this.p);
+        PermutationObject factor = new PermutationObject(this.p);
+        while (exp-- > 1) {
+            result = result.compose(factor);
+        }
+
+        return result;
+    }
 }

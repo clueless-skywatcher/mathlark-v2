@@ -73,8 +73,13 @@ public class PermutationExp implements IExpression, Listable {
     }
 
     @Override
-    public IExpression pow(IExpression other) {
-        return GlobalSymbols.UNDEFINED;
+    public IExpression pow(IExpression exponent) {
+        if (!FunctionUtils.isInstanceOf(exponent, NumericExpression.class)) {
+            System.out.println("Cannot raise permutation to a non-numeric exponent");
+            return GlobalSymbols.UNDEFINED;
+        }
+        long exp = ((NumericExpression) exponent).value.longValue();
+        return new PermutationExp(this.val.power(exp));
     }
 
     @Override
@@ -116,5 +121,9 @@ public class PermutationExp implements IExpression, Listable {
             return this.val.equals(((PermutationExp) other).val());
         }
         return false;
+    }
+
+    public IExpression inverse() {
+        return new PermutationExp(this.val.inverse());
     }
 }
