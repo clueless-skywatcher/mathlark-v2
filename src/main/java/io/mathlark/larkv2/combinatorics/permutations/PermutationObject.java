@@ -49,12 +49,16 @@ public class PermutationObject implements Comparable<PermutationObject> {
     }
 
     public PermutationObject compose(PermutationObject other) {
-        if (this.p.length != other.p.length) {
+        int permLength = Math.max(this.p.length, other.p.length);
+        PermutationObject thisPerm = this.castToLength(permLength);
+        PermutationObject otherPerm = other.castToLength(permLength);
+
+        if (thisPerm.p.length != otherPerm.p.length) {
             throw new PermutationException("Both permutations should have the same length");
         }
-        int[] result = new int[this.p.length];
+        int[] result = new int[permLength];
         for (int i = 0; i < result.length; i++) {
-            result[i] = other.p[this.p[i]];
+            result[i] = otherPerm.p[thisPerm.p[i]];
         }
 
         return new PermutationObject(result);
@@ -200,5 +204,20 @@ public class PermutationObject implements Comparable<PermutationObject> {
         }
 
         return result;
+    }
+
+    private PermutationObject castToLength(int n) {
+        if (n < this.p.length) {
+            throw new RuntimeException(String.format("Cannot cast permutation to lower than %d elements", this.p.length));
+        }
+        int[] newP = new int[n];
+        for (int i = 0; i < this.p.length; i++) {
+            newP[i] = this.p[i];
+        }
+        for (int i = this.p.length; i < n; i++) {
+            newP[i] = i;
+        }
+
+        return new PermutationObject(newP);
     }
 }
