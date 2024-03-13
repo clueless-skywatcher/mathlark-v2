@@ -3,6 +3,7 @@ package io.mathlark.larkv2.combinatorics.permutations;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringJoiner;
 
 import io.mathlark.larkv2.combinatorics.exceptions.PermutationException;
 import io.mathlark.larkv2.expressions.IExpression;
@@ -65,7 +66,18 @@ public class PermutationObject implements Comparable<PermutationObject> {
     }
 
     public String toString() {
-        return String.format("Permutation(%s)", reprCyclize().toString());
+        List<List<Integer>> cycles = reprCyclize();
+
+        StringJoiner outer = new StringJoiner("");
+        for (List<Integer> cycle: cycles) {
+            StringJoiner inner = new StringJoiner(", ");
+            for (int c: cycle) {
+                inner.add(Integer.toString(c));
+            }
+            outer.add(String.format("(%s)", inner.toString()));
+        }
+
+        return String.format("Permutation(%s)", outer.toString());
     }
 
     public boolean equals(Object other) {
