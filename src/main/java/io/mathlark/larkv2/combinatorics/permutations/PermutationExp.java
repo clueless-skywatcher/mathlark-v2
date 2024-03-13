@@ -39,7 +39,7 @@ public class PermutationExp implements IExpression, Listable {
 
     @Override
     public String inputForm() {
-        return this.val.toString();
+        return String.format("Permutation(%s)", this.val.toString());
     }
 
     public String toString() {

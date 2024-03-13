@@ -13,5 +13,6 @@ public class CombinatoricsFunctionRegistry extends FunctionRegistryContract {
         register(PermutationInverseFunc.class);
         register(CyclesToPermFunc.class);
         register(GroupGeneratorsFunc.class);
+        register(GroupIdentityFunc.class);
     }
 }

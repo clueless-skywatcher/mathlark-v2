@@ -7,4 +7,5 @@ import io.mathlark.larkv2.expressions.IExpression;
 public interface GroupExpression<T extends IExpression> extends IExpression {
     public List<T> getElements();
     public List<T> getGenerators();
+    public T getIdentity();
 }
