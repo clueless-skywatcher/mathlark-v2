@@ -2,7 +2,6 @@ package io.mathlark.larkv2.combinatorics.permutations;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 import io.mathlark.larkv2.combinatorics.group.GroupExpression;
@@ -115,5 +114,10 @@ public class PermutationGroupExp implements GroupExpression<PermutationExp> {
     @Override
     public PermutationExp getIdentity() {
         return new PermutationExp(this.val.identity());
+    }
+
+    @Override
+    public NumericExpression getOrder() {
+        return new NumericExpression(this.val.getOrder());
     }
 }

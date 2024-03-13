@@ -10,8 +10,8 @@ import lombok.Getter;
 
 public class PermutationGroup implements IGroup<PermutationObject> {
     private @Getter List<PermutationObject> generators;
-    private @Getter long order;
     private PermutationObject identity;
+    private List<PermutationObject> elements;
 
     public PermutationGroup(List<PermutationObject> generators) {
         this.generators = generators;
@@ -41,13 +41,17 @@ public class PermutationGroup implements IGroup<PermutationObject> {
     }
 
     public List<PermutationObject> getElements() {
+        if (this.elements != null) {
+            return this.elements;
+        }
         int maxLength = 0;
         for (PermutationObject gen: generators) {
             if (gen.getLength() > maxLength) {
                 maxLength = gen.getLength();
             }
         }
-        return getElements(generators, new ArrayList<>(), List.of(new PermutationObject(maxLength)));
+        this.elements = getElements(generators, new ArrayList<>(), List.of(new PermutationObject(maxLength)));
+        return this.elements;
     }
 
     @Override
@@ -61,5 +65,12 @@ public class PermutationGroup implements IGroup<PermutationObject> {
             grp.add(gen.toString());
         }
         return String.format("PermutationGroup(%s)", grp.toString());
+    }
+
+    public long getOrder() {
+        if (this.elements == null) {
+            this.elements = getElements();
+        }
+        return this.elements.size();
     }
 }

@@ -14,5 +14,6 @@ public class CombinatoricsFunctionRegistry extends FunctionRegistryContract {
         register(CyclesToPermFunc.class);
         register(GroupGeneratorsFunc.class);
         register(GroupIdentityFunc.class);
+        register(GroupOrderFunc.class);
     }
 }
