@@ -77,7 +77,7 @@ public class PermutationObject implements Comparable<PermutationObject> {
             outer.add(String.format("(%s)", inner.toString()));
         }
 
-        return String.format("Permutation(%s)", outer.toString());
+        return String.format("%s", outer.toString());
     }
 
     public boolean equals(Object other) {
