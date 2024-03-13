@@ -3,6 +3,7 @@ package io.mathlark.larkv2.combinatorics.permutations;
 import java.util.List;
 
 import io.mathlark.larkv2.expressions.IExpression;
+import io.mathlark.larkv2.expressions.ListExpression;
 import io.mathlark.larkv2.expressions.StringExpression;
 import io.mathlark.larkv2.expressions.math.NumericExpression;
 import io.mathlark.larkv2.expressions.mixins.Listable;
@@ -72,8 +73,13 @@ public class PermutationExp implements IExpression, Listable {
     }
 
     @Override
-    public IExpression pow(IExpression other) {
-        return GlobalSymbols.UNDEFINED;
+    public IExpression pow(IExpression exponent) {
+        if (!FunctionUtils.isInstanceOf(exponent, NumericExpression.class)) {
+            System.out.println("Cannot raise permutation to a non-numeric exponent");
+            return GlobalSymbols.UNDEFINED;
+        }
+        long exp = ((NumericExpression) exponent).value.longValue();
+        return new PermutationExp(this.val.power(exp));
     }
 
     @Override
@@ -104,5 +110,20 @@ public class PermutationExp implements IExpression, Listable {
     @Override
     public List<IExpression> toList() {
         return this.val.getList();    
+    }
+
+    public ListExpression cyclize() {
+        return this.val.cyclizeAsExpr();
+    }
+
+    public boolean equals(Object other) {
+        if (other instanceof PermutationExp) {
+            return this.val.equals(((PermutationExp) other).val());
+        }
+        return false;
+    }
+
+    public IExpression inverse() {
+        return new PermutationExp(this.val.inverse());
     }
 }

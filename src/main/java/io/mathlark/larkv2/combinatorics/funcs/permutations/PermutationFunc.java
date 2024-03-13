@@ -1,4 +1,4 @@
-package io.mathlark.larkv2.combinatorics.funcs;
+package io.mathlark.larkv2.combinatorics.funcs.permutations;
 
 import java.util.List;
 

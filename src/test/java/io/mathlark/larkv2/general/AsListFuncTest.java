@@ -13,5 +13,6 @@ public class AsListFuncTest {
         assertEquals(execute("AsList([1, 2, 3])"), List.of(1L, 2L, 3L));
         assertEquals(execute("AsList([])"), List.of());
         assertEquals(execute("AsList(DictKeys({1: 1, 2: 5, 3: 9}))"), List.of(1L, 2L, 3L));
+        assertEquals(execute("AsList([Permutation([1, 2]), Permutation([1, 2, 3])])"), List.of(List.of(1L, 2L), List.of(1L, 2L, 3L)));
     }
 }
