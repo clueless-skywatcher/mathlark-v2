@@ -5,6 +5,7 @@ ClearAll
 Colour
 ColourText
 ColourValues
+Column
 Cycle
 CyclesToPerm
 DefinedVars
@@ -19,6 +20,7 @@ Factorial
 First
 GCD
 GroupGenerators
+GroupIdentity
 Head
 Increment
 IntQ
