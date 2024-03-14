@@ -5,9 +5,9 @@ ClearAll
 Colour
 ColourText
 ColourValues
+Column
 Cycle
 CyclesToPerm
-Column
 DefinedVars
 Dict
 DictKeys
