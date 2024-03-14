@@ -7,6 +7,7 @@ ColourText
 ColourValues
 Cycle
 CyclesToPerm
+Column
 DefinedVars
 Dict
 DictKeys
@@ -19,6 +20,7 @@ Factorial
 First
 GCD
 GroupGenerators
+GroupIdentity
 Head
 Increment
 IntQ
