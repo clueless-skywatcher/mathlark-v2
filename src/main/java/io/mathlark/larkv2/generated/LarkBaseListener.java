@@ -28,6 +28,18 @@ public class LarkBaseListener implements LarkListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterLkFile(LarkParser.LkFileContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLkFile(LarkParser.LkFileContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterEvaluator(LarkParser.EvaluatorContext ctx) { }
 	/**
 	 * {@inheritDoc}

@@ -9,6 +9,7 @@ import io.mathlark.larkv2.general.funcs.DefinedVarsFunc;
 import io.mathlark.larkv2.general.funcs.ExitFunc;
 import io.mathlark.larkv2.general.funcs.HeadFunc;
 import io.mathlark.larkv2.general.funcs.NestFunc;
+import io.mathlark.larkv2.general.funcs.PrintLnFunc;
 
 public class GeneralFunctionRegistry extends FunctionRegistryContract {
     public GeneralFunctionRegistry() {
@@ -20,5 +21,6 @@ public class GeneralFunctionRegistry extends FunctionRegistryContract {
         register(ClearFunc.class);
         register(AsListFunc.class);
         register(ColumnFunc.class);
+        register(PrintLnFunc.class);
     }
 }

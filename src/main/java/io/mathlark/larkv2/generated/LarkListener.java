@@ -19,6 +19,16 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface LarkListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link LarkParser#lkFile}.
+	 * @param ctx the parse tree
+	 */
+	void enterLkFile(LarkParser.LkFileContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LarkParser#lkFile}.
+	 * @param ctx the parse tree
+	 */
+	void exitLkFile(LarkParser.LkFileContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link LarkParser#evaluator}.
 	 * @param ctx the parse tree
 	 */
