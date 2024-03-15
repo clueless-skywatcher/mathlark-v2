@@ -26,6 +26,7 @@ public class LarkInterpreter {
     public static void console() {
         try {
             try (ConsoleReader console = new ConsoleReader()) {
+                console.setExpandEvents(false);
                 List<String> strList = new ArrayList<>();
 
                 InputStream stream = LarkInterpreter.class.getClassLoader().getResourceAsStream("functions.lst");

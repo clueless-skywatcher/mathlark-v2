@@ -4,7 +4,7 @@ import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
 
 public class FunctionUtils {
-    public static boolean isInstanceOf(IExpression expr, Class<? extends IExpression> exprClass) {
+    public static boolean isInstanceOf(IExpression expr, Class<?> exprClass) {
         return exprClass.isInstance(expr) || exprClass.isInstance(expr.evaluate()); 
     }
 
