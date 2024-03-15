@@ -30,6 +30,10 @@ class MapEntry {
 
 }
 
+lkFile
+    : (expr ';')* EOF
+    ;
+
         
 evaluator returns [IExpression exprObject]
     : expr EOF { $exprObject = $expr.exprObject; }
