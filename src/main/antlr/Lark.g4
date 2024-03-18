@@ -13,6 +13,8 @@ import io.mathlark.larkv2.expressions.*;
 import io.mathlark.larkv2.expressions.math.*;
 import io.mathlark.larkv2.symbols.*;
 import io.mathlark.larkv2.UniversalFunctionRegistry;
+import io.mathlark.larkv2.general.ExpressionComparison;
+
 
 }
 
@@ -144,14 +146,22 @@ multiply returns [IExpression exprObject]
     ;
 
 expr returns [IExpression exprObject]
-    :   op1=multiply { $exprObject = $op1.exprObject; }
-        ('+' op2=multiply { $exprObject = $exprObject.add($op2.exprObject); }
-        | '-' op2=multiply { $exprObject = $exprObject.sub($op2.exprObject); })*
-    |   assign { $exprObject = $assign.exprObject; }
-    |   functionAnonDef { $exprObject = $functionAnonDef.exprObject; }
-    |   iterable=expr '{' key=expr '}' {
+    :   iterable=expr '{' key=expr '}' {
             $exprObject = new AccessExpression($iterable.exprObject, $key.exprObject);
         }
+    |   op1=multiply { $exprObject = $op1.exprObject; }
+        ('+' op2=multiply { $exprObject = $exprObject.add($op2.exprObject); }
+        | '-' op2=multiply { $exprObject = $exprObject.sub($op2.exprObject); })*
+    |   relop1=expr { $exprObject = $relop1.exprObject; }
+        ('>' relop2=expr { $exprObject = ExpressionComparison.gtExp($relop1.exprObject, $relop2.exprObject); }
+        | '>=' relop2=expr { $exprObject = ExpressionComparison.gteExp($relop1.exprObject, $relop2.exprObject); }
+        | '<' relop2=expr { $exprObject = ExpressionComparison.ltExp($relop1.exprObject, $relop2.exprObject); }
+        | '<=' relop2=expr { $exprObject = ExpressionComparison.lteExp($relop1.exprObject, $relop2.exprObject); })
+    |   assign { $exprObject = $assign.exprObject; }
+    |   relop1=expr { $exprObject = $relop1.exprObject; }
+        ('==' relop2=expr { $exprObject = ExpressionComparison.equalsExp($relop1.exprObject, $relop2.exprObject); }
+        | '!=' relop2=expr { $exprObject = ExpressionComparison.notEqualsExp($relop1.exprObject, $relop2.exprObject); })
+    |   functionAnonDef { $exprObject = $functionAnonDef.exprObject; }
     ;
 
 INTEGER: DIGIT+;

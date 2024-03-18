@@ -5,7 +5,7 @@ import io.mathlark.larkv2.expressions.StringExpression;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
 
 public class BooleanExpression implements IExpression {
-    private Boolean val;
+    public Boolean val;
 
     public BooleanExpression(boolean bool) {
         this.val = bool;
@@ -76,7 +76,7 @@ public class BooleanExpression implements IExpression {
     
     public boolean equals(Object other) {
         if (other instanceof BooleanExpression) {
-            return this.val == ((IExpression) other).evaluate().val();
+            return this.val().equals(((BooleanExpression) other).val());
         }
         if (other instanceof Boolean) {
             return this.val == other;

@@ -1,15 +1,8 @@
 package io.mathlark.larkv2.general;
 
 import io.mathlark.larkv2.FunctionRegistryContract;
-import io.mathlark.larkv2.general.funcs.AsListFunc;
-import io.mathlark.larkv2.general.funcs.ClearAllFunc;
-import io.mathlark.larkv2.general.funcs.ClearFunc;
-import io.mathlark.larkv2.general.funcs.ColumnFunc;
-import io.mathlark.larkv2.general.funcs.DefinedVarsFunc;
-import io.mathlark.larkv2.general.funcs.ExitFunc;
-import io.mathlark.larkv2.general.funcs.HeadFunc;
-import io.mathlark.larkv2.general.funcs.NestFunc;
-import io.mathlark.larkv2.general.funcs.PrintLnFunc;
+import io.mathlark.larkv2.general.funcs.*;
+import io.mathlark.larkv2.general.funcs.comparison.*;
 
 public class GeneralFunctionRegistry extends FunctionRegistryContract {
     public GeneralFunctionRegistry() {
@@ -22,5 +15,10 @@ public class GeneralFunctionRegistry extends FunctionRegistryContract {
         register(AsListFunc.class);
         register(ColumnFunc.class);
         register(PrintLnFunc.class);
+        register(EqualsQFunc.class);
+        register(GreaterEqualQFunc.class);
+        register(LesserEqualQFunc.class);
+        register(LesserQFunc.class);
+        register(NotQFunc.class);
     }
 }

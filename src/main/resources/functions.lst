@@ -14,11 +14,14 @@ DictKeys
 DictVal
 DictVals
 ElementAt
+EqualsQ
 Exit
 Extend
 Factorial
 First
 GCD
+GreaterEqualQ
+GreaterQ
 GroupGenerators
 GroupIdentity
 Head
@@ -26,8 +29,11 @@ Increment
 IntQ
 Last
 Length
+LesserEqualQ
+LesserQ
 List
 Nest
+NotQ
 Permutation
 PermutationCompose
 PermutationCycles
