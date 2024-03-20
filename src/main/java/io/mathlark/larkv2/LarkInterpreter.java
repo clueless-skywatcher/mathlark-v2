@@ -10,14 +10,16 @@ import java.util.List;
 
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.fileread.LarkFileReader;
+import io.mathlark.larkv2.symbols.SymbolScope;
 import jline.TerminalFactory;
 import jline.console.ConsoleReader;
 import jline.console.completer.StringsCompleter;
 
 public class LarkInterpreter {
     public static void main(String[] args) {
+        SymbolScope scope = new SymbolScope();
         if (args.length > 0) {
-            LarkFileReader.executeFile(args[0]);
+            LarkFileReader.executeFile(args[0], scope);
             return;
         }
         console();

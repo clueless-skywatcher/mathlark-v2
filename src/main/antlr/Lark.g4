@@ -18,7 +18,16 @@ import io.mathlark.larkv2.general.ExpressionComparison;
 
 }
 
-@members {
+@parser::members {
+
+private SymbolScope scope;
+private Map<String, DefinedFunction> definedFunctions;
+
+public LarkParser(TokenStream input, SymbolScope scope, Map<String, DefinedFunction> definedFunctions) {
+    this(input);
+    this.scope = scope;
+    this.definedFunctions = definedFunctions;
+}
 
 class MapEntry {
     private @Getter IExpression key;
@@ -33,7 +42,19 @@ class MapEntry {
 }
 
 lkFile
-    : (expr ';')* EOF
+    : (expr ';' | functionDef)* EOF
+    ;
+
+codeBlock
+    : '{' (expr ';' | functionDef)* returnStmt? '}'
+    ;
+
+functionDefs[String funcName]
+    : '(' (args+=IDENTIFIER (',' args+=IDENTIFIER)*)? ')' ':=' codeBlock
+    ;
+
+functionDef
+    : '<' IDENTIFIER '>' ':=' '{' functionDefs[$IDENTIFIER.text]+ '}'
     ;
 
         
@@ -113,7 +134,7 @@ assign returns [IExpression exprObject]
     }
     ;
 
-returnStmt: 'return' expr ';';
+returnStmt: RETURN expr ';';
 
 functionAnonDef returns [IExpression exprObject]
     :   '<' IDENTIFIER '>'
@@ -180,6 +201,7 @@ CHARACTER
 
 BOOLEAN: 'True' | 'False';
 UNDEFINED: 'Undefined';
+RETURN: 'Return';
 
 fragment LETTER: [a-zA-Z];
 fragment DIGIT: [0-9];

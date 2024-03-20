@@ -31,6 +31,36 @@ public interface LarkListener extends ParseTreeListener {
 	 */
 	void exitLkFile(LarkParser.LkFileContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link LarkParser#codeBlock}.
+	 * @param ctx the parse tree
+	 */
+	void enterCodeBlock(LarkParser.CodeBlockContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LarkParser#codeBlock}.
+	 * @param ctx the parse tree
+	 */
+	void exitCodeBlock(LarkParser.CodeBlockContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LarkParser#functionDefs}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionDefs(LarkParser.FunctionDefsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LarkParser#functionDefs}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionDefs(LarkParser.FunctionDefsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LarkParser#functionDef}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionDef(LarkParser.FunctionDefContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LarkParser#functionDef}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionDef(LarkParser.FunctionDefContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link LarkParser#evaluator}.
 	 * @param ctx the parse tree
 	 */
