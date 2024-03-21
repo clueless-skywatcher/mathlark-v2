@@ -17,6 +17,7 @@ public class SymbolScope {
 
     public SymbolScope() {
         this(null, false);
+        this.vars = GlobalSymbols.SYMBOLS;
     }
 
     public boolean isGlobal() {
@@ -39,7 +40,7 @@ public class SymbolScope {
     }
 
     public void assign(String var, IExpression value) {
-        if(resolve(var, !isFunc) != null) {
+        if(resolve(var, !isFunc) != null && resolve(var, !isFunc) != GlobalSymbols.UNDEFINED) {
             this.reAssign(var, value);
         }
         else {

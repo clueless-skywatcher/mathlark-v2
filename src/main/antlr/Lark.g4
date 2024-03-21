@@ -18,17 +18,8 @@ import io.mathlark.larkv2.general.ExpressionComparison;
 
 }
 
-@parser::members {
-
-private SymbolScope scope;
-private Map<String, DefinedFunction> definedFunctions;
-
-public LarkParser(TokenStream input, SymbolScope scope, Map<String, DefinedFunction> definedFunctions) {
-    this(input);
-    this.scope = scope;
-    this.definedFunctions = definedFunctions;
-}
-
+@members {
+    
 class MapEntry {
     private @Getter IExpression key;
     private @Getter IExpression value;
@@ -42,7 +33,7 @@ class MapEntry {
 }
 
 lkFile
-    : (expr ';' | functionDef)* EOF
+    : (expr ';')* EOF
     ;
 
 codeBlock
@@ -54,7 +45,7 @@ functionDefs[String funcName]
     ;
 
 functionDef
-    : '<' IDENTIFIER '>' ':=' '{' functionDefs[$IDENTIFIER.text]+ '}'
+    : '<' IDENTIFIER '>' ':=' '{' functionDefs[$IDENTIFIER.text] '}'
     ;
 
         

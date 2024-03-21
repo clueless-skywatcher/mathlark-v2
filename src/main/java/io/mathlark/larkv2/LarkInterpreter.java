@@ -17,9 +17,8 @@ import jline.console.completer.StringsCompleter;
 
 public class LarkInterpreter {
     public static void main(String[] args) {
-        SymbolScope scope = new SymbolScope();
         if (args.length > 0) {
-            LarkFileReader.executeFile(args[0], scope);
+            LarkFileReader.executeFile(args[0]);
             return;
         }
         console();

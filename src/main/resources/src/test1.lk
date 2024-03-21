@@ -1,18 +1,3 @@
-<Abc> := {
-    (a, b) := {
-        PrintLn(a + b);
-    }
-    (a) := {
-        PrintLn(a);
-    }
-}
-
-<Abc2> := {
-    (a, b, c) := {
-        PrintLn(a + b + c);
-        Return a + b + c;
-    }
-}
-
 a := 2;
-PrintLn(a);
+b := 5;
+PrintLn(Factorial(a + b));

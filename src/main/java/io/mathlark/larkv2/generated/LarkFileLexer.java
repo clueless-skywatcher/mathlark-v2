@@ -1,18 +1,5 @@
-// Generated from Lark.g4 by ANTLR 4.13.1
+// Generated from LarkFile.g4 by ANTLR 4.13.1
 package io.mathlark.larkv2.generated;
-
-import java.util.*;
-
-import lombok.Getter;
-
-import io.mathlark.larkv2.expressions.*;
-import io.mathlark.larkv2.expressions.math.*;
-import io.mathlark.larkv2.symbols.*;
-import io.mathlark.larkv2.UniversalFunctionRegistry;
-import io.mathlark.larkv2.general.ExpressionComparison;
-
-
-
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -23,7 +10,7 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue", "this-escape"})
-public class LarkLexer extends Lexer {
+public class LarkFileLexer extends Lexer {
 	static { RuntimeMetaData.checkVersion("4.13.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -106,26 +93,13 @@ public class LarkLexer extends Lexer {
 	}
 
 
-	    
-	class MapEntry {
-	    private @Getter IExpression key;
-	    private @Getter IExpression value;
-
-	    public MapEntry(IExpression key, IExpression value) {
-	        this.key = key;
-	        this.value = value;
-	    }
-	}
-
-
-
-	public LarkLexer(CharStream input) {
+	public LarkFileLexer(CharStream input) {
 		super(input);
 		_interp = new LexerATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
 	@Override
-	public String getGrammarFileName() { return "Lark.g4"; }
+	public String getGrammarFileName() { return "LarkFile.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
