@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.Token;
 import java.util.List;
 import java.util.ArrayList;
 
+import io.mathlark.larkv2.expressions.AccessExpression;
 import io.mathlark.larkv2.expressions.DictExpression;
 import io.mathlark.larkv2.expressions.FunctionCallExpression;
 import io.mathlark.larkv2.expressions.IExpression;
@@ -229,6 +230,12 @@ public class LarkFileReadingVisitor extends LarkFileBaseVisitor<IExpression> {
         }
 
         return exprObject;
+    }
+
+    @Override
+    public IExpression visitAccess(AccessContext ctx) {
+        IExpression expr = scope.resolve(ctx.iterable.getText());
+        return new AccessExpression(expr.evaluate(), this.visit(ctx.key).evaluate());
     }
 
 }

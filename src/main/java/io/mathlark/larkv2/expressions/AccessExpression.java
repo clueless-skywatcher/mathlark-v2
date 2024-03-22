@@ -17,8 +17,8 @@ public class AccessExpression implements IExpression {
 
     @Override
     public IExpression evaluate() {
-        if (!FunctionUtils.isInstanceOf(expr, ListExpression.class) 
-            && !FunctionUtils.isInstanceOf(expr, DictExpression.class)) {
+        if (!(FunctionUtils.isInstanceOf(expr, ListExpression.class) 
+            || FunctionUtils.isInstanceOf(expr, DictExpression.class))) {
             System.out.println("Cannot access a non-iterable expression");
             return GlobalSymbols.UNDEFINED;
         }
