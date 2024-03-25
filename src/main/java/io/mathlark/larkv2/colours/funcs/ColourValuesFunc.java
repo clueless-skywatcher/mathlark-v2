@@ -10,7 +10,7 @@ import io.mathlark.larkv2.expressions.ListExpression;
 import io.mathlark.larkv2.expressions.colours.ColourExpression;
 import io.mathlark.larkv2.expressions.math.NumericExpression;
 
-public class ColourValues implements LarkFunction {
+public class ColourValuesFunc implements LarkFunction {
 
     @Override
     public IExpression mainEval(IExpression[] exprs) {

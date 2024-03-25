@@ -7,7 +7,7 @@ import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.expressions.colours.ColourExpression;
 import io.mathlark.larkv2.expressions.math.NumericExpression;
 
-public class ColourFunc implements LarkFunction {
+public class RGBColourFunc implements LarkFunction {
     @Override
     public IExpression mainEval(IExpression[] exprs) {
         NumericExpression r = (NumericExpression) exprs[0];
@@ -35,7 +35,6 @@ public class ColourFunc implements LarkFunction {
 
     @Override
     public String getName() {
-        return "Colour";
+        return "RGBColour";
     }
-    
 }

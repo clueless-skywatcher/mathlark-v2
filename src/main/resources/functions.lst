@@ -2,7 +2,6 @@ Append
 AsList
 Clear
 ClearAll
-Colour
 ColourText
 ColourValues
 Column
@@ -39,6 +38,7 @@ PermutationCompose
 PermutationCycles
 PermutationGroup
 PermutationInverse
+RGBColour
 RemoveDuplicates
 Rest
 StringLength
