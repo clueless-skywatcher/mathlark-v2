@@ -49,7 +49,7 @@ public class FunctionCallExpression implements IExpression {
     }
 
     public IExpression evaluate(SymbolScope scope, Map<String, DefinedFunction> funcs) {
-        if (scope.resolve(funcName) == null) {
+        if (scope.resolve(funcName) == null || scope.resolve(funcName) instanceof AnonFunctionExpression) {
             this.val = toString();
             return new StringExpression((String) this.val);
         }

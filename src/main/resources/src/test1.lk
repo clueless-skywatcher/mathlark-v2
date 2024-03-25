@@ -1,12 +1,12 @@
-<Abc> := {
-    (a, b) := {
-        PrintLn(a);
-        Return a / b;
-    }
+PrintLn(Add(81));
+PrintLn(Add(5, 9));
+
+<Add> := {
     (a) := {
-        Return Abc(a, 2);
+        Return a + 1;
+    }
+    (a, b) := {
+        c := a + b;
+        Return c;
     }
 }
-
-a := 2
-PrintLn(a);
