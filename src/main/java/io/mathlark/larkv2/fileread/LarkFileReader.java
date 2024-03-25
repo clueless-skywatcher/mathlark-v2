@@ -10,7 +10,6 @@ import org.antlr.v4.runtime.CommonTokenStream;
 
 import io.mathlark.larkv2.generated.LarkFileParser;
 import io.mathlark.larkv2.generated.LarkLexer;
-import io.mathlark.larkv2.generated.LarkParser;
 import io.mathlark.larkv2.symbols.DefinedFunction;
 import io.mathlark.larkv2.symbols.SymbolScope;
 

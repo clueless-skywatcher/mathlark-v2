@@ -2,24 +2,39 @@ package io.mathlark.larkv2.expressions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.StringJoiner;
 
 import io.mathlark.larkv2.UniversalFunctionRegistry;
+import io.mathlark.larkv2.symbols.DefinedFunction;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
+import io.mathlark.larkv2.symbols.SymbolScope;
 
 public class FunctionCallExpression implements IExpression {
 
     private String funcName;
     private List<IExpression> args;
     private Object val;
+    private SymbolScope scope;
+    private Map<String, DefinedFunction> funcs;
 
     public FunctionCallExpression(String funcName, List<IExpression> args) {
         this.funcName = funcName;
         this.args = args;
     }
 
+    public FunctionCallExpression(String funcName, List<IExpression> args, SymbolScope scope, Map<String, DefinedFunction> funcs) {
+        this(funcName, args);
+        this.scope = scope;
+        this.funcs = funcs;
+    }
+
     @Override
     public IExpression evaluate() {
+        if (scope != null && funcs != null) {
+            return evaluate(scope, funcs);
+        }
+
         if (!UniversalFunctionRegistry.isFunc(funcName)) {
             this.val = toString();
             return new StringExpression((String) this.val);
@@ -29,6 +44,20 @@ public class FunctionCallExpression implements IExpression {
             evalParams.add(arg.evaluate());
         }
         IExpression invocation = UniversalFunctionRegistry.invoke(funcName, evalParams).evaluate();
+        this.val = invocation.val();
+        return invocation;
+    }
+
+    public IExpression evaluate(SymbolScope scope, Map<String, DefinedFunction> funcs) {
+        if (scope.resolve(funcName) == null) {
+            this.val = toString();
+            return new StringExpression((String) this.val);
+        }
+        List<IExpression> evalParams = new ArrayList<>();
+        for (IExpression arg: args) {
+            evalParams.add(arg.evaluate());
+        }
+        IExpression invocation = UniversalFunctionRegistry.invokeWithScope(funcName, evalParams, scope, funcs).evaluate();
         this.val = invocation.val();
         return invocation;
     }

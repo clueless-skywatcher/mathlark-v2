@@ -1,7 +1,12 @@
-a := 2;
-b := 5;
-PrintLn(Factorial(a + b));
-a := [1, 2, 3, {"abc": 123}];
+<Abc> := {
+    (a, b) := {
+        PrintLn(a);
+        Return a / b;
+    }
+    (a) := {
+        Return Abc(a, 2);
+    }
+}
+
+a := 2
 PrintLn(a);
-dict := a{3};
-PrintLn(dict{"abc"});
