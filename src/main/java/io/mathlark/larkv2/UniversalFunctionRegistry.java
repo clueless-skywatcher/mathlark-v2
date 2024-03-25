@@ -14,7 +14,9 @@ import io.mathlark.larkv2.general.GeneralFunctionRegistry;
 import io.mathlark.larkv2.lists.ListFunctionRegistry;
 import io.mathlark.larkv2.numbers.NumberFunctionRegistry;
 import io.mathlark.larkv2.strings.StringFunctionsRegistry;
+import io.mathlark.larkv2.symbols.DefinedFunction;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
+import io.mathlark.larkv2.symbols.SymbolScope;
 import io.mathlark.larkv2.symbols.SymbolTables;
 
 public class UniversalFunctionRegistry {
@@ -35,6 +37,23 @@ public class UniversalFunctionRegistry {
         try {
             if (SymbolTables.isAnonFunc(funcName)) {
                 return new FunctionCallExpression(funcName, exprs);
+            }
+            LarkFunction func = INSTANCE.functions.get(funcName).getDeclaredConstructor().newInstance();
+            return func.evaluate(exprs.toArray(new IExpression[0]));
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                | NoSuchMethodException | SecurityException e) {
+            return GlobalSymbols.UNDEFINED;
+        }
+    }
+
+    public static IExpression invokeWithScope(String funcName, List<IExpression> exprs, SymbolScope scope, Map<String, DefinedFunction> funcs) {
+        try {
+            if (SymbolTables.isAnonFunc(funcName)) {
+                return new FunctionCallExpression(funcName, exprs, scope, funcs);
+            }
+            if (funcs.containsKey(String.format("%s%d", funcName, exprs.size()))) {
+                DefinedFunction function = funcs.get(String.format("%s%d", funcName, exprs.size()));
+                return function.invoke(exprs, funcs);
             }
             LarkFunction func = INSTANCE.functions.get(funcName).getDeclaredConstructor().newInstance();
             return func.evaluate(exprs.toArray(new IExpression[0]));

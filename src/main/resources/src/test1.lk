@@ -1,3 +1,12 @@
-a := 2;
-b := 5;
-PrintLn(Factorial(a + b));
+PrintLn(Add(81));
+PrintLn(Add(5, 9));
+
+<Add> := {
+    (a) := {
+        Return a + 1;
+    }
+    (a, b) := {
+        c := a + b;
+        Return c;
+    }
+}

@@ -8,6 +8,9 @@ import org.antlr.v4.runtime.Token;
 import java.util.List;
 import java.util.ArrayList;
 
+import io.mathlark.larkv2.exceptions.ReturningException;
+import io.mathlark.larkv2.expressions.AccessExpression;
+import io.mathlark.larkv2.expressions.AnonFunctionExpression;
 import io.mathlark.larkv2.expressions.DictExpression;
 import io.mathlark.larkv2.expressions.FunctionCallExpression;
 import io.mathlark.larkv2.expressions.IExpression;
@@ -27,7 +30,7 @@ public class LarkFileReadingVisitor extends LarkFileBaseVisitor<IExpression> {
 
     public LarkFileReadingVisitor(SymbolScope scope, Map<String, DefinedFunction> funcs) {
         this.scope = scope;
-        this.funcs = new HashMap<>();
+        this.funcs = funcs;
     }
 
     @Override
@@ -117,7 +120,9 @@ public class LarkFileReadingVisitor extends LarkFileBaseVisitor<IExpression> {
 
     @Override
     public IExpression visitFunctionAnonDef(FunctionAnonDefContext ctx) {
-        return super.visitFunctionAnonDef(ctx);
+        String funcName = ctx.IDENTIFIER().getText();
+        scope.assign(funcName, new AnonFunctionExpression(funcName));
+        return new StringExpression(funcName);
     }
 
     @Override
@@ -128,9 +133,9 @@ public class LarkFileReadingVisitor extends LarkFileBaseVisitor<IExpression> {
             for (ExprContext expr: ctx.actualParams().expr()) {
                 params.add(this.visit(expr).evaluate());
             }
-            return new FunctionCallExpression(funcName, params);
+            return new FunctionCallExpression(funcName, params, scope, funcs);
         }
-        return new FunctionCallExpression(funcName, List.of());
+        return new FunctionCallExpression(funcName, List.of(), scope, funcs);
     }
 
     @Override
@@ -217,11 +222,6 @@ public class LarkFileReadingVisitor extends LarkFileBaseVisitor<IExpression> {
     }
 
     @Override
-    public IExpression visitReturnStmt(ReturnStmtContext ctx) {
-        return super.visitReturnStmt(ctx);
-    }
-
-    @Override
     public IExpression visitUnary(UnaryContext ctx) {
         IExpression exprObject = this.visit(ctx.term());
         if (!ctx.positive) {
@@ -231,4 +231,31 @@ public class LarkFileReadingVisitor extends LarkFileBaseVisitor<IExpression> {
         return exprObject;
     }
 
+    @Override
+    public IExpression visitAccess(AccessContext ctx) {
+        IExpression expr = scope.resolve(ctx.iterable.getText());
+        return new AccessExpression(expr.evaluate(), this.visit(ctx.key).evaluate());
+    }
+
+    @Override
+    public IExpression visitCodeBlock(CodeBlockContext ctx) {
+        scope = new SymbolScope(scope, false);
+        for (FunctionDefContext fDef: ctx.functionDef()) {
+            this.visit(fDef);
+        }
+        for (ExprContext expr: ctx.expr()) {
+            this.visit(expr);
+        }
+
+        ReturnStmtContext ret = ctx.returnStmt();
+        if (ret != null) {
+            ReturningException returnVal = new ReturningException(this.visit(ret.expr()));
+            scope = scope.getParent();
+            throw returnVal;
+        }
+        scope = scope.getParent();
+        return GlobalSymbols.UNDEFINED;
+    }
+
+    
 }

@@ -1,5 +1,6 @@
 package io.mathlark.larkv2.symbols;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import io.mathlark.larkv2.expressions.IExpression;
@@ -13,6 +14,7 @@ public class SymbolScope {
     public SymbolScope(SymbolScope parent, boolean isFunc) {
         this.parent = parent;
         this.isFunc = isFunc;
+        this.vars = new HashMap<>();
     }
 
     public SymbolScope() {
