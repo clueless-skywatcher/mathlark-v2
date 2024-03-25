@@ -58,6 +58,8 @@ PrintLn("Hello World!");
 ```
 then run the aforementioned JAR on that file. The `PrintLn` function, as one would expect, prints a single line on the output.
 
+Note: Every line that is not a non-empty function definition should end with a semicolon.
+
 ## Assigning Variables
 Let's say we want to declare a variable `a` with value `5` and then print `a` then one can write
 ```
@@ -93,7 +95,7 @@ We write
     }
 }
 ```
-- First we declare the function name `Add1`
+- First we declare the function name `Add`
 - Within the first pair of braces, we can write multiple definitions of the function
 based on different numbers of arguments. Here we have 2 definitions, one for a single argument and one for 2 arguments.
 - The second pair of braces enclose the body (behaviour) of the function.
@@ -112,11 +114,53 @@ Note:
 - Calling a function before the same is defined will throw an error. This behaviour may be changed in future releases if needed.
 - Each definition of a function should have only one return statement in the entire code block (unless within a loop or a conditional block)
 
+## Supported Data Structures
+### Lists
+Lists can have elements of any type. You can construct a list with either `[]` or the `List` function. This is a valid list
+```
+a := [1, 2, 3];
+```
+as well as this
+```
+a := [1, "abc", True];
+```
+or this
+```
+a := List(1, 2, 3);
+```
+Lists are 0-indexed like most other languages. You can access the ith element with the `{}` operator, e.g. to get the 3rd element of the list we say
+```
+b := a{2};
+```
+Like Python, you can also provide negative indices for accessing list elements. To get the last element we can also write
+```
+b := a{-1};
+```
+Note: Till date slicing hasn't been implemented. In future releases we might look into adding this functionality.
+## Dictionaries
+A dictionary is basically a lookup that maps one expression to another. This is a valid dictionary
+```
+d := {"a": 1, 123: "c", True: False};
+``` 
+Like lists, you also use the `{}` operator to access dictionary elements.
+```
+PrintLn(d{"a"});
+PrintLn(d{123});
+PrintLn(d{True});
+```
+As an alternative to the `{}` operator, you can also invoke the `DictVal` function to access elements.
+```
+PrintLn(DictVal(d, "a"));
+```
+You can use the `DictKeys` function to retrieve all the keys, and `DictVals` to retrieve all the values.
+
+Note for both lists and dictionaries: Multi-index access does not work directly (at the time). E.g. `a{x}{y}` will not work. This will be fixed in a future update.
 ## Credits
 This project wouldn't be possible without help/inspiration from these repositories/software:
 - Bart Kiers' Tiny Language using ANTLR4 (Symbol Scopes are directly implemented from this code): https://github.com/bkiers/tiny-language-antlr4
 - Mathematica and the Wolfram Language by Stephen Wolfram (Serves as a major source of inspiration)
 - ANTLR4 by Terence Parr
 - SageMath (for inspiring implementation of permutations and permutation groups): https://github.com/sagemath/sage
+- Sympy, the famous open-source computer algebra system: https://github.com/sympy/sympy
 - Redberry-CAS (while code from this is not directly implemented, but their code has helped implementation of permutations): https://github.com/redberry-cas/core
 - A little help from ChatGPT and Google AI Studio
