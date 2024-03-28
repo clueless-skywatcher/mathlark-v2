@@ -155,6 +155,8 @@ PrintLn(DictVal(d, "a"));
 You can use the `DictKeys` function to retrieve all the keys, and `DictVals` to retrieve all the values.
 
 Note for both lists and dictionaries: Multi-index access does not work directly (at the time). E.g. `a{x}{y}` will not work. This will be fixed in a future update.
+## Function Reference
+Coming soon
 ## Credits
 This project wouldn't be possible without help/inspiration from these repositories/software:
 - Bart Kiers' Tiny Language using ANTLR4 (Symbol Scopes are directly implemented from this code): https://github.com/bkiers/tiny-language-antlr4
