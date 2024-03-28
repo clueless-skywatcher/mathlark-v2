@@ -2,7 +2,6 @@ Append
 AsList
 Clear
 ClearAll
-Colour
 ColourText
 ColourValues
 Column
@@ -17,6 +16,7 @@ ElementAt
 EqualsQ
 Exit
 Extend
+Hue
 Factorial
 First
 GCD
@@ -39,6 +39,7 @@ PermutationCompose
 PermutationCycles
 PermutationGroup
 PermutationInverse
+RGBColour
 RemoveDuplicates
 Rest
 StringLength
