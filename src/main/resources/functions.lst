@@ -16,7 +16,6 @@ ElementAt
 EqualsQ
 Exit
 Extend
-Hue
 Factorial
 First
 GCD
@@ -25,6 +24,7 @@ GreaterQ
 GroupGenerators
 GroupIdentity
 Head
+Hue
 Increment
 IntQ
 Last

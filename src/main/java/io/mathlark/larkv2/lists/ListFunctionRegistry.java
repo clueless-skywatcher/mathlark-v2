@@ -16,5 +16,6 @@ public class ListFunctionRegistry extends FunctionRegistryContract {
         register(RemoveDuplicatesFunc.class);
         register(IntersectionFunc.class);
         register(UnionFunc.class);
+        register(RangeFunc.class);
     }
 }
