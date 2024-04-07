@@ -1,6 +1,7 @@
-a := [1, "abc", True];
-b := a{-2};
+<Add1> := {
+    (a) := {
+        Return a + 1;
+    }
+}
 
-d := {"a": 1, 123: "c", True: False};
-
-PrintLn(DictVal(d, "a"));
+PrintLn(Range(1, 0, -0.01));

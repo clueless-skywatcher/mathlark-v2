@@ -41,7 +41,12 @@ public class FunctionCallExpression implements IExpression {
         }
         List<IExpression> evalParams = new ArrayList<>();
         for (IExpression arg: args) {
-            evalParams.add(arg.evaluate());
+            if (UniversalFunctionRegistry.isFunc(arg.toString())) {
+                evalParams.add(new StringExpression(arg.toString()));
+            }
+            else {
+                evalParams.add(arg.evaluate());
+            }
         }
         IExpression invocation = UniversalFunctionRegistry.invoke(funcName, evalParams).evaluate();
         this.val = invocation.val();
@@ -49,7 +54,9 @@ public class FunctionCallExpression implements IExpression {
     }
 
     public IExpression evaluate(SymbolScope scope, Map<String, DefinedFunction> funcs) {
-        if (scope.resolve(funcName) == null || scope.resolve(funcName) instanceof AnonFunctionExpression) {
+        if (scope.resolve(funcName) == null 
+            || scope.resolve(funcName) instanceof AnonFunctionExpression
+        ) {
             this.val = toString();
             return new StringExpression((String) this.val);
         }

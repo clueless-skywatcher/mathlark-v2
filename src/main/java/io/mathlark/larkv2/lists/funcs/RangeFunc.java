@@ -84,8 +84,15 @@ public class RangeFunc implements LarkFunction {
         }
         else {
             List<IExpression> result = new ArrayList<>();
-            for (double i = rBegin; i <= rEnd; i += rStep) {
-                result.add(new NumericExpression(i));
+            if (rBegin >= rEnd) {
+                for (double i = rBegin; i >= rEnd; i += rStep) {
+                    result.add(new NumericExpression(i));
+                }
+            }
+            else {
+                for (double i = rBegin; i <= rEnd; i += rStep) {
+                    result.add(new NumericExpression(i));
+                }
             }
             return result;
         }
