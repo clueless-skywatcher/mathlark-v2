@@ -4,4 +4,4 @@
     }
 }
 
-PrintLn(Map(Factorial, Range(10)));
+PrintLn(Range(1, 0, -0.01));

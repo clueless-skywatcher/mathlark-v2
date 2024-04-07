@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.Token;
 import java.util.List;
 import java.util.ArrayList;
 
+import io.mathlark.larkv2.UniversalFunctionRegistry;
 import io.mathlark.larkv2.exceptions.ReturningException;
 import io.mathlark.larkv2.expressions.AccessExpression;
 import io.mathlark.larkv2.expressions.AnonFunctionExpression;
@@ -131,7 +132,13 @@ public class LarkFileReadingVisitor extends LarkFileBaseVisitor<IExpression> {
         if (ctx.actualParams() != null) {
             List<IExpression> params = new ArrayList<>();
             for (ExprContext expr: ctx.actualParams().expr()) {
-                params.add(this.visit(expr).evaluate());
+                if (UniversalFunctionRegistry.isFunc(expr.getText()) 
+                    || funcs.containsKey(String.format("%s%d", expr.getText(), ctx.actualParams().expr().size() - 1))) {
+                    params.add(new StringExpression(expr.getText()));
+                }
+                else {
+                    params.add(this.visit(expr).evaluate());
+                }
             }
             return new FunctionCallExpression(funcName, params, scope, funcs);
         }
