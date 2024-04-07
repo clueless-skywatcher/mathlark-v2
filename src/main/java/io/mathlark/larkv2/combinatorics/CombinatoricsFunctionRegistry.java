@@ -10,6 +10,7 @@ public class CombinatoricsFunctionRegistry extends FunctionRegistryContract {
         register(PermutationComposeFunc.class);
         register(PermutationCyclesFunc.class);
         register(PermutationGroupFunc.class);
+        register(PermuteMapFunc.class);
         register(PermutationInverseFunc.class);
         register(CyclesToPermFunc.class);
         register(GroupGeneratorsFunc.class);

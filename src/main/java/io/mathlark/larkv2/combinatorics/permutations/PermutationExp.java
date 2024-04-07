@@ -126,4 +126,8 @@ public class PermutationExp implements IExpression, Listable {
     public IExpression inverse() {
         return new PermutationExp(this.val.inverse());
     }
+
+    public IExpression permuteMap(Long n) {
+        return new NumericExpression(this.val.permuteMap(n - 1) + 1);
+    }
 }

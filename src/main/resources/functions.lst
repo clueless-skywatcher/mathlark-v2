@@ -39,6 +39,7 @@ PermutationCompose
 PermutationCycles
 PermutationGroup
 PermutationInverse
+PermuteMap
 RGBColour
 RemoveDuplicates
 Rest

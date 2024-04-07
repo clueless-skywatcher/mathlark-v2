@@ -7,7 +7,7 @@ public class FunctionUtils {
     public static boolean isInstanceOf(IExpression expr, Class<?> exprClass) {
         return exprClass.isInstance(expr) || exprClass.isInstance(expr.evaluate()); 
     }
-
+    
     public static boolean containsUndefined(IExpression... expressions) {
         for (IExpression expression : expressions) {
             if (expression.evaluate().equals(GlobalSymbols.UNDEFINED) || expression.equals(GlobalSymbols.UNDEFINED)) {

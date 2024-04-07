@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.stream.IntStream;
 
 import io.mathlark.larkv2.combinatorics.exceptions.PermutationException;
 import io.mathlark.larkv2.expressions.IExpression;
@@ -231,5 +232,16 @@ public class PermutationObject implements Comparable<PermutationObject> {
         }
 
         return new PermutationObject(newP);
+    }
+
+    public boolean contains(long n) {
+        return IntStream.of(p).anyMatch(x -> x == n);
+    }
+
+    public long permuteMap(long n) {
+        if (!contains(n)) {
+            return n;
+        }
+        return this.p[(int) n];
     }
 }
