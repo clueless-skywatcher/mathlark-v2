@@ -1,6 +1,7 @@
 package io.mathlark.larkv2.general.funcs;
 
 import java.util.List;
+import java.util.Map;
 
 import io.mathlark.larkv2.LarkFunction;
 import io.mathlark.larkv2.exceptions.WrongParameterLengthException;
@@ -8,8 +9,14 @@ import io.mathlark.larkv2.exceptions.WrongParameterTypeException;
 import io.mathlark.larkv2.expressions.FunctionCallExpression;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.numbers.functions.IntQFunc;
+import io.mathlark.larkv2.symbols.DefinedFunction;
+import io.mathlark.larkv2.symbols.SymbolScope;
 
-public class NestFunc implements LarkFunction {
+public class NestFunc extends LarkFunction {
+
+    public NestFunc(SymbolScope scope, Map<String, DefinedFunction> funcs) {
+        super(scope, funcs);
+    }
 
     @Override
     public IExpression mainEval(IExpression[] exprs) {
@@ -30,7 +37,7 @@ public class NestFunc implements LarkFunction {
             throw new WrongParameterLengthException("Expected 3 arguments, got %d", expressions.length);
         }
 
-        LarkFunction intQFunc = new IntQFunc();
+        LarkFunction intQFunc = new IntQFunc(this.scope, this.funcs);
 
         if (intQFunc.evaluate(expressions[2]).val().equals("False")) {
             throw new WrongParameterTypeException("Expected integer in position 1");

@@ -1,12 +1,21 @@
 package io.mathlark.larkv2.numbers.functions;
 
+import java.util.Map;
+
 import io.mathlark.larkv2.LarkFunction;
 import io.mathlark.larkv2.exceptions.WrongParameterLengthException;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.expressions.math.NumericExpression;
+import io.mathlark.larkv2.symbols.DefinedFunction;
+import io.mathlark.larkv2.symbols.SymbolScope;
 import io.mathlark.larkv2.utils.MathUtils;
 
-public class GCDFunc implements LarkFunction {
+public class GCDFunc extends LarkFunction {
+
+    public GCDFunc(SymbolScope scope, Map<String, DefinedFunction> funcs) {
+        super(scope, funcs);
+        //TODO Auto-generated constructor stub
+    }
 
     @Override
     public String getName() {

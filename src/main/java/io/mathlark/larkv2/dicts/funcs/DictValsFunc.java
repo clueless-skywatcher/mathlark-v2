@@ -1,17 +1,25 @@
 package io.mathlark.larkv2.dicts.funcs;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import io.mathlark.larkv2.LarkFunction;
 import io.mathlark.larkv2.exceptions.WrongParameterLengthException;
 import io.mathlark.larkv2.exceptions.WrongParameterTypeException;
 import io.mathlark.larkv2.expressions.DictExpression;
 import io.mathlark.larkv2.expressions.ListExpression;
+import io.mathlark.larkv2.symbols.DefinedFunction;
+import io.mathlark.larkv2.symbols.SymbolScope;
 import io.mathlark.larkv2.utils.FunctionUtils;
 import io.mathlark.larkv2.expressions.IExpression;
 
 
-public class DictValsFunc implements LarkFunction {
+public class DictValsFunc extends LarkFunction {
+
+    public DictValsFunc(SymbolScope scope, Map<String, DefinedFunction> funcs) {
+        super(scope, funcs);
+        //TODO Auto-generated constructor stub
+    }
 
     @Override
     public IExpression mainEval(IExpression[] expressions) {
