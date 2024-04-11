@@ -38,7 +38,8 @@ public class UniversalFunctionRegistry {
             if (SymbolTables.isAnonFunc(funcName)) {
                 return new FunctionCallExpression(funcName, exprs);
             }
-            LarkFunction func = INSTANCE.functions.get(funcName).getDeclaredConstructor().newInstance();
+            LarkFunction func = INSTANCE.functions.get(funcName).getDeclaredConstructor(
+                SymbolScope.class, Map.class).newInstance(null, null);
             return func.evaluate(exprs.toArray(new IExpression[0]));
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | SecurityException e) {
@@ -55,7 +56,8 @@ public class UniversalFunctionRegistry {
                 DefinedFunction function = funcs.get(String.format("%s%d", funcName, exprs.size()));
                 return function.invoke(exprs, funcs);
             }
-            LarkFunction func = INSTANCE.functions.get(funcName).getDeclaredConstructor().newInstance();
+            LarkFunction func = INSTANCE.functions.get(funcName).
+                getDeclaredConstructor(SymbolScope.class, Map.class).newInstance(scope, funcs);
             return func.evaluate(exprs.toArray(new IExpression[0]));
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | SecurityException e) {

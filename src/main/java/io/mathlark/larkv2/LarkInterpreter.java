@@ -5,12 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.fileread.LarkFileReader;
-import io.mathlark.larkv2.symbols.SymbolScope;
 import jline.TerminalFactory;
 import jline.console.ConsoleReader;
 import jline.console.completer.StringsCompleter;

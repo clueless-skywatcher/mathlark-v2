@@ -2,6 +2,7 @@ package io.mathlark.larkv2.combinatorics.funcs.permutations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import io.mathlark.larkv2.LarkFunction;
 import io.mathlark.larkv2.combinatorics.permutations.PermutationExp;
@@ -10,9 +11,16 @@ import io.mathlark.larkv2.exceptions.WrongParameterTypeException;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.expressions.ListExpression;
 import io.mathlark.larkv2.expressions.math.NumericExpression;
+import io.mathlark.larkv2.symbols.DefinedFunction;
+import io.mathlark.larkv2.symbols.SymbolScope;
 import io.mathlark.larkv2.utils.FunctionUtils;
 
-public class PermuteMapFunc implements LarkFunction {
+public class PermuteMapFunc extends LarkFunction {
+    public PermuteMapFunc(SymbolScope scope, Map<String, DefinedFunction> funcs) {
+        super(scope, funcs);
+        //TODO Auto-generated constructor stub
+    }
+
     /**
      * Maps a single integer, or a list of integers, according to a given
      * permutation. The integers must lie in the range 1 to n, n being the

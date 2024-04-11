@@ -1,11 +1,20 @@
 package io.mathlark.larkv2.general.funcs.comparison;
 
+import java.util.Map;
+
 import io.mathlark.larkv2.LarkFunction;
 import io.mathlark.larkv2.exceptions.WrongParameterLengthException;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.general.ExpressionComparison;
+import io.mathlark.larkv2.symbols.DefinedFunction;
+import io.mathlark.larkv2.symbols.SymbolScope;
 
-public class GreaterQFunc implements LarkFunction {
+public class GreaterQFunc extends LarkFunction {
+    public GreaterQFunc(SymbolScope scope, Map<String, DefinedFunction> funcs) {
+        super(scope, funcs);
+        //TODO Auto-generated constructor stub
+    }
+
     @Override
     public IExpression mainEval(IExpression[] exprs) {
         return ExpressionComparison.gtExp(exprs[0], exprs[1]);

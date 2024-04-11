@@ -8,9 +8,16 @@ import io.mathlark.larkv2.exceptions.WrongParameterLengthException;
 import io.mathlark.larkv2.exceptions.WrongParameterTypeException;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.expressions.math.NumericExpression;
+import io.mathlark.larkv2.symbols.DefinedFunction;
+import io.mathlark.larkv2.symbols.SymbolScope;
 import io.mathlark.larkv2.utils.FunctionUtils;
 
-public class FactorialFunc implements LarkFunction {
+public class FactorialFunc extends LarkFunction {
+    public FactorialFunc(SymbolScope scope, Map<String, DefinedFunction> funcs) {
+        super(scope, funcs);
+        //TODO Auto-generated constructor stub
+    }
+
     private Map<Long, Long> facts = new HashMap<>();
 
     @Override

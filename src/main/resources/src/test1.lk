@@ -4,4 +4,8 @@
     }
 }
 
-PrintLn(Range(1, 0, -0.01));
+<f>;
+
+PrintLn(Map(Add1, [2, 4, 6]));
+PrintLn(Map(f, [2, 4, 6]));
+PrintLn(Nest(Factorial, 3, 2));

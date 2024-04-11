@@ -1,12 +1,21 @@
 package io.mathlark.larkv2.lists.funcs;
 
+import java.util.Map;
+
 import io.mathlark.larkv2.LarkFunction;
 import io.mathlark.larkv2.exceptions.WrongParameterLengthException;
 import io.mathlark.larkv2.exceptions.WrongParameterTypeException;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.expressions.ListExpression;
+import io.mathlark.larkv2.symbols.DefinedFunction;
+import io.mathlark.larkv2.symbols.SymbolScope;
 
-public class FirstFunc implements LarkFunction {
+public class FirstFunc extends LarkFunction {
+
+    public FirstFunc(SymbolScope scope, Map<String, DefinedFunction> funcs) {
+        super(scope, funcs);
+        //TODO Auto-generated constructor stub
+    }
 
     @Override
     public IExpression mainEval(IExpression[] exprs) {
