@@ -187,6 +187,13 @@ public interface LarkFileVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitEqualityCheck(LarkFileParser.EqualityCheckContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code Mul}
+	 * labeled alternative in {@link LarkFileParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMul(LarkFileParser.MulContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Comparison}
 	 * labeled alternative in {@link LarkFileParser#expr}.
 	 * @param ctx the parse tree

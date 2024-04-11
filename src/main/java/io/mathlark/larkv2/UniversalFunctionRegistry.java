@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.mathlark.larkv2.algebra.AlgebraFunctionRegistry;
 import io.mathlark.larkv2.colours.ColourFunctionRegistry;
 import io.mathlark.larkv2.combinatorics.CombinatoricsFunctionRegistry;
 import io.mathlark.larkv2.dicts.DictFunctionRegistry;
@@ -31,6 +32,7 @@ public class UniversalFunctionRegistry {
         register(new DictFunctionRegistry());
         register(new StringFunctionsRegistry());
         register(new CombinatoricsFunctionRegistry());
+        register(new AlgebraFunctionRegistry());
     }
 
     public static IExpression invoke(String funcName, List<IExpression> exprs) {

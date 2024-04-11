@@ -306,6 +306,18 @@ public interface LarkFileListener extends ParseTreeListener {
 	 */
 	void exitEqualityCheck(LarkFileParser.EqualityCheckContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code Mul}
+	 * labeled alternative in {@link LarkFileParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterMul(LarkFileParser.MulContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Mul}
+	 * labeled alternative in {@link LarkFileParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitMul(LarkFileParser.MulContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code Comparison}
 	 * labeled alternative in {@link LarkFileParser#expr}.
 	 * @param ctx the parse tree

@@ -14,14 +14,14 @@ public class ExpressionComparison {
         return !equals(expr1, expr2) ? GlobalSymbols.TRUE : GlobalSymbols.FALSE;
     }
 
-    private static boolean equals(IExpression expr1, IExpression expr2) {
+    public static boolean equals(IExpression expr1, IExpression expr2) {
         return expr1.evaluate().equals(expr2.evaluate());
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    private static boolean gt(IExpression expr1, IExpression expr2) throws Exception {
+    public static boolean gt(IExpression expr1, IExpression expr2) throws RuntimeException {
         if (!(FunctionUtils.isInstanceOf(expr1, Comparable.class) && FunctionUtils.isInstanceOf(expr2, Comparable.class))) {
-            throw new Exception("Both expressions must be comparable");
+            throw new RuntimeException("Both expressions must be comparable");
         }
 
         Comparable expr1Val = (Comparable) expr1.evaluate();
@@ -30,9 +30,9 @@ public class ExpressionComparison {
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    private static boolean lt(IExpression expr1, IExpression expr2) throws Exception {
+    public static boolean lt(IExpression expr1, IExpression expr2) throws RuntimeException {
         if (!(FunctionUtils.isInstanceOf(expr1, Comparable.class) && FunctionUtils.isInstanceOf(expr2, Comparable.class))) {
-            throw new Exception("Both expressions must be comparable");
+            throw new RuntimeException("Both expressions must be comparable");
         }
 
         Comparable expr1Val = (Comparable) expr1.evaluate();

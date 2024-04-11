@@ -170,10 +170,15 @@ public class LarkFileReadingVisitor extends LarkFileBaseVisitor<IExpression> {
         }
         else {
             if (ctx.op.getText().equals("+")) {
-                return this.visitMultiply(ctx.op1).evaluate().add(this.visitMultiply(ctx.op2).evaluate());
+                return this.visitMultiply(ctx.op1).evaluate().add(this.visit(ctx.op2).evaluate());
             }
-            return this.visitMultiply(ctx.op1).evaluate().sub(this.visitMultiply(ctx.op2).evaluate()); 
+            return this.visitMultiply(ctx.op1).evaluate().sub(this.visit(ctx.op2).evaluate()); 
         }
+    }
+
+    @Override
+    public IExpression visitMul(MulContext ctx) {
+        return this.visitMultiply(ctx.multiply());
     }
 
     @Override
