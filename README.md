@@ -156,7 +156,7 @@ You can use the `DictKeys` function to retrieve all the keys, and `DictVals` to 
 
 Note for both lists and dictionaries: Multi-index access does not work directly (at the time). E.g. `a{x}{y}` will not work. This will be fixed in a future update.
 ## Function Reference
-Coming soon
+[Function Reference](https://github.com/clueless-skywatcher/mathlark-v2/wiki/Function-Reference)
 ## Credits
 This project wouldn't be possible without help/inspiration from these repositories/software:
 - Bart Kiers' Tiny Language using ANTLR4 (Symbol Scopes are directly implemented from this code): https://github.com/bkiers/tiny-language-antlr4
