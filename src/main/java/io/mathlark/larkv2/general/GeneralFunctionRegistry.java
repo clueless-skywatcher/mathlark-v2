@@ -16,6 +16,7 @@ public class GeneralFunctionRegistry extends FunctionRegistryContract {
         register(ColumnFunc.class);
         register(PrintLnFunc.class);
         register(EqualsQFunc.class);
+        register(GreaterQFunc.class);
         register(GreaterEqualQFunc.class);
         register(LesserEqualQFunc.class);
         register(LesserQFunc.class);
