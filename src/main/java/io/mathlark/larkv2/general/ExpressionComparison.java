@@ -26,7 +26,7 @@ public class ExpressionComparison {
 
         Comparable expr1Val = (Comparable) expr1.evaluate();
         Comparable expr2Val = (Comparable) expr2.evaluate();
-        return expr1Val.compareTo(expr2Val) == 1;
+        return expr1Val.compareTo(expr2Val) > 0;
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -37,7 +37,7 @@ public class ExpressionComparison {
 
         Comparable expr1Val = (Comparable) expr1.evaluate();
         Comparable expr2Val = (Comparable) expr2.evaluate();
-        return expr1Val.compareTo(expr2Val) == -1;
+        return expr1Val.compareTo(expr2Val) < 0;
     }
 
     public static IExpression gtExp(IExpression expr1, IExpression expr2) {
