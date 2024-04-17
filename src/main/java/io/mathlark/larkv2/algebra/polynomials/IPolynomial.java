@@ -2,7 +2,7 @@ package io.mathlark.larkv2.algebra.polynomials;
 
 import java.util.List;
 
-import io.mathlark.larkv2.algebra.funcs.IRing;
+import io.mathlark.larkv2.algebra.rings.IRing;
 
 public interface IPolynomial<T extends IRing<U>, U> {
     public List<String> getSymbols();

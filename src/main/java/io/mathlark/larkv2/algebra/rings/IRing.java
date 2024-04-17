@@ -1,4 +1,4 @@
-package io.mathlark.larkv2.algebra.funcs;
+package io.mathlark.larkv2.algebra.rings;
 
 public interface IRing<T> {
     public T add(T a1, T a2);

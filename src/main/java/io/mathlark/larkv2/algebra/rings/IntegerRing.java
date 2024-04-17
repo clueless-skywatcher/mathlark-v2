@@ -1,4 +1,4 @@
-package io.mathlark.larkv2.algebra.funcs;
+package io.mathlark.larkv2.algebra.rings;
 
 public class IntegerRing implements IRing<Long> {
 

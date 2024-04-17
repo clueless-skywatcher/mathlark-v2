@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.mathlark.larkv2.algebra.funcs.IRing;
+import io.mathlark.larkv2.algebra.rings.IRing;
 
 public class UnivariatePolynomial<T extends IRing<U>, U> implements IPolynomial<T, U> {
     public String symbol;
