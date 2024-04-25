@@ -30,6 +30,7 @@ public class PermutationObjectTest {
         assertEquals(perm1, perm2);
 
         assertThrows(PermutationException.class, new Executable() {
+            @SuppressWarnings("unused")
             @Override
             public void execute() throws Throwable {
                 PermutationObject perm1 = new PermutationObject(new int[] { 1, 3, 8 });
