@@ -151,8 +151,8 @@ exponent returns [IExpression exprObject]
 multiply returns [IExpression exprObject]
     :   op1=exponent { $exprObject = $op1.exprObject; }  
         (
-            '*'  op2=exponent { $exprObject = $exprObject.mul($op2.exprObject); }
-            | '/'  op2=exponent { $exprObject = $exprObject.div($op2.exprObject); }
+            '/'  op2=exponent { $exprObject = $exprObject.div($op2.exprObject); }
+            | '*'  op2=exponent { $exprObject = $exprObject.mul($op2.exprObject); }
             | '%'  op2=exponent { $exprObject = $exprObject.mod($op2.exprObject); }
         )*
     ;

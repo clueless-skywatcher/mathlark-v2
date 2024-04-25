@@ -52,7 +52,7 @@ public class LarkParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "';'", "'{'", "'}'", "'('", "','", "')'", "':='", "'<'", "'>'", 
-			"'['", "']'", "':'", "'+'", "'-'", "'^'", "'*'", "'/'", "'%'", "'>='", 
+			"'['", "']'", "':'", "'+'", "'-'", "'^'", "'/'", "'*'", "'%'", "'>='", 
 			"'<='", "'=='", "'!='", null, null, null, null, null, "'Undefined'", 
 			"'Return'"
 		};
@@ -1299,7 +1299,7 @@ public class LarkParser extends Parser {
 						match(T__15);
 						setState(195);
 						((MultiplyContext)_localctx).op2 = exponent();
-						 ((MultiplyContext)_localctx).exprObject =  _localctx.exprObject.mul(((MultiplyContext)_localctx).op2.exprObject); 
+						 ((MultiplyContext)_localctx).exprObject =  _localctx.exprObject.div(((MultiplyContext)_localctx).op2.exprObject); 
 						}
 						break;
 					case T__16:
@@ -1308,7 +1308,7 @@ public class LarkParser extends Parser {
 						match(T__16);
 						setState(199);
 						((MultiplyContext)_localctx).op2 = exponent();
-						 ((MultiplyContext)_localctx).exprObject =  _localctx.exprObject.div(((MultiplyContext)_localctx).op2.exprObject); 
+						 ((MultiplyContext)_localctx).exprObject =  _localctx.exprObject.mul(((MultiplyContext)_localctx).op2.exprObject); 
 						}
 						break;
 					case T__17:
