@@ -1,11 +1,8 @@
-<Add1> := {
+<Add2> := {
     (a) := {
-        Return a + 1;
+        Return a + Var('x') * Var('y');
     }
 }
 
-<f>;
-
-PrintLn(Map(Add1, [2, 4, 6]));
-PrintLn(Map(f, [2, 4, 6]));
-PrintLn(Nest(Factorial, 3, 2));
+PrintLn(Add2(Var("x")));
+PrintLn(Add2(2));

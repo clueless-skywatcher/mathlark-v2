@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'io.mathlark.larkv2'
-version '0.0.1'
+version '0.1.0'
 
 sourceCompatibility = 17
 targetCompatibility = 17
@@ -28,6 +28,7 @@ jar {
 dependencies {
     implementation 'org.projectlombok:lombok:1.18.30'
     implementation 'org.antlr:antlr4-runtime:4.13.1'
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
     implementation 'jline:jline:2.14.6'
 
     annotationProcessor 'org.projectlombok:lombok:1.18.30'

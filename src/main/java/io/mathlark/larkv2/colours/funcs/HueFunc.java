@@ -8,7 +8,7 @@ import io.mathlark.larkv2.exceptions.WrongParameterTypeException;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.expressions.colours.ColourExpression;
 import io.mathlark.larkv2.expressions.math.NumericExpression;
-import io.mathlark.larkv2.numbers.NumberUtils;
+import io.mathlark.larkv2.numbers.NumericUtils;
 import io.mathlark.larkv2.symbols.DefinedFunction;
 import io.mathlark.larkv2.symbols.SymbolScope;
 import io.mathlark.larkv2.utils.FunctionUtils;
@@ -30,9 +30,9 @@ public class HueFunc extends LarkFunction {
             v = ((NumericExpression) exprs[2]).value.doubleValue();
         }
 
-        h = NumberUtils.clipValue(h, 0, 1);
-        s = NumberUtils.clipValue(s, 0, 1);
-        v = NumberUtils.clipValue(v, 0, 1);
+        h = NumericUtils.clipValue(h, 0, 1);
+        s = NumericUtils.clipValue(s, 0, 1);
+        v = NumericUtils.clipValue(v, 0, 1);
 
         int i = (int) (h * 6.0);
         double f = h * 6.0 - i;

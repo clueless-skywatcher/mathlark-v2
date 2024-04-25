@@ -76,8 +76,8 @@ multiply
 expr
     :   iterable=expr '{' key=expr '}'  #Access
     |   op1=multiply
-        (op='+' op2=multiply
-        | op='-' op2=multiply)*     #AddOrSub
+        (op='+' op2=expr
+        | op='-' op2=expr)*     #AddOrSub
     |   relop1=expr
         (relop='>' relop2=expr 
         |relop='>=' relop2=expr
@@ -88,6 +88,7 @@ expr
         (relop='==' relop2=expr
         | relop='!=' relop2=expr)   #EqualityCheck   
     |   functionAnonDef #FunctionAnonDefExp
+    |   multiply #Mul
     ;
 
 INTEGER: DIGIT+;

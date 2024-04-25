@@ -1,6 +1,6 @@
 package io.mathlark.larkv2.numbers;
 
-public class NumberUtils {
+public class NumericUtils {
     public static double clipValue(double value, double lower, double upper) {
         if (value < lower) return lower;
         if (value > upper) return upper;

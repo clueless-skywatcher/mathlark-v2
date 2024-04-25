@@ -83,7 +83,7 @@ public class NumericExpression implements IExpression, Comparable<NumericExpress
         if (other instanceof NumericExpression) {
             return addNum((NumericExpression) other);
         }
-        return GlobalSymbols.UNDEFINED;
+        return other.add(this);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class NumericExpression implements IExpression, Comparable<NumericExpress
         if (other instanceof NumericExpression) {
             return mulNum((NumericExpression) other);
         }
-        return GlobalSymbols.UNDEFINED;
+        return other.mul(this);
     }
 
     private IExpression mulNum(NumericExpression other) {
@@ -110,7 +110,7 @@ public class NumericExpression implements IExpression, Comparable<NumericExpress
         if (other instanceof NumericExpression) {
             return powNum((NumericExpression) other);
         }
-        return GlobalSymbols.UNDEFINED;
+        return other.pow(this);
     }
 
     @Override
@@ -118,7 +118,7 @@ public class NumericExpression implements IExpression, Comparable<NumericExpress
         if (other instanceof NumericExpression) {
             return new NumericExpression(this.value.doubleValue() / ((NumericExpression) other).value.doubleValue());
         }
-        return GlobalSymbols.UNDEFINED;
+        return other.div(this);
     }
 
     public boolean isDecimal() {

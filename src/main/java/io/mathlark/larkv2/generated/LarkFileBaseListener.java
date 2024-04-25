@@ -341,6 +341,18 @@ public class LarkFileBaseListener implements LarkFileListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterMul(LarkFileParser.MulContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMul(LarkFileParser.MulContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterComparison(LarkFileParser.ComparisonContext ctx) { }
 	/**
 	 * {@inheritDoc}
