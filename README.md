@@ -11,7 +11,7 @@ including but not limited to
 - Define lists and dictionaries
 
 And more features to come, including:
-- Polynomial expressions and manipulation
+- ~~Polynomial expressions and manipulation~~ (This has been added already!)
 - More permutation groups and Young tableaux
 - If, Else and ElseIf statements
 - For and While loops
