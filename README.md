@@ -4,11 +4,11 @@ fully in Java.
 
 The programming language is also called Lark and supports a range of features,
 including but not limited to
-- Variable assignments
-- Basic mathematical operations like addition, subtraction, multiplication, division and more...
-- 40+ in-built functions encompassing lists, dictionaries, permutation groups, permutations and also colours (Yes you heard it right)!
-- Define your own functions, or define an empty function (one that doesn't do anything). Functions are polymorphic (can be defined with different numbers of arguments)
-- Define lists and dictionaries
+- ✔️ Variable assignments
+- ✔️ Basic mathematical operations like addition, subtraction, multiplication, division and more...
+- ✔️ 40+ in-built functions encompassing lists, dictionaries, permutation groups, permutations and also colours (Yes you heard it right)!
+- ✔️ Define your own functions, or define an empty function (one that doesn't do anything). Functions are polymorphic (can be defined with different numbers of arguments)
+- ✔️ Define lists and dictionaries
 
 And more features to come, including:
 - ~~Polynomial expressions and manipulation~~ (This has been added already!)
@@ -18,10 +18,10 @@ And more features to come, including:
 
 ## REPL
 MathLark also comes with a REPL that evaluates statements line by line. REPL supports almost every feature the language has to offer, **except**: 
-- function definitions (with body)
-- calling defined functions
-- using return statements
-- importing functions
+- ❎ function definitions (with body)
+- ❎ calling defined functions
+- ❎ using return statements
+- ❎ importing functions
 
 Also, you don't have to use semicolons in the REPL!
 
