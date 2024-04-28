@@ -84,6 +84,10 @@ public class IntRational implements Comparable<IntRational> {
     public String toString() {
         if (num == 0) return Integer.toString(0);
         if (denom == 1) return num.toString();
+        if (num < 0) {
+            num = -num;
+            return String.format("-(%s/%s)", num.toString(), denom.toString());
+        }
         return String.format("(%s/%s)", num.toString(), denom.toString());
     }
 

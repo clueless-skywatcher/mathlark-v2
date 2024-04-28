@@ -12,7 +12,7 @@ public class IntRationalTest {
         assertEquals(new IntRational(1, 2).toString(), "(1/2)");
         assertEquals(new IntRational(2, 1).toString(), "2");
         assertEquals(new IntRational(0, 25).toString(), "0");
-        assertEquals(IntRational.make(-2, 6).toString(), "(-1/3)");
+        assertEquals(IntRational.make(-2, 6).toString(), "-(1/3)");
         assertEquals(IntRational.make(50, 2).toString(), "25");
         assertEquals(IntRational.make(45, 25).toString(), "(9/5)");
     }
@@ -29,7 +29,7 @@ public class IntRationalTest {
     public void testSub() {
         assertEquals(IntRational.make(15, 1).sub(IntRational.make(1, 5)).toString(), "(74/5)");
         assertEquals(IntRational.make(1, 2).sub(IntRational.make(1, 2)).toString(), "0");
-        assertEquals(IntRational.make(1, 3).sub(IntRational.make(1, 2)).toString(), "(-1/6)");
+        assertEquals(IntRational.make(1, 3).sub(IntRational.make(1, 2)).toString(), "-(1/6)");
     }
 
     @Test
@@ -37,7 +37,7 @@ public class IntRationalTest {
         assertEquals(IntRational.make(1, 2).mul(IntRational.make(1, 2)).toString(), "(1/4)");
         assertEquals(IntRational.make(1, 2).mul(IntRational.make(1, 3)).toString(), "(1/6)");
         assertEquals(IntRational.make(1, 2).mul(0).toString(), "0");
-        assertEquals(IntRational.make(1, 3).mul(IntRational.make(1, -2)).toString(), "(-1/6)");
+        assertEquals(IntRational.make(1, 3).mul(IntRational.make(1, -2)).toString(), "-(1/6)");
         assertEquals(IntRational.make(1, 5).mul(IntRational.make(5, 6)).toString(), "(1/6)");
     }
 
@@ -51,7 +51,7 @@ public class IntRationalTest {
                 IntRational.make(1, 2).div(0);
             }
         });
-        assertEquals(IntRational.make(1, 3).div(IntRational.make(1, -2)).toString(), "(-2/3)");
+        assertEquals(IntRational.make(1, 3).div(IntRational.make(1, -2)).toString(), "-(2/3)");
         assertEquals(IntRational.make(1, 5).div(IntRational.make(5, 6)).toString(), "(6/25)");
     }
 

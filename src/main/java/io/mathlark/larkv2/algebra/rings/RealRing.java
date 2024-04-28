@@ -102,5 +102,10 @@ public class RealRing implements IRing<NumericExpression> {
     public int compare(NumericExpression a1, NumericExpression a2) {
         return a1.compareTo(a2);
     }
+
+    @Override
+    public NumericExpression cast(IExpression e) {
+        return (NumericExpression) e;
+    }
     
 }

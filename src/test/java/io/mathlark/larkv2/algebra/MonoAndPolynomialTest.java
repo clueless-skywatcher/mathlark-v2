@@ -1,5 +1,6 @@
 package io.mathlark.larkv2.algebra;
 
+import static io.mathlark.larkv2.utils.LarkExecUtils.execute;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashMap;
@@ -101,5 +102,19 @@ public class MonoAndPolynomialTest {
 
         assertEquals(x.mul(y).toString(), "xy");
         System.out.println(x.add(y).pow(new NumericExpression(2)));
+    }
+
+    @Test
+    public void testPolynomialRationals() {
+        execute("x := Var('x')");
+        execute("y := Var('y')");
+        assertEquals(execute("x + (1 / 4)*y").toString(), "x + (1/4)y");
+        assertEquals(execute("x + 1 + y").toString(), "x + y + 1");
+        assertEquals(execute("x + (1 / 4)*y + (3 / 4)*y"), execute("x + y"));
+        assertEquals(execute("x + (1 / 4)*y + (-3 / 4)*x"), execute("(1 / 4)*x + (1 / 4)*y"));
+        assertEquals(execute("x + x"), execute("x * 2"));
+        assertEquals(execute("x + 1 / 2"), execute("x + (1 / 2)"));
+        assertEquals(execute("x - 1 / 2"), execute("x - (1 / 2)"));
+        assertEquals(execute("x + 0 + (1 / 2)"), execute("x + (1 / 2)"));
     }
 }

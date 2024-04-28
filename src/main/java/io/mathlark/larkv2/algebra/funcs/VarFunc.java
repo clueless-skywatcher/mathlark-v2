@@ -6,10 +6,13 @@ import java.util.Map;
 import io.mathlark.larkv2.LarkFunction;
 import io.mathlark.larkv2.algebra.MonomialExpression;
 import io.mathlark.larkv2.algebra.PolynomialExpression;
+import io.mathlark.larkv2.algebra.rings.RationalRing;
 import io.mathlark.larkv2.exceptions.WrongParameterLengthException;
 import io.mathlark.larkv2.exceptions.WrongParameterTypeException;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.expressions.StringExpression;
+import io.mathlark.larkv2.expressions.math.RationalExpression;
+import io.mathlark.larkv2.numbers.IntRational;
 import io.mathlark.larkv2.symbols.DefinedFunction;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
 import io.mathlark.larkv2.symbols.SymbolScope;
@@ -26,7 +29,7 @@ public class VarFunc extends LarkFunction {
         MonomialExpression monomial = new MonomialExpression(Map.of(
             exprs[0].toString(), GlobalSymbols.ONE
         ));
-        return new PolynomialExpression<>(List.of(monomial), List.of(GlobalSymbols.ONE));
+        return new PolynomialExpression<>(List.of(monomial), List.of(RationalExpression.RAT_ONE), RationalRing.QQ);
     }
 
     @Override
