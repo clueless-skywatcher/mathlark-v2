@@ -166,3 +166,4 @@ This project wouldn't be possible without help/inspiration from these repositori
 - Sympy, the famous open-source computer algebra system: https://github.com/sympy/sympy
 - Redberry-CAS (while code from this is not directly implemented, but their code has helped implementation of permutations): https://github.com/redberry-cas/core
 - A little help from ChatGPT and Google AI Studio
+- [Koolculator-Polynomos](https://github.com/clueless-skywatcher/kc-polynomos), a CAS library of mine that I wrote earlier that also supports polynomials. The polynomial manipulation system is directly implemented from that library, which in turn is implemented using Michael Weiss' [repo](https://github.com/mlweiss/buchberger_algorithms).
