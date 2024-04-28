@@ -116,7 +116,13 @@ public class NumericExpression implements IExpression, Comparable<NumericExpress
     @Override
     public IExpression div(IExpression other) {
         if (other instanceof NumericExpression) {
-            return new NumericExpression(this.value.doubleValue() / ((NumericExpression) other).value.doubleValue());
+            if (((NumericExpression) other).isDecimal() || isDecimal()) {
+                return new NumericExpression(this.value.doubleValue() / ((NumericExpression) other).value.doubleValue());
+            }
+            return new RationalExpression(this, (NumericExpression) other);
+        }
+        if (other.equals(GlobalSymbols.ZERO)) {
+            return GlobalSymbols.UNDEFINED;
         }
         return other.div(this);
     }

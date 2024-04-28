@@ -12,10 +12,12 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 
 import io.mathlark.larkv2.algebra.rings.IRing;
+import io.mathlark.larkv2.algebra.rings.RationalRing;
 import io.mathlark.larkv2.algebra.rings.RealRing;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.expressions.StringExpression;
 import io.mathlark.larkv2.expressions.math.NumericExpression;
+import io.mathlark.larkv2.expressions.math.RationalExpression;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
 import io.mathlark.larkv2.utils.FunctionUtils;
 import lombok.Getter;
@@ -188,15 +190,20 @@ public class PolynomialExpression<R extends IRing<U>, U extends IExpression> imp
         List<U> selfCoeffs = new ArrayList<>();
         selfCoeffs.addAll(this.coeffs);
         
-        if (FunctionUtils.isInstanceOf(other, NumericExpression.class)) {
-            if (other.equals(GlobalSymbols.ZERO)) {
+        if (FunctionUtils.isInstanceOf(other, NumericExpression.class) || other instanceof RationalExpression) {
+            if (other.equals(GlobalSymbols.ZERO) || other.equals(ring.getZero())) {
                 return this;
             }
+            
+            U otherU = ring.cast(other);
+            
             Map<String, IExpression> newMap = new HashMap<>();
             for (String symbol: this.symbols) {
                 newMap.put(symbol, GlobalSymbols.ZERO);
             }
-            other = new PolynomialExpression<>(List.of(new MonomialExpression(newMap)), List.of(other));
+            List<U> otherList = new ArrayList<>();
+            otherList.add(otherU);
+            other = new PolynomialExpression<R, U>(List.of(new MonomialExpression(newMap)), otherList, this.ring);
         }
         if (FunctionUtils.isInstanceOf(other, PolynomialExpression.class)) {
             PolynomialExpression<R, U> otherPoly = (PolynomialExpression<R, U>) other;
@@ -231,12 +238,16 @@ public class PolynomialExpression<R extends IRing<U>, U extends IExpression> imp
             }
 
             if (newCoeffs.stream().allMatch(x -> x.equals(ring.getZero()))) {
-                return GlobalSymbols.ZERO;
+                return this.ring.getZero();
             }
 
-            return new PolynomialExpression<>(newMonomials, newCoeffs);
+            return new PolynomialExpression<R, U>(newMonomials, newCoeffs, this.ring);
         }
         return GlobalSymbols.UNDEFINED;
+    }
+
+    public boolean isRational() {
+        return ring.equals(RationalRing.QQ);
     }
 
     @Override
@@ -252,15 +263,18 @@ public class PolynomialExpression<R extends IRing<U>, U extends IExpression> imp
             return GlobalSymbols.ZERO;
         }
 
-        if (FunctionUtils.isInstanceOf(other, NumericExpression.class)) {
-            if (other.equals(GlobalSymbols.ZERO)) return GlobalSymbols.ZERO;
+        if (FunctionUtils.isInstanceOf(other, NumericExpression.class) || other instanceof RationalExpression) {
+            if (other.equals(GlobalSymbols.ZERO) || other.equals(ring.getZero())) return ring.getZero();
+            
+            U otherU = ring.cast(other);
 
             Map<String, IExpression> newMap = new HashMap<>();
             for (String symbol: symbols) {
                 newMap.put(symbol, GlobalSymbols.ZERO);
             }
-
-            other = new PolynomialExpression<>(List.of(new MonomialExpression(newMap)), List.of(other));
+            List<U> otherList = new ArrayList<>();
+            otherList.add(otherU);
+            other = new PolynomialExpression<>(List.of(new MonomialExpression(newMap)), otherList, this.ring);
         }
 
         PolynomialExpression<R, U> poly1 = this;
@@ -276,15 +290,15 @@ public class PolynomialExpression<R extends IRing<U>, U extends IExpression> imp
 
         if (l2 == 1) {
             List<MonomialExpression> newMonos = new ArrayList<>();
-            List<IExpression> newCoeffs = new ArrayList<>();
+            List<U> newCoeffs = new ArrayList<>();
 
             for (MonomialExpression monomial: poly1.getMonomials()) {
                 newMonos.add((MonomialExpression) poly2.monomials.get(0).mul(monomial));
             }
-            for (IExpression coeff: poly1.coeffs) {
-                newCoeffs.add((IExpression) poly2.coeffs.get(0).mul(coeff));
+            for (U coeff: poly1.coeffs) {
+                newCoeffs.add(ring.mul(poly2.coeffs.get(0), coeff));
             }
-            return new PolynomialExpression<>(newMonos, newCoeffs);
+            return new PolynomialExpression<>(newMonos, newCoeffs, this.ring);
         }
         else {
             List<MonomialExpression> h1 = poly2.monomials.subList(0, l2 / 2);
@@ -293,7 +307,7 @@ public class PolynomialExpression<R extends IRing<U>, U extends IExpression> imp
             List<U> c1 = poly2.coeffs.subList(0, l2 / 2);
             List<U> c2 = poly2.coeffs.subList(l2 / 2, l2);
 
-            return poly1.mul(new PolynomialExpression<>(h1, c1)).add(poly1.mul(new PolynomialExpression<>(h2, c2)));
+            return poly1.mul(new PolynomialExpression<>(h1, c1, this.ring)).add(poly1.mul(new PolynomialExpression<>(h2, c2, this.ring)));
         }
     }
 
@@ -306,12 +320,12 @@ public class PolynomialExpression<R extends IRing<U>, U extends IExpression> imp
     @Override
     public IExpression pow(IExpression other) {
         other = other.evaluate();
-        if (other.equals(GlobalSymbols.ZERO)) return GlobalSymbols.ONE;
-        else if (other.equals(GlobalSymbols.ONE)) return this;
+        if (other.equals(GlobalSymbols.ZERO)) return ring.getOne();
+        else if (other.equals(GlobalSymbols.ONE) || other.equals(ring.getOne())) return this;
         else if (!((NumericExpression) other).isDecimal()) {
-            PolynomialExpression<R, U> x = new PolynomialExpression<>(monomials, coeffs);
-            Long otherLong = ((NumericExpression) other).value.longValue();
-            for (int i = 0; i < otherLong - 1; i++) {
+            PolynomialExpression<R, U> x = new PolynomialExpression<>(monomials, coeffs, this.ring);
+            Long power = ((NumericExpression) other).value.longValue();
+            for (int i = 0; i < power - 1; i++) {
                 x = (PolynomialExpression<R, U>) x.mul(this);
             }
             return x;
@@ -412,5 +426,4 @@ public class PolynomialExpression<R extends IRing<U>, U extends IExpression> imp
     public boolean isSymbol() {
         return this.monomials.size() == 1 && this.isUnivariate() && this.coeffs.equals(List.of(ring.getOne()));
     }
-    
 }

@@ -65,7 +65,7 @@ public class RealRing implements IRing<NumericExpression> {
 
     @Override
     public IExpression length() {
-        return new NumericExpression(0);
+        return GlobalSymbols.ZERO;
     }
 
     @Override
@@ -101,6 +101,11 @@ public class RealRing implements IRing<NumericExpression> {
     @Override
     public int compare(NumericExpression a1, NumericExpression a2) {
         return a1.compareTo(a2);
+    }
+
+    @Override
+    public NumericExpression cast(IExpression e) {
+        return (NumericExpression) e;
     }
     
 }

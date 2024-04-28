@@ -19,6 +19,7 @@ public class GlobalSymbols {
     public static final NumericExpression ONE = new NumericExpression(1);
 
     public static final Map<String, IExpression> SYMBOLS = new HashMap<>();
+    public static final IExpression MINUSONE = new NumericExpression(-1);
 
     static {
         SYMBOLS.put("Undefined", UNDEFINED);
