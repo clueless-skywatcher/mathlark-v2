@@ -6,7 +6,8 @@ import io.mathlark.larkv2.algebra.funcs.*;
 public class AlgebraFunctionRegistry extends FunctionRegistryContract {
     public AlgebraFunctionRegistry() {
         register(VarFunc.class);
-        register(PolyQuotRemFunc.class);
+        // register(PolyQuotRemFunc.class);
         register(PolyDegreeFunc.class);
+        register(MonomialsFunc.class);
     }
 }
