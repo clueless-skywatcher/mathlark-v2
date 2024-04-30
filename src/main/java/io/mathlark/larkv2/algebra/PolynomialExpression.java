@@ -24,6 +24,7 @@ import lombok.Getter;
 
 public class PolynomialExpression<R extends IRing<U>, U extends IExpression> implements IExpression {
     private @Getter List<MonomialExpression> monomials;
+    private List<PolynomialExpression<R, U>> monomialsWithCoeffs;
     private @Getter List<U> coeffs;
     private @Getter List<String> symbols;
     private @Getter R ring;
@@ -425,5 +426,23 @@ public class PolynomialExpression<R extends IRing<U>, U extends IExpression> imp
 
     public boolean isSymbol() {
         return this.monomials.size() == 1 && this.isUnivariate() && this.coeffs.equals(List.of(ring.getOne()));
+    }
+
+    public List<PolynomialExpression<R, U>> getMonomialsWithCoeffs() {
+        if (monomialsWithCoeffs == null) {
+            monomialsWithCoeffs = new ArrayList<>();
+            for (int j = 0; j < this.monomials.size(); j++) {
+                List<MonomialExpression> monoSingleton = new ArrayList<>();
+                List<U> coeff = new ArrayList<>();
+                if (coeffs.get(j).equals(this.ring.getZero())) {
+                    continue;
+                }
+                monoSingleton.add(this.monomials.get(j));
+                coeff.add(this.coeffs.get(j));
+    
+                monomialsWithCoeffs.add(new PolynomialExpression<R, U>(monoSingleton, coeff, this.ring));
+            }
+        }
+        return monomialsWithCoeffs;
     }
 }
