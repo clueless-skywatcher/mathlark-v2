@@ -2,6 +2,7 @@ package io.mathlark.larkv2.expressions;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import io.mathlark.larkv2.expressions.math.NumericExpression;
 import io.mathlark.larkv2.expressions.mixins.Listable;
@@ -13,6 +14,10 @@ public class ListExpression implements IExpression, Listable {
 
     public ListExpression(List<IExpression> exprs) {
         this.val = exprs;
+    }
+
+    public ListExpression(IExpression... exprs) {
+        this.val = Arrays.asList(exprs);
     }
 
     @Override

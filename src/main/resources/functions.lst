@@ -63,3 +63,4 @@ StringLength
 Var
 Monomials
 PolyDegree
+PolyQuotRem
