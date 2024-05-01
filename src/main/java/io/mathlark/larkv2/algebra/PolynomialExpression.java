@@ -15,6 +15,7 @@ import io.mathlark.larkv2.algebra.rings.IRing;
 import io.mathlark.larkv2.algebra.rings.RationalRing;
 import io.mathlark.larkv2.algebra.rings.RealRing;
 import io.mathlark.larkv2.expressions.IExpression;
+import io.mathlark.larkv2.expressions.ListExpression;
 import io.mathlark.larkv2.expressions.StringExpression;
 import io.mathlark.larkv2.expressions.math.NumericExpression;
 import io.mathlark.larkv2.expressions.math.RationalExpression;
@@ -387,8 +388,34 @@ public class PolynomialExpression<R extends IRing<U>, U extends IExpression> imp
         return monomials.equals(otherPoly.monomials) && coeffs.equals(otherPoly.coeffs);
     }
 
-    public static <R extends IRing<U>, U extends IExpression> IExpression quotRem(PolynomialExpression<R, U> dividend, PolynomialExpression<R, U> divisor) {
-        return GlobalSymbols.UNDEFINED;
+    public static <R extends IRing<U>, U extends IExpression> IExpression quotRem(PolynomialExpression<R, U> dividend, List<PolynomialExpression<R, U>> divisors) {
+        PolynomialExpression<R, U> p = new PolynomialExpression<>(dividend.getMonomials(), dividend.getCoeffs(), dividend.getRing());
+        List<PolynomialExpression<R, U>> quotients = new ArrayList<>();
+        for (PolynomialExpression<R, U> divisor: divisors) {
+            quotients.add(new PolynomialExpression<>(List.of(), List.of(), dividend.getRing()));
+        }
+        PolynomialExpression<R, U> remainder = new PolynomialExpression<>(List.of(), List.of(), dividend.getRing());
+        
+        while (!p.getMonomials().isEmpty()) {
+            int i = 0;
+            boolean division = false;
+            while (i < divisors.size() && !division) {
+                List<MonomialExpression> divMonomials = divisors.get(i).getMonomials();
+                List<U> divCoeffs = divisors.get(i).getCoeffs();
+                MonomialExpression lmDivI = divMonomials.get(divMonomials.size() - 1);
+                U lcDivI = divCoeffs.get(divCoeffs.size() - 1);
+
+                List<MonomialExpression> pMonomials = p.getMonomials();
+                List<U> pCoeffs = p.getCoeffs();
+                MonomialExpression lmP = pMonomials.get(pMonomials.size() - 1);
+                U lcP = pCoeffs.get(pCoeffs.size() - 1);
+
+                if (lmP.isDivisible(lmDivI)) {
+                    
+                }
+            }
+        }
+        return new ListExpression(dividend, divisors.get(0));
     }
 
     public long getDegree(String symbol) {

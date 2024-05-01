@@ -139,8 +139,34 @@ public class MonomialExpression implements IExpression, Comparable<MonomialExpre
 
     @Override
     public IExpression div(IExpression other) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'div'");
+        if (!(other instanceof MonomialExpression)) {
+            return GlobalSymbols.UNDEFINED;
+        }
+
+        MonomialExpression otherMonomial = (MonomialExpression) other;
+
+        for (String symbol: otherMonomial.getSymbols()) {
+            if (!this.symbols.contains(symbol)) {
+                throw new RuntimeException("Negative powers not supported in monomials");
+            }
+        }
+
+        Map<String, IExpression> newPowerMap = new HashMap<>();
+
+        for (String symbol: this.symbols) {
+            if (!otherMonomial.symbols.contains(symbol)) {
+                newPowerMap.put(symbol, this.powerMap.get(symbol));
+            }
+            else {
+                IExpression degDiff = this.powerMap.get(symbol).sub(otherMonomial.powerMap.get(symbol));
+                if (ExpressionComparison.lt(degDiff, GlobalSymbols.ZERO)) {
+                    throw new RuntimeException("Negative powers not supported in monomials");
+                }
+                newPowerMap.put(symbol, degDiff);
+            }
+        }
+
+        return new MonomialExpression(newPowerMap);
     }
 
     @Override
@@ -199,7 +225,9 @@ public class MonomialExpression implements IExpression, Comparable<MonomialExpre
                 endRepr.append(String.format("%s^%s", symbol, power.toString()));
             }
         }
-
+        if (endRepr.isEmpty()) {
+            return "1";
+        }
         return endRepr.toString();
     }
 
@@ -244,5 +272,29 @@ public class MonomialExpression implements IExpression, Comparable<MonomialExpre
         }
 
         return degree;
+    }
+
+    public boolean isDivisible(MonomialExpression other) {
+        Map<String, IExpression> otherPowerMap = other.getPowerMap();
+        for (String symbol: other.getSymbols()) {
+            if (!this.symbols.contains(symbol)) {
+                otherPowerMap.put(symbol, GlobalSymbols.ZERO);
+            }
+        }
+        other = new MonomialExpression(otherPowerMap);
+
+        List<IExpression> degDiffs = new ArrayList<>();
+        
+        for (int i = 0; i < this.sortedDegrees.size(); i++) {
+            degDiffs.add(this.sortedDegrees.get(i).sub(other.sortedDegrees.get(i)));
+        }
+
+        for (int i = 0; i < degDiffs.size(); i++) {
+            if (ExpressionComparison.lt(degDiffs.get(i), GlobalSymbols.ZERO)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
