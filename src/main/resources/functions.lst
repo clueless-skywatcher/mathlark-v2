@@ -32,6 +32,7 @@ Length
 LesserEqualQ
 LesserQ
 List
+Monomials
 Nest
 NotQ
 Permutation
@@ -40,11 +41,10 @@ PermutationCycles
 PermutationGroup
 PermutationInverse
 PermuteMap
+PolyDegree
+PolyQuotRem
 RGBColour
 RemoveDuplicates
 Rest
 StringLength
 Var
-Monomials
-PolyDegree
-PolyQuotRem

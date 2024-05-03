@@ -107,7 +107,6 @@ public class MonoAndPolynomialTest {
                 mon2.div(mon).toString();
             }
         });
-        
     }
 
     @Test
