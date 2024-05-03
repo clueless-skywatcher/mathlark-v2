@@ -283,14 +283,19 @@ public class MonomialExpression implements IExpression, Comparable<MonomialExpre
         }
         other = new MonomialExpression(otherPowerMap);
 
-        List<IExpression> degDiffs = new ArrayList<>();
+        Map<String, IExpression> degDiffs = new HashMap<>();
         
-        for (int i = 0; i < this.sortedDegrees.size(); i++) {
-            degDiffs.add(this.sortedDegrees.get(i).sub(other.sortedDegrees.get(i)));
+        for (String symbol: symbols) {
+            if (!other.symbols.contains(symbol)) {
+                degDiffs.put(symbol, this.powerMap.get(symbol));
+            }
+            else {
+                degDiffs.put(symbol, this.powerMap.get(symbol).sub(other.powerMap.get(symbol)));   
+            } 
         }
-
-        for (int i = 0; i < degDiffs.size(); i++) {
-            if (ExpressionComparison.lt(degDiffs.get(i), GlobalSymbols.ZERO)) {
+        
+        for (String symbol: degDiffs.keySet()) {
+            if (ExpressionComparison.lt(degDiffs.get(symbol), GlobalSymbols.ZERO)) {
                 return false;
             }
         }

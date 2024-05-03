@@ -13,6 +13,7 @@ import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.expressions.ListExpression;
 import io.mathlark.larkv2.expressions.math.NumericExpression;
 import io.mathlark.larkv2.expressions.math.RationalExpression;
+import io.mathlark.larkv2.general.utils.ObjectPair;
 import io.mathlark.larkv2.symbols.DefinedFunction;
 import io.mathlark.larkv2.symbols.SymbolScope;
 import io.mathlark.larkv2.utils.FunctionUtils;
@@ -43,7 +44,14 @@ public class PolyQuotRemFunc extends LarkFunction {
             }
         }        
 
-        return PolynomialExpression.quotRem(dividend, divisors);
+        ObjectPair<List<PolynomialExpression<IRing<IExpression>,IExpression>>, IExpression> result = PolynomialExpression.quotRem(dividend, divisors);
+        
+        List<IExpression> quots = new ArrayList<>();
+        for (PolynomialExpression expr: result.getFirst()) {
+            quots.add(expr);
+        }
+
+        return new ListExpression(new ListExpression(quots), result.getSecond());
     }
 
     @Override
