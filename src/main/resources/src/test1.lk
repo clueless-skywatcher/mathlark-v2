@@ -10,5 +10,3 @@ PrintLn(Add2(2));
 x := Var('x')
 y := Var('y')
 PolyQuotRem(x^2*y + x*y^2 + y^2, [x*y - 1, y^2 - 1])
-
-PolyQuotRem(x^4 + 2*x + 1, [x^2 + 1])
