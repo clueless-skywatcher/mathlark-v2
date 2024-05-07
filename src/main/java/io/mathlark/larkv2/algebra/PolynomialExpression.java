@@ -15,7 +15,6 @@ import io.mathlark.larkv2.algebra.rings.IRing;
 import io.mathlark.larkv2.algebra.rings.RationalRing;
 import io.mathlark.larkv2.algebra.rings.RealRing;
 import io.mathlark.larkv2.expressions.IExpression;
-import io.mathlark.larkv2.expressions.ListExpression;
 import io.mathlark.larkv2.expressions.StringExpression;
 import io.mathlark.larkv2.expressions.math.NumericExpression;
 import io.mathlark.larkv2.expressions.math.RationalExpression;
@@ -396,22 +395,23 @@ public class PolynomialExpression<R extends IRing<U>, U extends IExpression> imp
         for (int i = 0; i < divisors.size(); i++) {
             quotients.add(new PolynomialExpression<>(new ArrayList<>(), new ArrayList<>(), dividend.getRing()));
         }
-        PolynomialExpression<R, U> remainder = new PolynomialExpression<>(new ArrayList<>(), new ArrayList<>(), dividend.getRing());
         
+        List<MonomialExpression> remainderMons = new ArrayList<>();
+        List<U> remainderCoeffs = new ArrayList<>();
+
         while (!p.getMonomials().isEmpty()) {
             int i = 0;
             boolean division = false;
             while (i < divisors.size() && !division) {
                 List<MonomialExpression> divMonomials = divisors.get(i).getMonomials();
                 List<U> divCoeffs = divisors.get(i).getCoeffs();
-                MonomialExpression lmDivI = divMonomials.get(divMonomials.size() - 1);
-                U lcDivI = divCoeffs.get(divCoeffs.size() - 1);
+                MonomialExpression lmDivI = divMonomials.get(0);
+                U lcDivI = divCoeffs.get(0);
 
                 List<MonomialExpression> pMonomials = p.getMonomials();
                 List<U> pCoeffs = p.getCoeffs();
-                MonomialExpression lmP = pMonomials.get(pMonomials.size() - 1);
-                U lcP = pCoeffs.get(pCoeffs.size() - 1);
-
+                MonomialExpression lmP = pMonomials.get(0);
+                U lcP = pCoeffs.get(0);
                 if (lmP.isDivisible(lmDivI)) {
                     PolynomialExpression<R, U> quotient = quotients.get(i);
                     List<MonomialExpression> quotientMons = new ArrayList<>(quotient.getMonomials());
@@ -420,11 +420,12 @@ public class PolynomialExpression<R extends IRing<U>, U extends IExpression> imp
                     quotientMons.add((MonomialExpression) lmP.div(lmDivI));
                     quotientCoeffs.add((U) lcP.div(lcDivI));
                     quotients.set(i, new PolynomialExpression<>(quotientMons, quotientCoeffs, quotient.getRing()));
+                    
                     List<MonomialExpression> resultantMon = new ArrayList<>(List.of((MonomialExpression) lmP.div(lmDivI)));
                     List<U> resultantCoeff = new ArrayList<>(List.of((U) lcP.div(lcDivI)));
                     PolynomialExpression<R, U> resultant = new PolynomialExpression<>(resultantMon, resultantCoeff, p.getRing());
-                    System.out.println(resultant);
                     p = (PolynomialExpression<R, U>) p.sub(resultant.mul(divisors.get(i)));
+                    p.cleanse();
                     division = true;
                 }
                 else {
@@ -433,15 +434,15 @@ public class PolynomialExpression<R extends IRing<U>, U extends IExpression> imp
             }
 
             if (!division) {
-                remainder.monomials.add(p.monomials.get(p.monomials.size() - 1));
-                p.monomials.remove(p.monomials.size() - 1);
+                remainderMons.add(p.monomials.get(0));
+                p.monomials.remove(0);
 
-                remainder.coeffs.add(p.coeffs.get(p.coeffs.size() - 1));
-                p.coeffs.remove(p.coeffs.size() - 1);
+                remainderCoeffs.add(p.coeffs.get(0));
+                p.coeffs.remove(0);
             }
         }
 
-        return new ObjectPair<>(quotients, remainder);
+        return new ObjectPair<>(quotients, new PolynomialExpression<>(remainderMons, remainderCoeffs, dividend.getRing()));
     }
 
     public long getDegree(String symbol) {
@@ -497,5 +498,20 @@ public class PolynomialExpression<R extends IRing<U>, U extends IExpression> imp
             }
         }
         return monomialsWithCoeffs;
+    }
+
+    private void cleanse() {
+        List<MonomialExpression> mons = new ArrayList<>();
+        List<U> coeffs = new ArrayList<>();
+
+        for (int i = 0; i < this.monomials.size(); i++) {
+            if (!this.coeffs.get(i).equals(this.ring.getZero())) {
+                mons.add(this.monomials.get(i));
+                coeffs.add(this.coeffs.get(i));
+            }
+        }
+
+        this.monomials = mons;
+        this.coeffs = coeffs;
     }
 }
