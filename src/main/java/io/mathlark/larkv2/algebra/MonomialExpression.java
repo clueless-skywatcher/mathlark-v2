@@ -302,4 +302,28 @@ public class MonomialExpression implements IExpression, Comparable<MonomialExpre
 
         return true;
     }
+
+    public static MonomialExpression lcm(MonomialExpression m1, MonomialExpression m2) {
+        return (MonomialExpression) m1.mul(m2).div(gcd(m1, m2));
+    }
+
+    public static MonomialExpression gcd(MonomialExpression m1, MonomialExpression m2) {
+        Map<String, IExpression> m1Map = m1.getPowerMap();
+        Map<String, IExpression> m2Map = m2.getPowerMap();
+
+        Map<String, IExpression> gcdMon = new HashMap<>();
+
+        for (String symbol: m1Map.keySet()) {
+            if (m2Map.containsKey(symbol)) {
+                if (ExpressionComparison.lt(m1Map.get(symbol), m2Map.get(symbol))) {
+                    gcdMon.put(symbol, m1Map.get(symbol));
+                }   
+                else {
+                    gcdMon.put(symbol, m2Map.get(symbol));
+                }
+            }
+        }
+
+        return new MonomialExpression(gcdMon);
+    }
 }
