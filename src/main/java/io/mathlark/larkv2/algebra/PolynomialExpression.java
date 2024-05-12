@@ -514,4 +514,23 @@ public class PolynomialExpression<R extends IRing<U>, U extends IExpression> imp
         this.monomials = mons;
         this.coeffs = coeffs;
     }
+
+    public MonomialExpression leadingMonomial() {
+        return this.monomials.get(0);
+    }
+
+    public U leadingCoeff() {
+        return this.coeffs.get(0);
+    }
+
+    @SuppressWarnings("rawtypes")
+    public PolynomialExpression leadingTerm() {
+        List<MonomialExpression> mon = new ArrayList<>(List.of(leadingMonomial()));
+        List<U> coeff = new ArrayList<>(List.of(leadingCoeff()));
+        return new PolynomialExpression<>(mon, coeff, getRing());
+    }
+
+    public int hashCode() {
+        return toString().hashCode();
+    }
 }

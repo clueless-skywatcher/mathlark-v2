@@ -41,4 +41,33 @@ public class PolynomialUtils {
 
         return new PolynomialExpression(monomials, coeffs, RationalRing.QQ);
     }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public static IExpression sPolynomial(IExpression e1, IExpression e2) {
+        if (e1.evaluate().equals(GlobalSymbols.ZERO) || e2.evaluate().equals(GlobalSymbols.ZERO)) {
+            return GlobalSymbols.ZERO;
+        }
+
+        PolynomialExpression p1 = (PolynomialExpression) e1;
+        PolynomialExpression p2 = (PolynomialExpression) e2;
+
+        if (!p1.getRing().equals(p2.getRing())) {
+            return GlobalSymbols.UNDEFINED;
+        }
+        
+
+        MonomialExpression lcm = MonomialExpression.lcm(p1.leadingMonomial(), p2.leadingMonomial());
+        PolynomialExpression f = new PolynomialExpression(
+            new ArrayList<>(List.of(lcm.div(p1.leadingMonomial()))), 
+            new ArrayList<>(List.of(p1.getRing().getMulInverse(p1.leadingCoeff()))),
+            p1.getRing()
+        );
+        PolynomialExpression g = new PolynomialExpression(
+            new ArrayList<>(List.of(lcm.div(p2.leadingMonomial()))), 
+            new ArrayList<>(List.of(p2.getRing().getMulInverse(p2.leadingCoeff()))),
+            p1.getRing()
+        );
+
+        return f.mul(p1).sub(g.mul(p2));
+    }
 }
