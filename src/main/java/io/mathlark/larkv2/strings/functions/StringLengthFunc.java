@@ -1,4 +1,4 @@
-package io.mathlark.larkv2.strings.funcs;
+package io.mathlark.larkv2.strings.functions;
 
 import java.util.Map;
 

@@ -3,7 +3,6 @@ package io.mathlark.larkv2.algebra.funcs;
 import java.util.Map;
 
 import io.mathlark.larkv2.LarkFunction;
-import io.mathlark.larkv2.algebra.PolynomialExpression;
 import io.mathlark.larkv2.algebra.PolynomialUtils;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.symbols.DefinedFunction;

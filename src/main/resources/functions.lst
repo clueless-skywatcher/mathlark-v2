@@ -62,6 +62,7 @@ Rest
 Return
 Sgn
 Square
+SPolynomial
 StringLength
 Var
 Monomials
