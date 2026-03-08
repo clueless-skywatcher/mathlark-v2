@@ -71,6 +71,19 @@ public class UniversalFunctionRegistry {
         return INSTANCE.functions.containsKey(name);
     }
 
+    public static boolean isLazy(String name) {
+        try {
+            Class<? extends LarkFunction> func = INSTANCE.functions.get(name);
+            if (func == null) return false;
+            LarkFunction funcInstance = func
+                .getDeclaredConstructor(SymbolScope.class, Map.class)
+                .newInstance(null, null);
+            return funcInstance.isLazy();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public void register(FunctionRegistryContract funcRegistry) {
         functions.putAll(funcRegistry.functions);
     }

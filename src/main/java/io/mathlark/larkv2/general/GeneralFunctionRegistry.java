@@ -4,6 +4,7 @@ import io.mathlark.larkv2.FunctionRegistryContract;
 import io.mathlark.larkv2.general.funcs.*;
 import io.mathlark.larkv2.general.funcs.comparison.*;
 
+
 public class GeneralFunctionRegistry extends FunctionRegistryContract {
     public GeneralFunctionRegistry() {
         register(HeadFunc.class);
@@ -22,5 +23,7 @@ public class GeneralFunctionRegistry extends FunctionRegistryContract {
         register(LesserQFunc.class);
         register(NotQFunc.class);
         register(MapFunc.class);
+        register(IfFunc.class);
+        register(ReturnFunc.class);
     }
 }

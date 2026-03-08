@@ -9,7 +9,7 @@ lkFile
     ;
 
 codeBlock
-    : '{' (expr ';' | functionDef)* returnStmt? '}'
+    : '{' (expr ';' | functionDef)* '}'
     ;
 
 functionDefs[String funcName]
@@ -49,8 +49,6 @@ mapExpr
 assign
     : id=IDENTIFIER ':=' expr
     ;
-
-returnStmt: RETURN expr ';';
 
 functionAnonDef
     :   '<' IDENTIFIER '>'
@@ -107,7 +105,6 @@ CHARACTER
 
 BOOLEAN: 'True' | 'False';
 UNDEFINED: 'Undefined';
-RETURN: 'Return';
 
 fragment LETTER: [a-zA-Z];
 fragment DIGIT: [0-9];

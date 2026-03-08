@@ -101,13 +101,6 @@ public class LarkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements L
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitReturnStmt(LarkParser.ReturnStmtContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitFunctionAnonDef(LarkParser.FunctionAnonDefContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

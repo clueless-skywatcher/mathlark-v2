@@ -245,18 +245,6 @@ public class LarkFileBaseListener implements LarkFileListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReturnStmt(LarkFileParser.ReturnStmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitReturnStmt(LarkFileParser.ReturnStmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterFunctionAnonDef(LarkFileParser.FunctionAnonDefContext ctx) { }
 	/**
 	 * {@inheritDoc}

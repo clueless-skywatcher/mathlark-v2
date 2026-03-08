@@ -150,18 +150,6 @@ public class LarkBaseListener implements LarkListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReturnStmt(LarkParser.ReturnStmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitReturnStmt(LarkParser.ReturnStmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterFunctionAnonDef(LarkParser.FunctionAnonDefContext ctx) { }
 	/**
 	 * {@inheritDoc}

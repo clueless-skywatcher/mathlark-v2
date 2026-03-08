@@ -136,12 +136,6 @@ public interface LarkFileVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssign(LarkFileParser.AssignContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LarkFileParser#returnStmt}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitReturnStmt(LarkFileParser.ReturnStmtContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link LarkFileParser#functionAnonDef}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

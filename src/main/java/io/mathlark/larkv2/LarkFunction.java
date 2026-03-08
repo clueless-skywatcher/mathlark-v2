@@ -31,5 +31,9 @@ public abstract class LarkFunction {
 
     public abstract void checkArgs(IExpression[] exprs);
 
-    public abstract String getName();    
+    public abstract String getName();   
+    
+    public boolean isLazy() {
+        return false;
+    }
 }

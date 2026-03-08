@@ -7,6 +7,7 @@ import java.util.StringJoiner;
 
 import io.mathlark.larkv2.UniversalFunctionRegistry;
 import io.mathlark.larkv2.symbols.DefinedFunction;
+import io.mathlark.larkv2.symbols.FunctionTable;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
 import io.mathlark.larkv2.symbols.SymbolScope;
 
@@ -35,16 +36,32 @@ public class FunctionCallExpression implements IExpression {
             return evaluate(scope, funcs);
         }
 
+        if (FunctionTable.has(funcName, args.size())) {
+            List<IExpression> params = new ArrayList<>();
+            for (IExpression arg: args) {
+                if (arg instanceof ThunkExpression) {
+                    params.add(arg);
+                } else {
+                    params.add(arg.evaluate());
+                }
+            }
+
+            DefinedFunction func = FunctionTable.get(funcName, args.size());
+            return func.invoke(params, FunctionTable.getAll());
+        }
+
         if (!UniversalFunctionRegistry.isFunc(funcName)) {
             this.val = toString();
             return new StringExpression((String) this.val);
         }
         List<IExpression> evalParams = new ArrayList<>();
         for (IExpression arg: args) {
-            if (UniversalFunctionRegistry.isFunc(arg.toString())) {
+            // Preserve ThunkExpressions for lazy functions
+            if (arg instanceof ThunkExpression) {
+                evalParams.add(arg);
+            } else if (UniversalFunctionRegistry.isFunc(arg.toString())) {
                 evalParams.add(new StringExpression(arg.toString()));
-            }
-            else {
+            } else {
                 evalParams.add(arg.evaluate());
             }
         }
@@ -54,7 +71,7 @@ public class FunctionCallExpression implements IExpression {
     }
 
     public IExpression evaluate(SymbolScope scope, Map<String, DefinedFunction> funcs) {
-        if (scope.resolve(funcName) == null 
+        if (scope.resolve(funcName) == null
             || scope.resolve(funcName) instanceof AnonFunctionExpression
         ) {
             this.val = toString();
@@ -62,7 +79,11 @@ public class FunctionCallExpression implements IExpression {
         }
         List<IExpression> evalParams = new ArrayList<>();
         for (IExpression arg: args) {
-            evalParams.add(arg.evaluate());
+            if (arg instanceof ThunkExpression) {
+                evalParams.add(arg);
+            } else {
+                evalParams.add(arg.evaluate());
+            }
         }
         IExpression invocation = UniversalFunctionRegistry.invokeWithScope(funcName, evalParams, scope, funcs).evaluate();
         this.val = invocation.val();

@@ -15,11 +15,34 @@ import jline.console.completer.StringsCompleter;
 
 public class LarkInterpreter {
     public static void main(String[] args) {
+        loadStdlib();
+
         if (args.length > 0) {
             LarkFileReader.executeFile(args[0]);
             return;
         }
         console();
+    }
+
+    private static void loadStdlib() {
+        try {
+            InputStream stream = LarkInterpreter.class
+                .getClassLoader()
+                .getResourceAsStream("stdlib.lst");
+            if (stream == null) return;
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+                if (!line.isEmpty() && !line.startsWith("#")) {
+                    LarkFileReader.loadResource(line);
+                }
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void console() {

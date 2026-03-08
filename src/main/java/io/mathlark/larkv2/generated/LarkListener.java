@@ -121,16 +121,6 @@ public interface LarkListener extends ParseTreeListener {
 	 */
 	void exitAssign(LarkParser.AssignContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link LarkParser#returnStmt}.
-	 * @param ctx the parse tree
-	 */
-	void enterReturnStmt(LarkParser.ReturnStmtContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link LarkParser#returnStmt}.
-	 * @param ctx the parse tree
-	 */
-	void exitReturnStmt(LarkParser.ReturnStmtContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link LarkParser#functionAnonDef}.
 	 * @param ctx the parse tree
 	 */

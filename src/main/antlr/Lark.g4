@@ -37,7 +37,7 @@ lkFile
     ;
 
 codeBlock
-    : '{' (expr ';' | functionDef)* returnStmt? '}'
+    : '{' (expr ';' | functionDef)* '}'
     ;
 
 functionDefs[String funcName]
@@ -125,8 +125,6 @@ assign returns [IExpression exprObject]
     }
     ;
 
-returnStmt: RETURN expr ';';
-
 functionAnonDef returns [IExpression exprObject]
     :   '<' IDENTIFIER '>'
         { $exprObject = SymbolTables.registerAnonFunc($IDENTIFIER.text); }
@@ -192,7 +190,6 @@ CHARACTER
 
 BOOLEAN: 'True' | 'False';
 UNDEFINED: 'Undefined';
-RETURN: 'Return';
 
 fragment LETTER: [a-zA-Z];
 fragment DIGIT: [0-9];

@@ -1,8 +1,0 @@
-<Add2> := {
-    (a) := {
-        Return a + Var('x') * Var('y');
-    }
-}
-
-PrintLn(Add2(Var("x")));
-PrintLn(Add2(2));

@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 import io.mathlark.larkv2.UniversalFunctionRegistry;
-import io.mathlark.larkv2.exceptions.ReturningException;
 import io.mathlark.larkv2.expressions.AccessExpression;
 import io.mathlark.larkv2.expressions.AnonFunctionExpression;
 import io.mathlark.larkv2.expressions.DictExpression;
@@ -17,6 +16,7 @@ import io.mathlark.larkv2.expressions.FunctionCallExpression;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.expressions.ListExpression;
 import io.mathlark.larkv2.expressions.StringExpression;
+import io.mathlark.larkv2.expressions.ThunkExpression;
 import io.mathlark.larkv2.expressions.math.NumericExpression;
 import io.mathlark.larkv2.general.ExpressionComparison;
 import io.mathlark.larkv2.generated.LarkFileBaseVisitor;
@@ -131,10 +131,17 @@ public class LarkFileReadingVisitor extends LarkFileBaseVisitor<IExpression> {
         String funcName = ctx.IDENTIFIER().getText();
         if (ctx.actualParams() != null) {
             List<IExpression> params = new ArrayList<>();
+            boolean lazy = UniversalFunctionRegistry.isLazy(funcName);
             for (ExprContext expr: ctx.actualParams().expr()) {
                 if (UniversalFunctionRegistry.isFunc(expr.getText()) 
                     || funcs.containsKey(String.format("%s%d", expr.getText(), ctx.actualParams().expr().size() - 1))) {
                     params.add(new StringExpression(expr.getText()));
+                }
+                else if (lazy) {
+                    final ExprContext capturedExpr = expr;
+                    params.add(new ThunkExpression(
+                        () -> this.visit(capturedExpr).evaluate()
+                    ));
                 }
                 else {
                     params.add(this.visit(expr).evaluate());
@@ -147,7 +154,6 @@ public class LarkFileReadingVisitor extends LarkFileBaseVisitor<IExpression> {
 
     @Override
     public IExpression visitFunctionDef(FunctionDefContext ctx) {
-        // TODO Auto-generated method stub
         return super.visitFunctionDef(ctx);
     }
 
@@ -257,13 +263,6 @@ public class LarkFileReadingVisitor extends LarkFileBaseVisitor<IExpression> {
         }
         for (ExprContext expr: ctx.expr()) {
             this.visit(expr);
-        }
-
-        ReturnStmtContext ret = ctx.returnStmt();
-        if (ret != null) {
-            ReturningException returnVal = new ReturningException(this.visit(ret.expr()));
-            scope = scope.getParent();
-            throw returnVal;
         }
         scope = scope.getParent();
         return GlobalSymbols.UNDEFINED;

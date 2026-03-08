@@ -84,12 +84,6 @@ public interface LarkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssign(LarkParser.AssignContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LarkParser#returnStmt}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitReturnStmt(LarkParser.ReturnStmtContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link LarkParser#functionAnonDef}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
