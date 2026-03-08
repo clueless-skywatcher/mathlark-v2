@@ -59,12 +59,13 @@ actualParams returns [List<IExpression> exprs]
     ;
 
 term returns [IExpression exprObject]
-    : IDENTIFIER { 
-        if (UniversalFunctionRegistry.isFunc($IDENTIFIER.text)) {
-            $exprObject = new StringExpression($IDENTIFIER.text); 
+    : IDENTIFIER {
+        if (UniversalFunctionRegistry.isFunc($IDENTIFIER.text)
+            || FunctionTable.hasName($IDENTIFIER.text)) {
+            $exprObject = new StringExpression($IDENTIFIER.text);
         }
         else {
-            $exprObject = SymbolTables.evaluate($IDENTIFIER.text); 
+            $exprObject = SymbolTables.evaluate($IDENTIFIER.text);
         }
     }
     | '(' expr ')' { $exprObject = $expr.exprObject; }

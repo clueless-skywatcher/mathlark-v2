@@ -3,9 +3,17 @@ package io.mathlark.larkv2.numbers;
 import static io.mathlark.larkv2.utils.LarkExecUtils.execute;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import io.mathlark.larkv2.fileread.LarkFileReader;
+
 public class IncrementFuncTest {
+    @BeforeAll
+    public static void loadStdlib() {
+        LarkFileReader.loadResource("src/math.lk");
+    }
+
     @Test
     public void test() {
         assertEquals(execute("Increment(1)"), 2L);

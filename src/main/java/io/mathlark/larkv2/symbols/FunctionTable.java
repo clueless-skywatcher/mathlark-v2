@@ -18,6 +18,20 @@ public class FunctionTable {
         return functions.containsKey(String.format("%s%d", name, arity));
     }
 
+    /**
+     * Check if any function with this name exists (any arity).
+     * Used by the REPL grammar to recognize MathLark-defined function
+     * names before arity is known.
+     */
+    public static boolean hasName(String name) {
+        for (String key : functions.keySet()) {
+            if (key.matches(name + "\\d+")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static Map<String, DefinedFunction> getAll() {
         return functions;
     }
