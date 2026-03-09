@@ -7,8 +7,10 @@ plugins {
 group 'io.mathlark.larkv2'
 version '0.2.0'
 
-sourceCompatibility = 17
-targetCompatibility = 17
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
 
 repositories {
     mavenCentral()
@@ -35,7 +37,8 @@ dependencies {
 
     antlr 'org.antlr:antlr4:4.13.1'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:6.0.3'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 generateGrammarSource {

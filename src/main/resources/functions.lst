@@ -12,7 +12,9 @@ CyclesToPerm
 Decrement
 DefinedVars
 Dict
+DictHas
 DictKeys
+DictPut
 DictVal
 DictVals
 ElementAt

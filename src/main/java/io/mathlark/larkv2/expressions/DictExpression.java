@@ -21,7 +21,7 @@ public class DictExpression implements IExpression {
             evalMap.put(key, map.get(key).evaluate());
         }
         this.map = evalMap;
-        return new DictExpression(this.map);
+        return this;
     }
 
     @Override
@@ -31,12 +31,11 @@ public class DictExpression implements IExpression {
 
     @Override
     public IExpression add(IExpression other) {
-        Map<IExpression, IExpression> thisDict = this.map;
         IExpression otherExp = other.evaluate();
         if (otherExp instanceof DictExpression) {
             Map<IExpression, IExpression> otherDict = ((DictExpression) otherExp).map;
-            thisDict.putAll(otherDict);
-            return new DictExpression(thisDict);
+            this.map.putAll(otherDict);
+            return this;
         }
         return GlobalSymbols.UNDEFINED;
     }
