@@ -54,6 +54,18 @@ public class LarkBaseListener implements LarkListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterTypedParam(LarkParser.TypedParamContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTypedParam(LarkParser.TypedParamContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFunctionDefs(LarkParser.FunctionDefsContext ctx) { }
 	/**
 	 * {@inheritDoc}

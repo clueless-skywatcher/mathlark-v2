@@ -1,4 +1,4 @@
-package io.mathlark.larkv2.stdlib;
+package io.mathlark.larkv2.stdlib.math;
 
 import static io.mathlark.larkv2.utils.LarkExecUtils.execute;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,5 +43,40 @@ public class AbsFuncTest {
     @Test
     public void testAbsAlreadyPositive() {
         assertEquals(execute("Abs(2 + 3)").toString(), "5");
+    }
+
+    @Test
+    public void testAbsDecimal() {
+        assertEquals(execute("Abs(-3.5)").toString(), "3.5");
+    }
+
+    @Test
+    public void testAbsDecimalPositive() {
+        assertEquals(execute("Abs(2.7)").toString(), "2.7");
+    }
+
+    @Test
+    public void testAbsNegativeOne() {
+        assertEquals(execute("Abs(-1)").toString(), "1");
+    }
+
+    @Test
+    public void testAbsNestedExpression() {
+        assertEquals(execute("Abs(Abs(-5))").toString(), "5");
+    }
+
+    @Test
+    public void testAbsMultiplication() {
+        assertEquals(execute("Abs(-2 * 3)").toString(), "6");
+    }
+
+    @Test
+    public void testAbsNonNumericReturnsUndefined() {
+        assertEquals(execute("Abs(True)").toString(), "Undefined");
+    }
+
+    @Test
+    public void testAbsStringReturnsUndefined() {
+        assertEquals(execute("Abs(\"hello\")").toString(), "Undefined");
     }
 }

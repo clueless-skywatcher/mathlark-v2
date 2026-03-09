@@ -3,8 +3,6 @@ package io.mathlark.larkv2.fileread;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.antlr.v4.runtime.Token;
-
 import java.util.List;
 import java.util.ArrayList;
 
@@ -37,12 +35,15 @@ public class LarkFileReadingVisitor extends LarkFileBaseVisitor<IExpression> {
     @Override
     public IExpression visitFunctionDefs(FunctionDefsContext ctx) {
         List<String> paramNames = new ArrayList<>();
-        for (Token arg: ctx.args) {
-            paramNames.add(arg.getText());
+        List<String> paramTypes = new ArrayList<>();
+        for (TypedParamContext param : ctx.typedParam()) {
+            paramNames.add(param.name.getText());
+            // null if no type annotation (untyped parameter)
+            paramTypes.add(param.type != null ? param.type.getText() : null);
         }
 
         String funcName = String.format("%s%d", ctx.funcName, paramNames.size());
-        funcs.put(funcName, new DefinedFunction(funcName, scope, paramNames, ctx.codeBlock()));
+        funcs.put(funcName, new DefinedFunction(funcName, scope, paramNames, paramTypes, ctx.codeBlock()));
         return GlobalSymbols.UNDEFINED;
     }
 

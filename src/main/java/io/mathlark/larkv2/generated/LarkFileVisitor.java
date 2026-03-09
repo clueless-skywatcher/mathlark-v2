@@ -23,6 +23,12 @@ public interface LarkFileVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCodeBlock(LarkFileParser.CodeBlockContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link LarkFileParser#typedParam}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTypedParam(LarkFileParser.TypedParamContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link LarkFileParser#functionDefs}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

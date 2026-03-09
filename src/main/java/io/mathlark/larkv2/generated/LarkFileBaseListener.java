@@ -41,6 +41,18 @@ public class LarkFileBaseListener implements LarkFileListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterTypedParam(LarkFileParser.TypedParamContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTypedParam(LarkFileParser.TypedParamContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFunctionDefs(LarkFileParser.FunctionDefsContext ctx) { }
 	/**
 	 * {@inheritDoc}

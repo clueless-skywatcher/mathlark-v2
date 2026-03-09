@@ -12,8 +12,12 @@ codeBlock
     : '{' (expr ';' | functionDef)* '}'
     ;
 
+typedParam
+    : name=IDENTIFIER (':' type=IDENTIFIER)?
+    ;
+
 functionDefs[String funcName]
-    : '(' (args+=IDENTIFIER (',' args+=IDENTIFIER)*)? ')' ':=' codeBlock
+    : '(' (typedParam (',' typedParam)*)? ')' ':=' codeBlock
     ;
 
 functionDef

@@ -1,48 +1,47 @@
 <Abs> := {
-    (x) := {
+    (x: Numeric) := {
         Return(If(x >= 0, x, -x));
     }
 }
 
 <Greater> := {
-    (a, b) := {
+    (a: Numeric, b: Numeric) := {
         Return(If(a >= b, a, b));
     }
 }
 
 <Lesser> := {
-    (a, b) := {
+    (a: Numeric, b: Numeric) := {
         Return(If(a <= b, a, b));
     }
 }
 
 <Sgn> := {
-    (x) := {
+    (x: Numeric) := {
         Return(If(x > 0, 1, If(x == 0, 0, -1)));
     }
 }
 
 <Clamp> := {
-    (x, low, high) := {
+    (x: Numeric, low: Numeric, high: Numeric) := {
         Return(Lesser(Greater(x, low), high));
     }
 }
 
 <Fibonacci> := {
-    (n) := {
-        PrintLn(n);
+    (n: Integer) := {
         Return(If(n <= 1, n, Fibonacci(n - 1) + Fibonacci(n - 2)));
     }
 }
 
 <RangeSum> := {
-    (a, b) := {
+    (a: Integer, b: Integer) := {
         Return(If(a > b, 0, a + RangeSum(a + 1, b)));
     }
 }
 
 <Increment> := {
-    (a) := {
+    (a: Numeric) := {
         Return(a + 1);
     }
 }

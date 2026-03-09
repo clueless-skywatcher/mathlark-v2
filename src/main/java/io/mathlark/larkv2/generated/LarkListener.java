@@ -41,6 +41,16 @@ public interface LarkListener extends ParseTreeListener {
 	 */
 	void exitCodeBlock(LarkParser.CodeBlockContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link LarkParser#typedParam}.
+	 * @param ctx the parse tree
+	 */
+	void enterTypedParam(LarkParser.TypedParamContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LarkParser#typedParam}.
+	 * @param ctx the parse tree
+	 */
+	void exitTypedParam(LarkParser.TypedParamContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link LarkParser#functionDefs}.
 	 * @param ctx the parse tree
 	 */
