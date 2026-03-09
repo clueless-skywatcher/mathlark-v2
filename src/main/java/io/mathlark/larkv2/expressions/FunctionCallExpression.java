@@ -37,17 +37,18 @@ public class FunctionCallExpression implements IExpression {
         }
 
         if (FunctionTable.has(funcName, args.size())) {
-            List<IExpression> params = new ArrayList<>();
+            List<IExpression> evalParams = new ArrayList<>();
             for (IExpression arg: args) {
                 if (arg instanceof ThunkExpression) {
-                    params.add(arg);
+                    evalParams.add(arg);
                 } else {
-                    params.add(arg.evaluate());
+                    evalParams.add(arg.evaluate());
                 }
             }
-
-            DefinedFunction func = FunctionTable.get(funcName, args.size());
-            return func.invoke(params, FunctionTable.getAll());
+            // Try each overload in order until one matches the arg types.
+            IExpression result = FunctionTable.dispatch(funcName, evalParams);
+            this.val = result.val();
+            return result;
         }
 
         if (!UniversalFunctionRegistry.isFunc(funcName)) {

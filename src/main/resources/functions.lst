@@ -9,6 +9,7 @@ ColourValues
 Column
 Cycle
 CyclesToPerm
+Decrement
 DefinedVars
 Dict
 DictKeys
@@ -16,6 +17,7 @@ DictVal
 DictVals
 ElementAt
 EqualsQ
+EvenQ
 Exit
 Extend
 Factorial
@@ -40,6 +42,7 @@ LesserQ
 List
 Nest
 NotQ
+OddQ
 Permutation
 PermutationCompose
 PermutationCycles
@@ -52,5 +55,6 @@ RemoveDuplicates
 Rest
 Return
 Sgn
+Square
 StringLength
 Var

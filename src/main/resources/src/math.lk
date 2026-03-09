@@ -45,3 +45,30 @@
         Return(a + 1);
     }
 }
+
+<Decrement> := {
+    (a: Numeric) := {
+        Return(a - 1);
+    }
+}
+
+<EvenQ> := {
+    (n: Integer) := {
+        Return(n % 2 == 0);
+    }
+}
+
+<OddQ> := {
+    (n: Integer) := {
+        Return(n % 2 == 1);
+    }
+}
+
+<Square> := {
+    (x: Numeric) := {
+        Return(x * x);
+    }
+    (x: Polynomial) := {
+        Return(x * x);
+    }
+}

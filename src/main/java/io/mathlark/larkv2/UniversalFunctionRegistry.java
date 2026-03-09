@@ -16,6 +16,7 @@ import io.mathlark.larkv2.lists.ListFunctionRegistry;
 import io.mathlark.larkv2.numbers.NumberFunctionRegistry;
 import io.mathlark.larkv2.strings.StringFunctionsRegistry;
 import io.mathlark.larkv2.symbols.DefinedFunction;
+import io.mathlark.larkv2.symbols.FunctionTable;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
 import io.mathlark.larkv2.symbols.SymbolScope;
 import io.mathlark.larkv2.symbols.SymbolTables;
@@ -54,9 +55,23 @@ public class UniversalFunctionRegistry {
             if (SymbolTables.isAnonFunc(funcName)) {
                 return new FunctionCallExpression(funcName, exprs, scope, funcs);
             }
-            if (funcs.containsKey(String.format("%s%d", funcName, exprs.size()))) {
-                DefinedFunction function = funcs.get(String.format("%s%d", funcName, exprs.size()));
-                return function.invoke(exprs, funcs);
+            String key = String.format("%s%d", funcName, exprs.size());
+            if (funcs.containsKey(key)) {
+                // Single overload in local funcs map (defined in the same file).
+                // Try it first; if type mismatch returns Undefined, fall through
+                // to FunctionTable which may have other overloads.
+                DefinedFunction function = funcs.get(key);
+                IExpression result = function.invoke(exprs, funcs);
+                if (result != GlobalSymbols.UNDEFINED) {
+                    return result;
+                }
+            }
+            // Try FunctionTable overloads (from stdlib or other loaded files).
+            if (FunctionTable.has(funcName, exprs.size())) {
+                IExpression result = FunctionTable.dispatch(funcName, exprs);
+                if (result != GlobalSymbols.UNDEFINED) {
+                    return result;
+                }
             }
             LarkFunction func = INSTANCE.functions.get(funcName).
                 getDeclaredConstructor(SymbolScope.class, Map.class).newInstance(scope, funcs);

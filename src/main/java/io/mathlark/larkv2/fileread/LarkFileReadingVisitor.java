@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import io.mathlark.larkv2.UniversalFunctionRegistry;
+import io.mathlark.larkv2.symbols.FunctionTable;
 import io.mathlark.larkv2.expressions.AccessExpression;
 import io.mathlark.larkv2.expressions.AnonFunctionExpression;
 import io.mathlark.larkv2.expressions.DictExpression;
@@ -43,7 +44,12 @@ public class LarkFileReadingVisitor extends LarkFileBaseVisitor<IExpression> {
         }
 
         String funcName = String.format("%s%d", ctx.funcName, paramNames.size());
-        funcs.put(funcName, new DefinedFunction(funcName, scope, paramNames, paramTypes, ctx.codeBlock()));
+        DefinedFunction def = new DefinedFunction(funcName, scope, paramNames, paramTypes, ctx.codeBlock());
+        // Store in local map (last-wins for backwards compat with untyped functions).
+        funcs.put(funcName, def);
+        // Also register immediately in FunctionTable so that multiple overloads
+        // with the same name+arity accumulate instead of overwriting each other.
+        FunctionTable.registerAll(Map.of(funcName, def));
         return GlobalSymbols.UNDEFINED;
     }
 
