@@ -1,7 +1,6 @@
 package io.mathlark.larkv2.algebra.rings;
 
 import io.mathlark.larkv2.expressions.IExpression;
-import io.mathlark.larkv2.expressions.math.NumericExpression;
 
 public interface IRing<U extends IExpression> extends IExpression {
     public U add(U a1, U a2);

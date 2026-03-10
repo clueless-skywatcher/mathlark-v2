@@ -12,7 +12,6 @@ import io.mathlark.larkv2.exceptions.WrongParameterTypeException;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.expressions.StringExpression;
 import io.mathlark.larkv2.expressions.math.RationalExpression;
-import io.mathlark.larkv2.numbers.IntRational;
 import io.mathlark.larkv2.symbols.DefinedFunction;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
 import io.mathlark.larkv2.symbols.SymbolScope;

@@ -10,7 +10,6 @@ import io.mathlark.larkv2.expressions.FunctionCallExpression;
 import io.mathlark.larkv2.expressions.IExpression;
 import io.mathlark.larkv2.numbers.functions.IntQFunc;
 import io.mathlark.larkv2.symbols.DefinedFunction;
-import io.mathlark.larkv2.symbols.FunctionTable;
 import io.mathlark.larkv2.symbols.SymbolScope;
 
 public class NestFunc extends LarkFunction {
