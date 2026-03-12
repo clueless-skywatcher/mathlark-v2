@@ -17,7 +17,6 @@ public class DefinedVarsFunc extends LarkFunction {
 
     public DefinedVarsFunc(SymbolScope scope, Map<String, DefinedFunction> funcs) {
         super(scope, funcs);
-        //TODO Auto-generated constructor stub
     }
 
     @Override

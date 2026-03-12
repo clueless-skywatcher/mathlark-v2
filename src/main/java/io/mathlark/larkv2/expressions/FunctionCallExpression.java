@@ -72,8 +72,31 @@ public class FunctionCallExpression implements IExpression {
     }
 
     public IExpression evaluate(SymbolScope scope, Map<String, DefinedFunction> funcs) {
-        if (scope.resolve(funcName) == null
-            || scope.resolve(funcName) instanceof AnonFunctionExpression
+        IExpression resolved = scope.resolve(funcName);
+
+        // funcName is a variable holding a lambda — invoke it directly
+        if (resolved instanceof LambdaExpression lambda) {
+            List<IExpression> evalParams = new ArrayList<>();
+            for (IExpression arg : args) {
+                evalParams.add(arg instanceof ThunkExpression ? arg : arg.evaluate());
+            }
+            IExpression result = lambda.invoke(evalParams);
+            this.val = result.val();
+            return result;
+        }
+
+        // funcName is a variable holding a function name — redirect to that function
+        String effectiveName = funcName;
+        if (resolved instanceof StringExpression) {
+            String resolvedName = ((StringExpression) resolved).getVal();
+            if (UniversalFunctionRegistry.isFunc(resolvedName)
+                    || FunctionTable.has(resolvedName, args.size())) {
+                effectiveName = resolvedName;
+            }
+        }
+
+        if (scope.resolve(effectiveName) == null
+            || scope.resolve(effectiveName) instanceof AnonFunctionExpression
         ) {
             this.val = toString();
             return new StringExpression((String) this.val);
@@ -86,7 +109,7 @@ public class FunctionCallExpression implements IExpression {
                 evalParams.add(arg.evaluate());
             }
         }
-        IExpression invocation = UniversalFunctionRegistry.invokeWithScope(funcName, evalParams, scope, funcs).evaluate();
+        IExpression invocation = UniversalFunctionRegistry.invokeWithScope(effectiveName, evalParams, scope, funcs).evaluate();
         this.val = invocation.val();
         return invocation;
     }

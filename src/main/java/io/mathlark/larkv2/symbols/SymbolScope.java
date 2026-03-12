@@ -50,6 +50,15 @@ public class SymbolScope {
         }
     }
 
+    public Map<String, IExpression> snapshot() {
+        Map<String, IExpression> result = new HashMap<>();
+        if (!isGlobal() && parent != null) {
+            result.putAll(parent.snapshot());
+        }
+        result.putAll(vars);
+        return result;
+    }
+
     private void reAssign(String identifier, IExpression value) {
         if(vars.containsKey(identifier)) {
             vars.put(identifier, value);

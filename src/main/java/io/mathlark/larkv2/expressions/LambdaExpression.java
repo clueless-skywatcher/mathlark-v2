@@ -1,6 +1,8 @@
 package io.mathlark.larkv2.expressions;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import io.mathlark.larkv2.LarkVM;
 import io.mathlark.larkv2.symbols.GlobalSymbols;
@@ -9,10 +11,18 @@ import io.mathlark.larkv2.symbols.SymbolTables;
 public class LambdaExpression implements IExpression {
     private List<String> paramNames;
     private String bodyText;
+    private Map<String, IExpression> capturedScope;
 
     public LambdaExpression(List<String> paramNames, String bodyText) {
         this.paramNames = paramNames;
         this.bodyText = bodyText;
+        this.capturedScope = Map.of();
+    }
+
+    public LambdaExpression(List<String> paramNames, String bodyText, Map<String, IExpression> capturedScope) {
+        this.paramNames = paramNames;
+        this.bodyText = bodyText;
+        this.capturedScope = capturedScope;
     }
 
     public List<String> getParamNames() {
@@ -24,13 +34,26 @@ public class LambdaExpression implements IExpression {
     }
 
     public IExpression invoke(List<IExpression> args) {
-        // Save existing values for the parameter names
-        IExpression[] saved = new IExpression[paramNames.size()];
-        for (int i = 0; i < paramNames.size(); i++) {
-            saved[i] = SymbolTables.evaluate(paramNames.get(i));
+        // Collect all names we need to save/restore: captured scope + params
+        List<String> allNames = new ArrayList<>(capturedScope.keySet());
+        for (String p : paramNames) {
+            if (!allNames.contains(p)) {
+                allNames.add(p);
+            }
         }
 
-        // Bind parameters
+        // Save existing values
+        Map<String, IExpression> saved = new java.util.HashMap<>();
+        for (String name : allNames) {
+            saved.put(name, SymbolTables.evaluate(name));
+        }
+
+        // Bind captured scope variables
+        for (Map.Entry<String, IExpression> entry : capturedScope.entrySet()) {
+            SymbolTables.addLocal(entry.getKey(), entry.getValue());
+        }
+
+        // Bind parameters (overrides captured if same name)
         for (int i = 0; i < paramNames.size(); i++) {
             SymbolTables.addLocal(paramNames.get(i), args.get(i));
         }
@@ -41,15 +64,16 @@ public class LambdaExpression implements IExpression {
             result = LarkVM.parse(bodyText);
         } finally {
             // Restore previous values
-            for (int i = 0; i < paramNames.size(); i++) {
-                if (saved[i] == GlobalSymbols.UNDEFINED) {
+            for (String name : allNames) {
+                IExpression prev = saved.get(name);
+                if (prev == GlobalSymbols.UNDEFINED) {
                     try {
-                        SymbolTables.clear(paramNames.get(i));
+                        SymbolTables.clear(name);
                     } catch (Exception e) {
                         // Variable didn't exist before, ignore
                     }
                 } else {
-                    SymbolTables.addLocal(paramNames.get(i), saved[i]);
+                    SymbolTables.addLocal(name, prev);
                 }
             }
         }

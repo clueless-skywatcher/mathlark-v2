@@ -1,0 +1,9 @@
+<NestList> := {
+    (f, expr, n: Integer) := {
+        Return(
+            Table((i) -> {
+                Nest(f, expr, i)
+            }, [0, n])
+        );
+    }
+}

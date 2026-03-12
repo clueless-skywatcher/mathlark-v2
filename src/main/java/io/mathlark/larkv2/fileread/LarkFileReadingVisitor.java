@@ -166,9 +166,8 @@ public class LarkFileReadingVisitor extends LarkFileBaseVisitor<IExpression> {
         for (org.antlr.v4.runtime.tree.TerminalNode id : ctx.lambdaParams().IDENTIFIER()) {
             paramNames.add(id.getText());
         }
-        // Capture the body expression text for re-parsing at invocation time
         String bodyText = ctx.expr().getText();
-        return new LambdaExpression(paramNames, bodyText);
+        return new LambdaExpression(paramNames, bodyText, scope.snapshot());
     }
 
     @Override
