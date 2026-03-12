@@ -43,6 +43,7 @@ LesserEqualQ
 LesserQ
 List
 Nest
+NestList
 NotQ
 OddQ
 Permutation
