@@ -13,6 +13,7 @@ import io.mathlark.larkv2.expressions.AnonFunctionExpression;
 import io.mathlark.larkv2.expressions.DictExpression;
 import io.mathlark.larkv2.expressions.FunctionCallExpression;
 import io.mathlark.larkv2.expressions.IExpression;
+import io.mathlark.larkv2.expressions.LambdaExpression;
 import io.mathlark.larkv2.expressions.ListExpression;
 import io.mathlark.larkv2.expressions.StringExpression;
 import io.mathlark.larkv2.expressions.ThunkExpression;
@@ -157,6 +158,17 @@ public class LarkFileReadingVisitor extends LarkFileBaseVisitor<IExpression> {
             return new FunctionCallExpression(funcName, params, scope, funcs);
         }
         return new FunctionCallExpression(funcName, List.of(), scope, funcs);
+    }
+
+    @Override
+    public IExpression visitLambdaExpr(LambdaExprContext ctx) {
+        List<String> paramNames = new ArrayList<>();
+        for (org.antlr.v4.runtime.tree.TerminalNode id : ctx.lambdaParams().IDENTIFIER()) {
+            paramNames.add(id.getText());
+        }
+        // Capture the body expression text for re-parsing at invocation time
+        String bodyText = ctx.expr().getText();
+        return new LambdaExpression(paramNames, bodyText);
     }
 
     @Override

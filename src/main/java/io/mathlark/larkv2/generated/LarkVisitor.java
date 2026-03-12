@@ -13,6 +13,7 @@ import io.mathlark.larkv2.general.ExpressionComparison;
 
 
 
+
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -65,6 +66,18 @@ public interface LarkVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitActualParams(LarkParser.ActualParamsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LarkParser#lambdaParams}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLambdaParams(LarkParser.LambdaParamsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LarkParser#lambdaBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLambdaBody(LarkParser.LambdaBodyContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LarkParser#term}.
 	 * @param ctx the parse tree

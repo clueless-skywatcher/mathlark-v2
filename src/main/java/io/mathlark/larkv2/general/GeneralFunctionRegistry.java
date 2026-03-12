@@ -23,6 +23,7 @@ public class GeneralFunctionRegistry extends FunctionRegistryContract {
         register(LesserQFunc.class);
         register(NotQFunc.class);
         register(MapFunc.class);
+        register(TableFunc.class);
         register(IfFunc.class);
         register(ReturnFunc.class);
     }

@@ -11,6 +11,7 @@ import io.mathlark.larkv2.exceptions.WrongParameterTypeException;
 import io.mathlark.larkv2.expressions.AnonFunctionExpression;
 import io.mathlark.larkv2.expressions.FunctionCallExpression;
 import io.mathlark.larkv2.expressions.IExpression;
+import io.mathlark.larkv2.expressions.LambdaExpression;
 import io.mathlark.larkv2.expressions.ListExpression;
 import io.mathlark.larkv2.expressions.StringExpression;
 import io.mathlark.larkv2.symbols.DefinedFunction;
@@ -26,6 +27,15 @@ public class MapFunc extends LarkFunction {
     @Override
     public IExpression mainEval(IExpression[] expressions) {
         ListExpression expr = (ListExpression) expressions[1];
+
+        if (expressions[0] instanceof LambdaExpression lambda) {
+            List<IExpression> results = new ArrayList<>();
+            for (int i = 0; i < (Integer) expr.val().size(); i++) {
+                results.add(lambda.invoke(List.of(expr.elementAt(i))));
+            }
+            return new ListExpression(results);
+        }
+
         String funcName;
         if (expressions[0] instanceof AnonFunctionExpression) {
             funcName = ((AnonFunctionExpression) expressions[0]).getName();
@@ -33,36 +43,23 @@ public class MapFunc extends LarkFunction {
         else {
             funcName = ((StringExpression) expressions[0]).getVal();
         }
-        
+
         List<IExpression> results = new ArrayList<>();
-        
+
         for (int i = 0; i < (Integer) expr.val().size(); i++) {
-            if (!FunctionUtils.isInstanceOf(expr.elementAt(i), ListExpression.class)) {
-                IExpression funcCall;
-                if (scope != null && funcs != null) {
-                    funcCall = new FunctionCallExpression(funcName, List.of(expr.elementAt(i)), scope, funcs);
-                }
-                else {
-                    funcCall = new FunctionCallExpression(funcName, List.of(expr.elementAt(i)));
-                }
-                results.add(funcCall);
+            IExpression funcCall;
+            if (scope != null && funcs != null) {
+                funcCall = new FunctionCallExpression(funcName, List.of(expr.elementAt(i)), scope, funcs);
             }
             else {
-                ListExpression listExpr = (ListExpression) expr.elementAt(i).evaluate();
-                IExpression funcCall;
-                if (scope != null && funcs != null) {
-                    funcCall = new FunctionCallExpression(funcName, listExpr.val(), scope, funcs);
-                }
-                else {
-                    funcCall = new FunctionCallExpression(funcName, listExpr.val());
-                }
-                results.add(funcCall);
+                funcCall = new FunctionCallExpression(funcName, List.of(expr.elementAt(i)));
             }
+            results.add(funcCall);
         }
 
         for (int i = 0; i < results.size(); i++) {
             if (UniversalFunctionRegistry.isFunc(funcName)) {
-                results.set(i, results.get(i));
+                results.set(i, results.get(i).evaluate());
             }
         }
 
