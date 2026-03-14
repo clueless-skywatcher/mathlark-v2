@@ -28,7 +28,12 @@ public class PolyQuotRemFunc extends LarkFunction {
     @Override
     public IExpression mainEval(IExpression[] exprs) {
         PolynomialExpression<IRing<IExpression>, IExpression> dividend = (PolynomialExpression<IRing<IExpression>, IExpression>) exprs[0];
-        List<IExpression> divisorList = ((ListExpression) exprs[1]).val();
+        List<IExpression> divisorList;
+        if (exprs[1] instanceof ListExpression) {
+            divisorList = ((ListExpression) exprs[1]).val();
+        } else {
+            divisorList = List.of(exprs[1]);
+        }
 
         List<PolynomialExpression<IRing<IExpression>, IExpression>> divisors = new ArrayList<>();
 

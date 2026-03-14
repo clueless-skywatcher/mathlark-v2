@@ -109,8 +109,8 @@ public class PolynomialExpression<R extends IRing<U>, U extends IExpression> imp
         this.monomials = new ArrayList<>();
         this.coeffs = new ArrayList<>();
 
-        this.monomials = pairs.stream().map(x -> {return x.first;}).toList();
-        this.coeffs = pairs.stream().map(x -> {return x.second;}).toList();
+        this.monomials = new ArrayList<>(pairs.stream().map(x -> {return x.first;}).toList());
+        this.coeffs = new ArrayList<>(pairs.stream().map(x -> {return x.second;}).toList());
     }
 
     @Override
@@ -353,6 +353,12 @@ public class PolynomialExpression<R extends IRing<U>, U extends IExpression> imp
 
     @Override
     public Object val() {
+        if (monomials.isEmpty() || coeffs.stream().allMatch(c -> c.equals(ring.getZero()))) {
+            return ring.getZero().evaluate().val();
+        }
+        if (coeffs.size() == 1 && isConstant(monomials.get(0))) {
+            return coeffs.get(0).evaluate().val();
+        }
         return toString();
     }
 
@@ -390,10 +396,26 @@ public class PolynomialExpression<R extends IRing<U>, U extends IExpression> imp
 
     @SuppressWarnings("unchecked")
     public static <R extends IRing<U>, U extends IExpression> ObjectPair<List<PolynomialExpression<R, U>>, IExpression> quotRem(PolynomialExpression<R, U> dividend, List<PolynomialExpression<R, U>> divisors) {
-        PolynomialExpression<R, U> p = new PolynomialExpression<>(dividend.getMonomials(), dividend.getCoeffs(), dividend.getRing());
+        // Merge symbol lists from dividend and all divisors
+        Set<String> allSymbols = new HashSet<>(dividend.getSymbols());
+        for (PolynomialExpression<R, U> divisor : divisors) {
+            allSymbols.addAll(divisor.getSymbols());
+        }
+        List<String> sortedSymbols = new ArrayList<>(allSymbols);
+        Collections.sort(sortedSymbols);
+
+        // Rebuild polynomials so every monomial includes all symbols
+        R ring = dividend.getRing();
+        PolynomialExpression<R, U> p = expandSymbols(dividend, sortedSymbols);
+        List<PolynomialExpression<R, U>> unifiedDivisors = new ArrayList<>();
+        for (PolynomialExpression<R, U> divisor : divisors) {
+            unifiedDivisors.add(expandSymbols(divisor, sortedSymbols));
+        }
+        divisors = unifiedDivisors;
+
         List<PolynomialExpression<R, U>> quotients = new ArrayList<>();
         for (int i = 0; i < divisors.size(); i++) {
-            quotients.add(new PolynomialExpression<>(new ArrayList<>(), new ArrayList<>(), dividend.getRing()));
+            quotients.add(new PolynomialExpression<>(new ArrayList<>(), new ArrayList<>(), ring));
         }
         
         List<MonomialExpression> remainderMons = new ArrayList<>();
@@ -424,8 +446,13 @@ public class PolynomialExpression<R extends IRing<U>, U extends IExpression> imp
                     List<MonomialExpression> resultantMon = new ArrayList<>(List.of((MonomialExpression) lmP.div(lmDivI)));
                     List<U> resultantCoeff = new ArrayList<>(List.of((U) lcP.div(lcDivI)));
                     PolynomialExpression<R, U> resultant = new PolynomialExpression<>(resultantMon, resultantCoeff, p.getRing());
-                    p = (PolynomialExpression<R, U>) p.sub(resultant.mul(divisors.get(i)));
-                    p.cleanse();
+                    IExpression subResult = p.sub(resultant.mul(divisors.get(i)));
+                    if (FunctionUtils.isInstanceOf(subResult, PolynomialExpression.class)) {
+                        p = (PolynomialExpression<R, U>) subResult;
+                        p.cleanse();
+                    } else {
+                        p = new PolynomialExpression<>(new ArrayList<>(), new ArrayList<>(), dividend.getRing());
+                    }
                     division = true;
                 }
                 else {
@@ -528,6 +555,19 @@ public class PolynomialExpression<R extends IRing<U>, U extends IExpression> imp
         List<MonomialExpression> mon = new ArrayList<>(List.of(leadingMonomial()));
         List<U> coeff = new ArrayList<>(List.of(leadingCoeff()));
         return new PolynomialExpression<>(mon, coeff, getRing());
+    }
+
+    private static <R extends IRing<U>, U extends IExpression> PolynomialExpression<R, U> expandSymbols(
+            PolynomialExpression<R, U> poly, List<String> allSymbols) {
+        List<MonomialExpression> newMonomials = new ArrayList<>();
+        for (MonomialExpression mono : poly.getMonomials()) {
+            Map<String, IExpression> expanded = new HashMap<>();
+            for (String symbol : allSymbols) {
+                expanded.put(symbol, mono.getPowerMap().getOrDefault(symbol, GlobalSymbols.ZERO));
+            }
+            newMonomials.add(new MonomialExpression(expanded));
+        }
+        return new PolynomialExpression<>(newMonomials, new ArrayList<>(poly.getCoeffs()), poly.getRing());
     }
 
     public int hashCode() {

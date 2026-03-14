@@ -162,6 +162,16 @@ public interface LarkListener extends ParseTreeListener {
 	 */
 	void exitFunctionAnonDef(LarkParser.FunctionAnonDefContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link LarkParser#postfix}.
+	 * @param ctx the parse tree
+	 */
+	void enterPostfix(LarkParser.PostfixContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LarkParser#postfix}.
+	 * @param ctx the parse tree
+	 */
+	void exitPostfix(LarkParser.PostfixContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link LarkParser#unary}.
 	 * @param ctx the parse tree
 	 */
