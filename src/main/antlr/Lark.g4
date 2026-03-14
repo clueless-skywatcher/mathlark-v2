@@ -151,13 +151,18 @@ functionAnonDef returns [IExpression exprObject]
         { $exprObject = SymbolTables.registerAnonFunc($IDENTIFIER.text); }
     ;
 
+postfix returns [IExpression exprObject]
+    :   term { $exprObject = $term.exprObject; }
+        ('{' key=expr '}' { $exprObject = new AccessExpression($exprObject, $key.exprObject); })*
+    ;
+
 unary returns [IExpression exprObject]
     :   { boolean positive = true; }
-        ('+' | '-' { positive = !positive; })* term
-        { 
-            $exprObject = $term.exprObject; 
+        ('+' | '-' { positive = !positive; })* postfix
+        {
+            $exprObject = $postfix.exprObject;
             if (!positive) {
-                $exprObject = $term.exprObject.negate();
+                $exprObject = $postfix.exprObject.negate();
             }
         }
     ;
@@ -177,10 +182,7 @@ multiply returns [IExpression exprObject]
     ;
 
 expr returns [IExpression exprObject]
-    :   iterable=expr '{' key=expr '}' {
-            $exprObject = new AccessExpression($iterable.exprObject, $key.exprObject);
-        }
-    |   op1=multiply { $exprObject = $op1.exprObject; }
+    :   op1=multiply { $exprObject = $op1.exprObject; }
         ('+' op2=multiply { $exprObject = $exprObject.add($op2.exprObject); }
         | '-' op2=multiply { $exprObject = $exprObject.sub($op2.exprObject); })*
     |   relop1=expr { $exprObject = $relop1.exprObject; }

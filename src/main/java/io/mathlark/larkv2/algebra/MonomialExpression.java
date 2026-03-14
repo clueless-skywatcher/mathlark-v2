@@ -139,8 +139,34 @@ public class MonomialExpression implements IExpression, Comparable<MonomialExpre
 
     @Override
     public IExpression div(IExpression other) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'div'");
+        if (!(other instanceof MonomialExpression)) {
+            return GlobalSymbols.UNDEFINED;
+        }
+
+        MonomialExpression otherMonomial = (MonomialExpression) other;
+
+        for (String symbol: otherMonomial.getSymbols()) {
+            if (!this.symbols.contains(symbol)) {
+                throw new RuntimeException("Negative powers not supported in monomials");
+            }
+        }
+
+        Map<String, IExpression> newPowerMap = new HashMap<>();
+
+        for (String symbol: this.symbols) {
+            if (!otherMonomial.symbols.contains(symbol)) {
+                newPowerMap.put(symbol, this.powerMap.get(symbol));
+            }
+            else {
+                IExpression degDiff = this.powerMap.get(symbol).sub(otherMonomial.powerMap.get(symbol));
+                if (ExpressionComparison.lt(degDiff, GlobalSymbols.ZERO)) {
+                    throw new RuntimeException("Negative powers not supported in monomials");
+                }
+                newPowerMap.put(symbol, degDiff);
+            }
+        }
+
+        return new MonomialExpression(newPowerMap);
     }
 
     @Override
@@ -199,7 +225,9 @@ public class MonomialExpression implements IExpression, Comparable<MonomialExpre
                 endRepr.append(String.format("%s^%s", symbol, power.toString()));
             }
         }
-
+        if (endRepr.isEmpty()) {
+            return "1";
+        }
         return endRepr.toString();
     }
 
@@ -244,5 +272,58 @@ public class MonomialExpression implements IExpression, Comparable<MonomialExpre
         }
 
         return degree;
+    }
+
+    public boolean isDivisible(MonomialExpression other) {
+        Map<String, IExpression> otherPowerMap = other.getPowerMap();
+        for (String symbol: other.getSymbols()) {
+            if (!this.symbols.contains(symbol)) {
+                otherPowerMap.put(symbol, GlobalSymbols.ZERO);
+            }
+        }
+        other = new MonomialExpression(otherPowerMap);
+
+        Map<String, IExpression> degDiffs = new HashMap<>();
+        
+        for (String symbol: symbols) {
+            if (!other.symbols.contains(symbol)) {
+                degDiffs.put(symbol, this.powerMap.get(symbol));
+            }
+            else {
+                degDiffs.put(symbol, this.powerMap.get(symbol).sub(other.powerMap.get(symbol)));   
+            } 
+        }
+        
+        for (String symbol: degDiffs.keySet()) {
+            if (ExpressionComparison.lt(degDiffs.get(symbol), GlobalSymbols.ZERO)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static MonomialExpression lcm(MonomialExpression m1, MonomialExpression m2) {
+        return (MonomialExpression) m1.mul(m2).div(gcd(m1, m2));
+    }
+
+    public static MonomialExpression gcd(MonomialExpression m1, MonomialExpression m2) {
+        Map<String, IExpression> m1Map = m1.getPowerMap();
+        Map<String, IExpression> m2Map = m2.getPowerMap();
+
+        Map<String, IExpression> gcdMon = new HashMap<>();
+
+        for (String symbol: m1Map.keySet()) {
+            if (m2Map.containsKey(symbol)) {
+                if (ExpressionComparison.lt(m1Map.get(symbol), m2Map.get(symbol))) {
+                    gcdMon.put(symbol, m1Map.get(symbol));
+                }   
+                else {
+                    gcdMon.put(symbol, m2Map.get(symbol));
+                }
+            }
+        }
+
+        return new MonomialExpression(gcdMon);
     }
 }

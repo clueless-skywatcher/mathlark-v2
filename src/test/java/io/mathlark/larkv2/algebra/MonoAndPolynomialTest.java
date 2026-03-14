@@ -2,11 +2,13 @@ package io.mathlark.larkv2.algebra;
 
 import static io.mathlark.larkv2.utils.LarkExecUtils.execute;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.HashMap;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import io.mathlark.larkv2.algebra.rings.RealRing;
 import io.mathlark.larkv2.expressions.math.NumericExpression;
@@ -69,6 +71,42 @@ public class MonoAndPolynomialTest {
         assertEquals(mon.pow(GlobalSymbols.ZERO), GlobalSymbols.ONE);
         assertEquals(mon.pow(GlobalSymbols.ZERO).pow(new NumericExpression(3)).toString(), "1");
         assertEquals(mon.pow(GlobalSymbols.ONE).pow(new NumericExpression(3)).toString(), "x^6y^9");
+    }
+
+    @Test
+    public void testMonomialDiv() {
+        HashMap<String, Long> powerMap = new HashMap<>();
+        powerMap.put("x", 5L);
+        powerMap.put("y", 3L);
+        MonomialExpression mon = new MonomialExpression(powerMap);
+
+        HashMap<String, Long> powerMap1 = new HashMap<>();
+        powerMap1.put("x", 1L);
+        powerMap1.put("y", 2L);
+        MonomialExpression mon1 = new MonomialExpression(powerMap1);
+
+        HashMap<String, Long> powerMap2 = new HashMap<>();
+        powerMap2.put("x", 1L);
+        powerMap2.put("y", 3L);
+        powerMap2.put("z", 2L);
+        MonomialExpression mon2 = new MonomialExpression(powerMap2);
+
+        assertEquals(mon.div(mon1).toString(), "x^4y");
+        assertEquals(mon.div(mon).toString(), "1");
+        assertEquals(mon2.div(mon1).toString(), "yz^2");
+        
+        assertThrows(RuntimeException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                mon.div(mon2).toString();
+            }
+        });
+        assertThrows(RuntimeException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                mon2.div(mon).toString();
+            }
+        });
     }
 
     @Test

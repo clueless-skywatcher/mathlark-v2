@@ -8,5 +8,7 @@ public class AlgebraFunctionRegistry extends FunctionRegistryContract {
         register(VarFunc.class);
         register(PolyQuotRemFunc.class);
         register(PolyDegreeFunc.class);
+        register(MonomialsFunc.class);
+        register(SPolynomialFunc.class);
     }
 }

@@ -17,7 +17,6 @@ public class CyclesToPermFunc extends LarkFunction {
 
     public CyclesToPermFunc(SymbolScope scope, Map<String, DefinedFunction> funcs) {
         super(scope, funcs);
-        //TODO Auto-generated constructor stub
     }
 
     @Override

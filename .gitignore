@@ -10,4 +10,6 @@ build
 
 .vscode
 
+bin/
+
 input.txt

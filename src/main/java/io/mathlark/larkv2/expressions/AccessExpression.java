@@ -35,37 +35,37 @@ public class AccessExpression implements IExpression {
 
     @Override
     public IExpression add(IExpression other) {
-        return GlobalSymbols.UNDEFINED;
+        return this.evaluate().add(other);
     }
 
     @Override
     public IExpression sub(IExpression other) {
-        return GlobalSymbols.UNDEFINED;
+        return this.evaluate().sub(other);
     }
 
     @Override
     public IExpression mul(IExpression other) {
-        return GlobalSymbols.UNDEFINED;
+        return this.evaluate().mul(other);
     }
 
     @Override
     public IExpression negate() {
-        return GlobalSymbols.UNDEFINED;
+        return this.evaluate().negate();
     }
 
     @Override
     public IExpression pow(IExpression other) {
-        return GlobalSymbols.UNDEFINED;
+        return this.evaluate().pow(other);
     }
 
     @Override
     public IExpression div(IExpression other) {
-        return GlobalSymbols.UNDEFINED;
+        return this.evaluate().div(other);
     }
 
     @Override
     public IExpression mod(IExpression other) {
-        return GlobalSymbols.UNDEFINED;
+        return this.evaluate().mod(other);
     }
 
     @Override
@@ -75,11 +75,11 @@ public class AccessExpression implements IExpression {
 
     @Override
     public Object val() {
-        return null;
+        return this.evaluate().val();
     }
 
     @Override
     public IExpression length() {
-        return new NumericExpression(0);
+        return this.evaluate().length();
     }    
 }

@@ -42,6 +42,8 @@ Lesser
 LesserEqualQ
 LesserQ
 List
+Monomials
+Monomials
 Nest
 NestList
 NotQ
@@ -52,11 +54,16 @@ PermutationCycles
 PermutationGroup
 PermutationInverse
 PermuteMap
+PolyDegree
+PolyDegree
+PolyQuotRem
+PolyQuotRem
 RGBColour
 RangeSum
 RemoveDuplicates
 Rest
 Return
+SPolynomial
 Sgn
 Square
 StringLength

@@ -109,6 +109,12 @@ public interface LarkVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunctionAnonDef(LarkParser.FunctionAnonDefContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link LarkParser#postfix}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPostfix(LarkParser.PostfixContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link LarkParser#unary}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
