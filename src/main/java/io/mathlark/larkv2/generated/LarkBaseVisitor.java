@@ -13,6 +13,7 @@ import io.mathlark.larkv2.general.ExpressionComparison;
 
 
 
+
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -74,6 +75,20 @@ public class LarkBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements L
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitActualParams(LarkParser.ActualParamsContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitLambdaParams(LarkParser.LambdaParamsContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitLambdaBody(LarkParser.LambdaBodyContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

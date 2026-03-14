@@ -1,7 +1,5 @@
 package io.mathlark.larkv2.expressions;
 
-
-
 public interface IExpression {
     public IExpression evaluate();
 

@@ -14,6 +14,7 @@ import io.mathlark.larkv2.general.ExpressionComparison;
 
 
 
+
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -109,6 +110,30 @@ public class LarkBaseListener implements LarkListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitActualParams(LarkParser.ActualParamsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLambdaParams(LarkParser.LambdaParamsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLambdaParams(LarkParser.LambdaParamsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLambdaBody(LarkParser.LambdaBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLambdaBody(LarkParser.LambdaBodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

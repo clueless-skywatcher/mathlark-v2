@@ -52,7 +52,7 @@ public class NumericExpression implements IExpression, Comparable<NumericExpress
             return new NumericExpression(powNum(thisVal, otherVal));
         }
         double thisVal = this.value.doubleValue();
-        double otherVal = this.value.doubleValue();
+        double otherVal = other.value.doubleValue();
         return new NumericExpression(Math.pow(thisVal, otherVal));
     }
 

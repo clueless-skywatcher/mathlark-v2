@@ -47,6 +47,19 @@ public interface LarkFileVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitActualParams(LarkFileParser.ActualParamsContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link LarkFileParser#lambdaParams}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLambdaParams(LarkFileParser.LambdaParamsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code LambdaExpr}
+	 * labeled alternative in {@link LarkFileParser#term}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLambdaExpr(LarkFileParser.LambdaExprContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Variable}
 	 * labeled alternative in {@link LarkFileParser#term}.
 	 * @param ctx the parse tree

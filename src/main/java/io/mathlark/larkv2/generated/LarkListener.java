@@ -13,6 +13,7 @@ import io.mathlark.larkv2.general.ExpressionComparison;
 
 
 
+
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -90,6 +91,26 @@ public interface LarkListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitActualParams(LarkParser.ActualParamsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LarkParser#lambdaParams}.
+	 * @param ctx the parse tree
+	 */
+	void enterLambdaParams(LarkParser.LambdaParamsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LarkParser#lambdaParams}.
+	 * @param ctx the parse tree
+	 */
+	void exitLambdaParams(LarkParser.LambdaParamsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LarkParser#lambdaBody}.
+	 * @param ctx the parse tree
+	 */
+	void enterLambdaBody(LarkParser.LambdaBodyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LarkParser#lambdaBody}.
+	 * @param ctx the parse tree
+	 */
+	void exitLambdaBody(LarkParser.LambdaBodyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LarkParser#term}.
 	 * @param ctx the parse tree

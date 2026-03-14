@@ -28,8 +28,13 @@ actualParams
     :   expr(',' expr)*
     ;
 
+lambdaParams
+    : IDENTIFIER (',' IDENTIFIER)*
+    ;
+
 term
-    : IDENTIFIER #Variable
+    : '(' lambdaParams ')' ARROW '{' expr '}' #LambdaExpr
+    | IDENTIFIER #Variable
     | '(' expr ')' #Parenthesis
     | INTEGER #Integer
     | DECIMAL #Decimal
@@ -107,6 +112,7 @@ CHARACTER
     : '\'' . '\'' { setText(getText().substring(1, 2));  }
     ;
 
+ARROW: '->';
 BOOLEAN: 'True' | 'False';
 UNDEFINED: 'Undefined';
 

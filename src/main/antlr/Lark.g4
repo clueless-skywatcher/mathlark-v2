@@ -16,6 +16,7 @@ import io.mathlark.larkv2.UniversalFunctionRegistry;
 import io.mathlark.larkv2.general.ExpressionComparison;
 
 
+
 }
 
 @members {
@@ -62,8 +63,23 @@ actualParams returns [List<IExpression> exprs]
         (',' expr { $exprs.add($expr.exprObject); })*
     ;
 
+lambdaParams returns [List<String> names]
+    :   { $names = new ArrayList<>(); }
+        IDENTIFIER { $names.add($IDENTIFIER.text); }
+        (',' IDENTIFIER { $names.add($IDENTIFIER.text); })*
+    ;
+
+lambdaBody returns [String bodyText]
+    @init { StringBuilder sb = new StringBuilder(); }
+    :   ( t=~('{' | '}') { sb.append($t.text); } )*
+        { $bodyText = sb.toString().trim(); }
+    ;
+
 term returns [IExpression exprObject]
-    : IDENTIFIER {
+    : '(' lambdaParams ')' ARROW '{' lambdaBody '}' {
+        $exprObject = new LambdaExpression($lambdaParams.names, $lambdaBody.bodyText);
+    }
+    | IDENTIFIER {
         if (UniversalFunctionRegistry.isFunc($IDENTIFIER.text)
             || FunctionTable.hasName($IDENTIFIER.text)) {
             $exprObject = new StringExpression($IDENTIFIER.text);
@@ -193,6 +209,7 @@ CHARACTER
     : '\'' . '\'' { setText(getText().substring(1, 2));  }
     ;
 
+ARROW: '->';
 BOOLEAN: 'True' | 'False';
 UNDEFINED: 'Undefined';
 

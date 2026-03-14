@@ -68,6 +68,28 @@ public interface LarkFileListener extends ParseTreeListener {
 	 */
 	void exitActualParams(LarkFileParser.ActualParamsContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link LarkFileParser#lambdaParams}.
+	 * @param ctx the parse tree
+	 */
+	void enterLambdaParams(LarkFileParser.LambdaParamsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LarkFileParser#lambdaParams}.
+	 * @param ctx the parse tree
+	 */
+	void exitLambdaParams(LarkFileParser.LambdaParamsContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code LambdaExpr}
+	 * labeled alternative in {@link LarkFileParser#term}.
+	 * @param ctx the parse tree
+	 */
+	void enterLambdaExpr(LarkFileParser.LambdaExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code LambdaExpr}
+	 * labeled alternative in {@link LarkFileParser#term}.
+	 * @param ctx the parse tree
+	 */
+	void exitLambdaExpr(LarkFileParser.LambdaExprContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code Variable}
 	 * labeled alternative in {@link LarkFileParser#term}.
 	 * @param ctx the parse tree
