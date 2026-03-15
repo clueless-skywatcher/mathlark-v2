@@ -15,7 +15,6 @@ import io.mathlark.larkv2.algebra.rings.RationalRing;
 import io.mathlark.larkv2.expressions.math.RationalExpression;
 import io.mathlark.larkv2.general.utils.ObjectPair;
 import io.mathlark.larkv2.symbols.DefinedFunction;
-import io.mathlark.larkv2.symbols.GlobalSymbols;
 import io.mathlark.larkv2.symbols.SymbolScope;
 import io.mathlark.larkv2.utils.FunctionUtils;
 
@@ -71,8 +70,6 @@ public class GroebnerBasisFunc extends LarkFunction {
             }
         }
 
-
-        // Step 1: Minimize — remove elements whose leading term is divisible by another's
         List<PolynomialExpression> minimal = new ArrayList<>(basis);
         List<PolynomialExpression> toRemove = new ArrayList<>();
         for (int i = 0; i < minimal.size(); i++) {
@@ -85,9 +82,7 @@ public class GroebnerBasisFunc extends LarkFunction {
             }
         }
         minimal.removeAll(toRemove);
-
-
-        // Step 2: Make monic — divide each element by its leading coefficient
+        
         for (int i = 0; i < minimal.size(); i++) {
             IExpression lc = minimal.get(i).leadingCoeff();
             IExpression inverse = RationalExpression.RAT_ONE.div(lc);
@@ -98,9 +93,7 @@ public class GroebnerBasisFunc extends LarkFunction {
             }
             minimal.set(i, (PolynomialExpression) monic);
         }
-
-
-        // Step 3: Inter-reduce — reduce each element modulo the others
+        
         boolean reduced = true;
         while (reduced) {
             reduced = false;
