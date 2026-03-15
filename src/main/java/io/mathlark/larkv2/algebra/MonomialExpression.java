@@ -278,6 +278,9 @@ public class MonomialExpression implements IExpression, Comparable<MonomialExpre
         Map<String, IExpression> otherPowerMap = other.getPowerMap();
         for (String symbol: other.getSymbols()) {
             if (!this.symbols.contains(symbol)) {
+                if (ExpressionComparison.gt(otherPowerMap.get(symbol), GlobalSymbols.ZERO)) {
+                    return false;
+                }
                 otherPowerMap.put(symbol, GlobalSymbols.ZERO);
             }
         }

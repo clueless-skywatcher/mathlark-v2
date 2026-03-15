@@ -104,4 +104,101 @@ public class PolyQuotRemFuncTest {
         assertEquals(execute("result{0}{1}"), execute("y"));
         assertEquals(execute("result{1}"), execute("1"));
     }
+
+    // ===== RECONSTRUCTION TESTS: verify dividend == sum(qi * di) + remainder =====
+
+    @Test
+    public void testReconstructExactDivision() {
+        // x^2 - 1 divided by (x - 1): (x+1)*(x-1) + 0 == x^2 - 1
+        execute("result := PolyQuotRem(x^2 - 1, [x - 1])");
+        assertEquals(execute("x^2 - 1"), execute("result{0}{0} * (x - 1) + result{1}"));
+    }
+
+    @Test
+    public void testReconstructDivisionWithRemainder() {
+        // x^2 + 1 divided by (x - 1): (x+1)*(x-1) + 2 == x^2 + 1
+        execute("result := PolyQuotRem(x^2 + 1, [x - 1])");
+        assertEquals(execute("x^2 + 1"), execute("result{0}{0} * (x - 1) + result{1}"));
+    }
+
+    @Test
+    public void testReconstructDivisionByItself() {
+        // (x^2 + x + 1) / (x^2 + x + 1): 1*(x^2+x+1) + 0 == x^2+x+1
+        execute("result := PolyQuotRem(x^2 + x + 1, [x^2 + x + 1])");
+        assertEquals(execute("x^2 + x + 1"), execute("result{0}{0} * (x^2 + x + 1) + result{1}"));
+    }
+
+    @Test
+    public void testReconstructLowerDegreeDividend() {
+        // (x + 1) / x^2: 0*x^2 + (x+1) == x + 1
+        execute("result := PolyQuotRem(x + 1, [x^2])");
+        assertEquals(execute("x + 1"), execute("result{0}{0} * x^2 + result{1}"));
+    }
+
+    @Test
+    public void testReconstructCubicByLinear() {
+        // (x^3 - 8) / (x - 2): (x^2+2x+4)*(x-2) + 0 == x^3 - 8
+        execute("result := PolyQuotRem(x^3 - 8, [x - 2])");
+        assertEquals(execute("x^3 - 8"), execute("result{0}{0} * (x - 2) + result{1}"));
+    }
+
+    @Test
+    public void testReconstructRationalCoeffs() {
+        // ((1/2)x^2 + x) / x: ((1/2)x+1)*x + 0 == (1/2)x^2 + x
+        execute("result := PolyQuotRem((1/2)*x^2 + x, [x])");
+        assertEquals(execute("(1/2)*x^2 + x"), execute("result{0}{0} * x + result{1}"));
+    }
+
+    @Test
+    public void testReconstructMultivariate() {
+        // xy / y: x*y + 0 == xy
+        execute("result := PolyQuotRem(x*y, [y])");
+        assertEquals(execute("x*y"), execute("result{0}{0} * y + result{1}"));
+    }
+
+    @Test
+    public void testReconstructDifferenceOfSquares() {
+        // (x^2 - y^2) / (x + y): (x-y)*(x+y) + 0 == x^2 - y^2
+        execute("result := PolyQuotRem(x^2 - y^2, [x + y])");
+        assertEquals(execute("x^2 - y^2"), execute("result{0}{0} * (x + y) + result{1}"));
+    }
+
+    @Test
+    public void testReconstructTwoDivisors() {
+        // (x^2 + xy + y^2) / [x+y, y]: q0*(x+y) + q1*y + r == x^2 + xy + y^2
+        execute("result := PolyQuotRem(x^2 + x*y + y^2, [x + y, y])");
+        assertEquals(execute("x^2 + x*y + y^2"),
+                execute("result{0}{0} * (x + y) + result{0}{1} * y + result{1}"));
+    }
+
+    @Test
+    public void testReconstructTwoDivisorsWithRemainder() {
+        // (x^2 + 1) / [x+y, y]: q0*(x+y) + q1*y + r == x^2 + 1
+        execute("result := PolyQuotRem(x^2 + 1, [x + y, y])");
+        assertEquals(execute("x^2 + 1"),
+                execute("result{0}{0} * (x + y) + result{0}{1} * y + result{1}"));
+    }
+
+    @Test
+    public void testReconstructHigherDegree() {
+        // x^4 - 1 divided by (x^2 - 1): (x^2+1)*(x^2-1) + 0 == x^4 - 1
+        execute("result := PolyQuotRem(x^4 - 1, [x^2 - 1])");
+        assertEquals(execute("x^4 - 1"), execute("result{0}{0} * (x^2 - 1) + result{1}"));
+    }
+
+    @Test
+    public void testReconstructQuarticByQuadratic() {
+        // x^4 + x^2 + 1 divided by (x^2 + x + 1)
+        execute("result := PolyQuotRem(x^4 + x^2 + 1, [x^2 + x + 1])");
+        assertEquals(execute("x^4 + x^2 + 1"),
+                execute("result{0}{0} * (x^2 + x + 1) + result{1}"));
+    }
+
+    @Test
+    public void testReconstructMultivariateThreeDivisors() {
+        // x^2*y + x*y^2 + y^2 divided by [x*y - 1, y^2 - 1, x + y]
+        execute("result := PolyQuotRem(x^2*y + x*y^2 + y^2, [x*y - 1, y^2 - 1, x + y])");
+        assertEquals(execute("x^2*y + x*y^2 + y^2"),
+                execute("result{0}{0} * (x*y - 1) + result{0}{1} * (y^2 - 1) + result{0}{2} * (x + y) + result{1}"));
+    }
 }

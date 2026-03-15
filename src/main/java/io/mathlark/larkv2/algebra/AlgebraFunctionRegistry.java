@@ -10,5 +10,6 @@ public class AlgebraFunctionRegistry extends FunctionRegistryContract {
         register(PolyDegreeFunc.class);
         register(MonomialsFunc.class);
         register(SPolynomialFunc.class);
+        register(GroebnerBasisFunc.class);
     }
 }
